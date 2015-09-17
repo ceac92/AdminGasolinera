@@ -7,8 +7,8 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="ISW2_2014-AdminGasolinera" default="default" basedir=".">
-    <description>Builds, tests, and runs the project ISW2_2014-AdminGasolinera.</description>
+<project name="ISW2_2015-AdminGasolinera" default="default" basedir=".">
+    <description>Builds, tests, and runs the project ISW2_2015-AdminGasolinera.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 
