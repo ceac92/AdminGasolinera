@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19-sep-2015 2:07:50 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Compra" table="compra" catalog="bdgasolinera" optimistic-lock="version">
+        <id name="idcompra" type="java.lang.Integer">
+            <column name="idcompra" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="ctgformapago" class="entity.Ctgformapago" fetch="select">
+            <column name="fkctgFormaPago" not-null="true" />
+        </many-to-one>
+        <many-to-one name="empleado" class="entity.Empleado" fetch="select">
+            <column name="fkempleado" not-null="true" />
+        </many-to-one>
+        <many-to-one name="proveedor" class="entity.Proveedor" fetch="select">
+            <column name="fkproveedor" not-null="true" />
+        </many-to-one>
+        <property name="fecha" type="date">
+            <column name="fecha" length="10" not-null="true" />
+        </property>
+        <property name="valorcompra" type="big_decimal">
+            <column name="valorcompra" precision="12" not-null="true" />
+        </property>
+        <set name="detallecompras" table="detallecompra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkcompra" not-null="true" />
+            </key>
+            <one-to-many class="entity.Detallecompra" />
+        </set>
+    </class>
+</hibernate-mapping>

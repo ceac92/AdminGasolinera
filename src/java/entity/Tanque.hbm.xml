@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19-sep-2015 2:07:50 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Tanque" table="tanque" catalog="bdgasolinera" optimistic-lock="version">
+        <id name="idtanque" type="java.lang.Integer">
+            <column name="idtanque" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="50" not-null="true" />
+        </property>
+        <property name="existencia" type="big_decimal">
+            <column name="existencia" precision="12" not-null="true" />
+        </property>
+        <property name="existenciaMaxima" type="big_decimal">
+            <column name="existencia_maxima" precision="12" not-null="true" />
+        </property>
+        <set name="bombas" table="bomba" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fktanque" not-null="true" />
+            </key>
+            <one-to-many class="entity.Bomba" />
+        </set>
+        <set name="detalleccompras" table="detalleccompra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="tanque_idtanque" not-null="true" />
+            </key>
+            <one-to-many class="entity.Detalleccompra" />
+        </set>
+    </class>
+</hibernate-mapping>

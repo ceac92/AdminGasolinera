@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19-sep-2015 2:07:50 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Detallecaja" table="detallecaja" catalog="bdgasolinera" optimistic-lock="version">
+        <id name="iddetalleCaja" type="java.lang.Integer">
+            <column name="iddetalleCaja" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="empleado" class="entity.Empleado" fetch="select">
+            <column name="fkempleado" not-null="true" />
+        </many-to-one>
+        <property name="turno" type="string">
+            <column name="turno" length="25" not-null="true" />
+        </property>
+        <set name="cventas" table="cventa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkdetalleCaja" not-null="true" />
+            </key>
+            <one-to-many class="entity.Cventa" />
+        </set>
+        <set name="ventas" table="venta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkdetalleCaja" not-null="true" />
+            </key>
+            <one-to-many class="entity.Venta" />
+        </set>
+    </class>
+</hibernate-mapping>

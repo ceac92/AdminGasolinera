@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19-sep-2015 2:07:50 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Cliente" table="cliente" catalog="bdgasolinera" optimistic-lock="version">
+        <id name="idcliente" type="java.lang.Integer">
+            <column name="idcliente" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="ctgmunicipio" class="entity.Ctgmunicipio" fetch="select">
+            <column name="fkctgMunicipio" not-null="true" />
+        </many-to-one>
+        <many-to-one name="ctgtipocliente" class="entity.Ctgtipocliente" fetch="select">
+            <column name="fkctgTipoCliente" not-null="true" />
+        </many-to-one>
+        <property name="codigo" type="string">
+            <column name="codigo" length="50" not-null="true" />
+        </property>
+        <property name="primerNombre" type="string">
+            <column name="primer_nombre" length="45" />
+        </property>
+        <property name="segundoNombre" type="string">
+            <column name="segundo_nombre" length="45" not-null="true" />
+        </property>
+        <property name="primerApellido" type="string">
+            <column name="primer_apellido" length="45" />
+        </property>
+        <property name="segundoApellido" type="string">
+            <column name="segundo_apellido" length="45" not-null="true" />
+        </property>
+        <property name="fechaRegistro" type="date">
+            <column name="fecha_registro" length="10" not-null="true" />
+        </property>
+        <property name="tipoDocumento" type="string">
+            <column name="tipo_documento" length="35" not-null="true" />
+        </property>
+        <property name="numeroDocumento" type="string">
+            <column name="numero_documento" length="25" not-null="true" />
+        </property>
+        <property name="telefonoFijo" type="string">
+            <column name="telefono_fijo" length="11" />
+        </property>
+        <property name="telefonoMovil" type="string">
+            <column name="telefono_movil" length="11" />
+        </property>
+        <property name="mail" type="string">
+            <column name="mail" length="25" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="direccion" length="150" />
+        </property>
+        <property name="estado" type="string">
+            <column name="estado" length="1" not-null="true" />
+        </property>
+        <set name="ventas" table="venta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkcliente" not-null="true" />
+            </key>
+            <one-to-many class="entity.Venta" />
+        </set>
+        <set name="cventas" table="cventa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cliente_idcliente" not-null="true" />
+            </key>
+            <one-to-many class="entity.Cventa" />
+        </set>
+    </class>
+</hibernate-mapping>

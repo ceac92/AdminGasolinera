@@ -1,15 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bdgasolinera?zeroDateTimeBehavior=convertToNull</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">destiny</property>
-        <property name="hibernate.current_session_context_class">thread</property>
-        <property name="hibernate.enable_lazy_load_no_trans">true</property> 
-        <property name="hibernate.hbm2ddl.auto">validate</property>
-        <property name="hibernate.show_sql">true</property>
-    </session-factory>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bdgasolinera?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">destiny</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <property name="hibernate.enable_lazy_load_no_trans">true</property>
+    <property name="hibernate.hbm2ddl.auto">validate</property>
+    <property name="hibernate.show_sql">true</property>
+    <mapping resource="entity/Empleado.hbm.xml"/>
+    <mapping resource="entity/Producto.hbm.xml"/>
+    <mapping resource="entity/Venta.hbm.xml"/>
+    <mapping resource="entity/Detalleventa.hbm.xml"/>
+    <mapping resource="entity/Ctgformapago.hbm.xml"/>
+    <mapping resource="entity/Ctgdepartamento.hbm.xml"/>
+    <mapping resource="entity/Proveedor.hbm.xml"/>
+    <mapping resource="entity/Detalledocumento.hbm.xml"/>
+    <mapping resource="entity/Cventa.hbm.xml"/>
+    <mapping resource="entity/Bodega.hbm.xml"/>
+    <mapping resource="entity/Detalleccompra.hbm.xml"/>
+    <mapping resource="entity/Ctgtipofactura.hbm.xml"/>
+    <mapping resource="entity/Ctgpaisproveedor.hbm.xml"/>
+    <mapping resource="entity/Cliente.hbm.xml"/>
+    <mapping resource="entity/Compra.hbm.xml"/>
+    <mapping resource="entity/Bomba.hbm.xml"/>
+    <mapping resource="entity/Detalleventac.hbm.xml"/>
+    <mapping resource="entity/Ctgtipoproducto.hbm.xml"/>
+    <mapping resource="entity/Detallebombatc.hbm.xml"/>
+    <mapping resource="entity/Detallecompra.hbm.xml"/>
+    <mapping resource="entity/Tipocombustible.hbm.xml"/>
+    <mapping resource="entity/Tanque.hbm.xml"/>
+    <mapping resource="entity/Ctgtipocliente.hbm.xml"/>
+    <mapping resource="entity/Rol.hbm.xml"/>
+    <mapping resource="entity/Ctgtipodocumento.hbm.xml"/>
+    <mapping resource="entity/Ccompra.hbm.xml"/>
+    <mapping resource="entity/Detallecaja.hbm.xml"/>
+    <mapping resource="entity/Ctgmunicipio.hbm.xml"/>
+  </session-factory>
 </hibernate-configuration>

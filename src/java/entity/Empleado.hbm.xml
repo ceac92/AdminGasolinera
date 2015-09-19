@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19-sep-2015 2:07:50 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Empleado" table="empleado" catalog="bdgasolinera" optimistic-lock="version">
+        <id name="idempleado" type="java.lang.Integer">
+            <column name="idempleado" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="rol" class="entity.Rol" fetch="select">
+            <column name="drol" not-null="true" />
+        </many-to-one>
+        <property name="primerNombre" type="string">
+            <column name="primer_nombre" length="50" not-null="true" />
+        </property>
+        <property name="segundoNombre" type="string">
+            <column name="segundo_nombre" length="50" />
+        </property>
+        <property name="primerApellido" type="string">
+            <column name="primer_apellido" length="50" not-null="true" />
+        </property>
+        <property name="segundoApellido" type="string">
+            <column name="segundo_apellido" length="50" />
+        </property>
+        <property name="fechaNacimiento" type="date">
+            <column name="fecha_nacimiento" length="10" not-null="true" />
+        </property>
+        <property name="fechaContratacion" type="date">
+            <column name="fecha_contratacion" length="10" not-null="true" />
+        </property>
+        <property name="genero" type="string">
+            <column name="genero" length="1" not-null="true" />
+        </property>
+        <property name="estadoCivil" type="string">
+            <column name="estado_civil" length="50" not-null="true" />
+        </property>
+        <property name="mail" type="string">
+            <column name="mail" length="50" not-null="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="50" not-null="true" />
+        </property>
+        <property name="telefonoFijo" type="string">
+            <column name="telefono_fijo" length="11" not-null="true" />
+        </property>
+        <property name="telefonoMovil" type="string">
+            <column name="telefono_movil" length="11" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="direccion" length="150" />
+        </property>
+        <property name="estado" type="string">
+            <column name="estado" length="1" not-null="true" />
+        </property>
+        <set name="productos" table="producto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkempleado" not-null="true" />
+            </key>
+            <one-to-many class="entity.Producto" />
+        </set>
+        <set name="detallecajas" table="detallecaja" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkempleado" not-null="true" />
+            </key>
+            <one-to-many class="entity.Detallecaja" />
+        </set>
+        <set name="cventas" table="cventa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkempleado" not-null="true" />
+            </key>
+            <one-to-many class="entity.Cventa" />
+        </set>
+        <set name="detalledocumentos" table="detalledocumento" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="kfempleado" not-null="true" />
+            </key>
+            <one-to-many class="entity.Detalledocumento" />
+        </set>
+        <set name="compras" table="compra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkempleado" not-null="true" />
+            </key>
+            <one-to-many class="entity.Compra" />
+        </set>
+        <set name="ventas" table="venta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkempleado" not-null="true" />
+            </key>
+            <one-to-many class="entity.Venta" />
+        </set>
+        <set name="ccompras" table="ccompra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkempleado" not-null="true" />
+            </key>
+            <one-to-many class="entity.Ccompra" />
+        </set>
+    </class>
+</hibernate-mapping>
