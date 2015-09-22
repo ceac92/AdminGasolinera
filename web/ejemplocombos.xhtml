@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <form>
+           
+            <p:selectOneMenu id="uno" value="#{combos.valor}" required="true" requiredMessage="Seleccione una categoria"  filter="true" filterMatchMode="contains" style="width:80% !important">
+                <f:selectItems value="#{combos.DEPA}" />
+            </p:selectOneMenu>
+            <p:selectOneMenu id="DOS" value="#{combos.valor}" required="true" requiredMessage="Seleccione una categoria"  filter="true" filterMatchMode="contains" style="width:80% !important">
+                <f:selectItems value="#{combos.FORMAP}" />
+            </p:selectOneMenu>
+            <p:selectOneMenu id="TRES" value="#{combos.valor}" required="true" requiredMessage="Seleccione una categoria"  filter="true" filterMatchMode="contains" style="width:80% !important">
+                <f:selectItems value="#{combos.BODEGA}" />
+            </p:selectOneMenu>
+            <p:selectOneMenu id="CUATRO" value="#{combos.valor}" required="true" requiredMessage="Seleccione una categoria"  filter="true" filterMatchMode="contains" style="width:80% !important">
+                <f:selectItems value="#{combos.MUNICIPIO}" />
+            </p:selectOneMenu>
+            <p:selectOneMenu id="CINCO" value="#{combos.valor}" required="true" requiredMessage="Seleccione una categoria"  filter="true" filterMatchMode="contains" style="width:80% !important">
+                <f:selectItems value="#{combos.PAISPROVEEDOR}" />
+            </p:selectOneMenu>
+            <p:selectOneMenu id="SEIS" value="#{combos.valor}" required="true" requiredMessage="Seleccione una categoria"  filter="true" filterMatchMode="contains" style="width:80% !important">
+                <f:selectItems value="#{combos.TIPODOCUMENTO}" />
+            </p:selectOneMenu>
+            <p:selectOneMenu id="SIETE" value="#{combos.valor}" required="true" requiredMessage="Seleccione una categoria"  filter="true" filterMatchMode="contains" style="width:80% !important">
+                <f:selectItems value="#{combos.TIPOFACTURA}" />
+            </p:selectOneMenu>
+            <p:selectOneMenu id="OCHO" value="#{combos.valor}" required="true" requiredMessage="Seleccione una categoria"  filter="true" filterMatchMode="contains" style="width:80% !important">
+                <f:selectItems value="#{combos.TIPOPRODUCTO}" />
+            </p:selectOneMenu>
+            <p:selectOneMenu id="nueve" value="#{combos.valor}" required="true" requiredMessage="Seleccione una categoria"  filter="true" filterMatchMode="contains" style="width:80% !important">
+                <f:selectItems value="#{combos.TTIPOCLIENTE}" />
+            </p:selectOneMenu>
+        </form>
+    </h:body>
+</html>
+

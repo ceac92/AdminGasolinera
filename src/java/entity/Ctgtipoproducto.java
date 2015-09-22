@@ -4,6 +4,8 @@ package entity;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.faces.view.ViewScoped;//cuidar que la libreria a implementar sea estas 
+import javax.inject.Named;//con estas son las adecuadas.
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,6 +22,8 @@ import javax.persistence.Table;
 @Table(name="ctgtipoproducto"
     ,catalog="bdgasolinera"
 )
+@Named(value = "Tipoproducto")//para ser invocado desde la vista 
+@ViewScoped//como se implementara
 public class Ctgtipoproducto  implements java.io.Serializable {
 
 
@@ -29,6 +33,11 @@ public class Ctgtipoproducto  implements java.io.Serializable {
      private Set productos = new HashSet(0);
 
     public Ctgtipoproducto() {
+    }
+
+    public Ctgtipoproducto(String nombre, String descripcion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
     }
 
 	

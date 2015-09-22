@@ -41,7 +41,43 @@ public class mbcompra implements Serializable {
     private List<Producto> listaproducto;
     private Compra compra;
     private BigDecimal cantidad;
-    private int comparar;
+    private int proveedor;
+    private int formapago;
+    private BigDecimal costocompra;
+    java.util.Date fecha = new Date();
+    private Date fechas = fecha;
+
+    public Date getFechas() {
+        return fechas;
+    }
+
+    public void setFechas(Date fechas) {
+        this.fechas = fechas;
+    }
+
+    public int getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(int proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    public int getFormapago() {
+        return formapago;
+    }
+
+    public void setFormapago(int formapago) {
+        this.formapago = formapago;
+    }
+
+    public BigDecimal getCostocompra() {
+        return costocompra;
+    }
+
+    public void setCostocompra(BigDecimal costocompra) {
+        this.costocompra = costocompra;
+    }
 
     public BigDecimal getCantidad() {
         return cantidad;
@@ -130,24 +166,23 @@ public class mbcompra implements Serializable {
                     break;
                 }
             }
-            if (item_duplicado==true) {
+            if (item_duplicado == true) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", "ya esta el producto seleccionado"));
-                 RequestContext.getCurrentInstance().update("frmRealizarVentas:mensajeGeneral");
+                RequestContext.getCurrentInstance().update("frmRealizarVentas:mensajeGeneral");
             } else {
                 this.session = HibernateUtil.getSessionFactory().openSession();
                 productodao daoTProducto = new productodao();
                 this.transaction = this.session.beginTransaction();
                 this.producto = daoTProducto.getByIdProducto(this.session, idProducto);
-               
-                 this.detallecomp.add(new Detallecompra(null, this.producto, this.cantidad));
+
+                this.detallecomp.add(new Detallecompra(null, this.producto, this.cantidad));
 
                 this.transaction.commit();
 
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto", "se agrego"));
                 RequestContext.getCurrentInstance().update("frmRealizarVentas:tablaListaProductosVenta");
-                RequestContext.getCurrentInstance().update("frmRealizarVentas:mensajeGeneral");   
-             
-                
+                RequestContext.getCurrentInstance().update("frmRealizarVentas:mensajeGeneral");
+
             }
 
         } catch (Exception ex) {
@@ -178,7 +213,7 @@ public class mbcompra implements Serializable {
                 BigDecimal totalVentaPorProducto = item.getProducto().getPrecioVenta().multiply(item.getCantidad());
                 totalVenta = totalVenta.add(totalVentaPorProducto);
             }
-            this.compra.setValorcompra(totalVenta);
+
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Correcto", "Producto retirado de la lista de venta"));
             RequestContext.getCurrentInstance().update("frmRealizarVentas:tablaListaProductosVenta");
             RequestContext.getCurrentInstance().update("frmRealizarVentas:panelFinalVenta");
@@ -188,38 +223,23 @@ public class mbcompra implements Serializable {
         }
     }
 
-    public void calcularCostos() {
-        try {
-            BigDecimal totalVenta = new BigDecimal("0");
-            for (Detallecompra item : this.detallecomp) {
-                BigDecimal totalVentaPorProducto = item.getProducto().getPrecioVenta().multiply(item.getCantidad());
-                totalVenta = totalVenta.add(totalVentaPorProducto);
-            }
-            this.compra.setValorcompra(totalVenta);
-            RequestContext.getCurrentInstance().update("frmRealizarVentas:tablaListaProductosVenta");
-            RequestContext.getCurrentInstance().update("frmRealizarVentas:panelFinalVenta");
-        } catch (Exception ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "verificar valores"));
-        }
-    }
-
     public void realizarVenta() {
         session = null;
         transaction = null;
 
-  
         try {
-            java.util.Date fecha = new Date();
+         
+
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
             detallecompradao detallec = new detallecompradao();
             productodao pdao = new productodao();
             Compra Cp = new Compra();
-            Cp.setCtgformapago((Ctgformapago) session.get(Ctgformapago.class, 1));
+            Cp.setCtgformapago((Ctgformapago) session.get(Ctgformapago.class, this.formapago));
             Cp.setEmpleado((Empleado) session.get(Empleado.class, 1));
             Cp.setFecha(fecha);
-            Cp.setProveedor((Proveedor) session.get(Proveedor.class, 1));
-            Cp.setValorcompra(this.compra.getValorcompra());
+            Cp.setProveedor((Proveedor) session.get(Proveedor.class, this.proveedor));
+            Cp.setValorcompra(this.costocompra);
             session.save(Cp);
 
             for (Detallecompra dcompra : this.detallecomp) {
@@ -232,11 +252,14 @@ public class mbcompra implements Serializable {
             transaction.commit();
             this.detallecomp = new ArrayList<>();
             this.compra = new Compra();
+            this.proveedor = 0;
+            this.costocompra = null;
+            this.formapago = 0;
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto", "Venta realizada correctamente"));
         } catch (Exception e) {
             transaction.rollback();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error","Debe de agregar un valor a Cantidad"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe de agregar un valor a Cantidad"));
             System.err.println(e.getMessage());
         } finally {
             session.close();
