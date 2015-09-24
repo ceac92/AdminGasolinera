@@ -27,7 +27,7 @@
                     </p:selectOneMenu>
                 </h:panelGrid>
                 <p:panelGrid columns="1">
-                    <p:dataTable value="#{mbcompra.allProducto}" var="item" style="font-size: 10px;width: 700px;" scrollable="true" scrollHeight="100">
+                    <p:dataTable id="tablaproducto" value="#{mbcompra.allProducto}" var="item" style="font-size: 10px;width: 700px;" scrollable="true" scrollHeight="100">
                         <p:column headerText="NOMBRE" filterBy="nombre">
                             <h:outputText value="#{item.nombre}"/>
                         </p:column>

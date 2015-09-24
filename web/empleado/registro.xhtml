@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">  
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form id="formregistro">
+            <p:growl id="msg" showDetail="true" autoUpdate="true"/>
+            <p:panel>
+                <h:panelGrid  columns="2" columnClasses="forty-percent, sixty-percent" width="70%">
+                    <p:outputLabel value="codigo"/>
+                    <p:inputText id="txtcodigo" value="#{Cliente.codigo}" required="true" requiredMessage="ingresa codigo"  maxlength="25"/>
+                    <p:outputLabel value="Nombre*"/>
+                    <p:inputText id="txtnombre" value="#{Cliente.primerNombre}" required="true" requiredMessage="ingresa nombre"  maxlength="25"/>
+                    <p:outputLabel value="Segundo nombre"/>
+                    <p:inputText id="txtsegundonombre" value="#{Cliente.segundoNombre}"  requiredMessage="ingresa segundo nombre"  maxlength="25"/>
+                    <p:outputLabel value="apellido*"/>
+                    <p:inputText id="txtapellido" value="#{Cliente.primerApellido}"  required="true" requiredMessage="ingresa  apellido"  maxlength="25"/>
+                    <p:outputLabel value="segundo apellido"/>
+                    <p:inputText id="txtsegundoapellido" value="#{Cliente.segundoApellido}"   requiredMessage="ingrese segundo apellido"  maxlength="25"/>
+                    <p:outputLabel value="Tipo cliente"/>
+                    <p:selectOneMenu id="nueve" value="#{mbcliente.tipocliente}" required="true" requiredMessage="Seleccione tipo cliente"  filter="true" filterMatchMode="contains" style="width:50% !important">
+                        <f:selectItems value="#{combos.TTIPOCLIENTE}" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Tipo Documento*"/>
+                    <p:inputText id="txttipodocumento" value="#{Cliente.tipoDocumento}"  required="true" requiredMessage="ingresa tipo documento"  maxlength="25"/>
+                    <p:outputLabel value="Documento"/>
+                    <p:inputText id="txtdocumento" value="#{Cliente.numeroDocumento}"  required="true" requiredMessage="ingresa documento"  maxlength="25"/>
+                    <p:outputLabel value="Telefono fijo"/>
+                    <p:inputText id="txttelefonofijo" value="#{Cliente.telefonoFijo}"  required="true" requiredMessage="ingresa telefono fijo"  maxlength="25"/>
+                    <p:outputLabel value="Telefono movil"/>
+                    <p:inputText id="txttelefonomovil" value="#{Cliente.telefonoMovil}"  required="true" requiredMessage="ingresa telefono movil"  maxlength="25"/>
+                    <p:outputLabel value="correo*"/>
+                    <p:inputText id="txtmail" value="#{Cliente.mail}"  required="true" requiredMessage="ingresa correo"  maxlength="25"/>
+                    <p:outputLabel value="Municipio"/>
+                    <p:selectOneMenu id="CUATRO" value="#{mbcliente.municipio}" required="true" requiredMessage="Seleccione un municipio"  filter="true" filterMatchMode="contains" style="width:50% !important">
+                        <f:selectItems value="#{combos.MUNICIPIO}" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Direccion"/>
+                    <p:inputText id="txtDireccion" value="#{Cliente.direccion}"  required="true" requiredMessage="ingresa direccion"  maxlength="25"/>
+
+                </h:panelGrid>
+                <p:commandButton id="btmregistrar" value="Registrar" action='#{mbcliente.registrarCliente()}' update="formregistro"/>
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>
+
