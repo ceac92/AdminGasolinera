@@ -5,10 +5,14 @@
  */
 package modelos;
 
-
-
+import dao.detalleventadao;
 import dao.productodao;
+import entity.Cliente;
+import entity.Ctgformapago;
+import entity.Ctgtipofactura;
+import entity.Detallecaja;
 import entity.Detalleventa;
+import entity.Empleado;
 import entity.Producto;
 import entity.Venta;
 import hibernateutil.HibernateUtil;
@@ -31,14 +35,87 @@ import org.primefaces.context.RequestContext;
  */
 @Named("mbventa")
 @ViewScoped
-public class mbventa implements  Serializable{
+public class mbventa implements Serializable {
+
     Session session;
     Transaction transaction;
     private Producto producto;
     private List<Producto> listaproducto;
     private Venta venta;
-    java.util.Date fech=new Date();
-    private Date fecha=fech;
+    java.util.Date fech = new Date();
+    private Date fecha = fech;
+    private int cantidav;
+    private BigDecimal montov;
+    private BigDecimal descuentov;
+    private BigDecimal subtotal;
+    private int detacaja;
+    private int client;
+    private int formapago;
+    private int tipofactura;
+
+    public int getDetacaja() {
+        return detacaja;
+    }
+
+    public void setDetacaja(int detacaja) {
+        this.detacaja = detacaja;
+    }
+
+    public int getClient() {
+        return client;
+    }
+
+    public void setClient(int client) {
+        this.client = client;
+    }
+
+    public int getFormapago() {
+        return formapago;
+    }
+
+    public void setFormapago(int formapago) {
+        this.formapago = formapago;
+    }
+
+    public int getTipofactura() {
+        return tipofactura;
+    }
+
+    public void setTipofactura(int tipofactura) {
+        this.tipofactura = tipofactura;
+    }
+
+    public int getCantidav() {
+        return cantidav;
+    }
+
+    public void setCantidav(int cantidav) {
+        this.cantidav = cantidav;
+    }
+
+    public BigDecimal getMontov() {
+        return montov;
+    }
+
+    public void setMontov(BigDecimal montov) {
+        this.montov = montov;
+    }
+
+    public BigDecimal getDescuentov() {
+        return descuentov;
+    }
+
+    public void setDescuentov(BigDecimal descuentov) {
+        this.descuentov = descuentov;
+    }
+
+    public BigDecimal getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(BigDecimal subtotal) {
+        this.subtotal = subtotal;
+    }
     private List<Detalleventa> detalleventa;
 
     public List<Detalleventa> getDetalleventa() {
@@ -49,17 +126,16 @@ public class mbventa implements  Serializable{
         this.detalleventa = detalleventa;
     }
 
-   
     /**
      * Creates a new instance of mbventa
      */
     public mbventa() {
-        this.producto=new Producto();
-       this.detalleventa=new ArrayList<>();
-        this.venta=new Venta();
+        this.producto = new Producto();
+        this.detalleventa = new ArrayList<>();
+        this.venta = new Venta();
     }
-    
-     public List<Producto> getAllProducto() {
+
+    public List<Producto> getAllProducto() {
         this.session = null;
         this.transaction = null;
         try {
@@ -81,33 +157,34 @@ public class mbventa implements  Serializable{
             }
         }
     }
-    
-        public void agregarListaVentaDetalle(int idProducto) {
+
+    public void agregarListaVentaDetalle() {
         this.session = null;
         this.transaction = null;
 
         try {
             boolean item_duplicado = false;
-            if (this.producto!=null) {
-                 for (Detalleventa item : this.detalleventa) {
-                if (item.getProducto().getIdproducto().equals(idProducto)) {
+            if (this.producto != null) {
+                for (Detalleventa item : this.detalleventa) {
+                    if (item.getProducto().getIdproducto().equals(this.producto.getIdproducto())) {
 
-                    item_duplicado = true;
-                    break;
+                        item_duplicado = true;
+                        break;
+                    }
                 }
             }
-            }
-           
+
             if (item_duplicado == true) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", "ya esta el producto seleccionado"));
-                RequestContext.getCurrentInstance().update("frmRealizarVentas:mensajeGeneral");
+                RequestContext.getCurrentInstance().update("formventa:msgs");
             } else {
                 this.session = HibernateUtil.getSessionFactory().openSession();
-                productodao daoTProducto = new productodao();
                 this.transaction = this.session.beginTransaction();
-              
+                BigDecimal cambiarcantidad = new BigDecimal(this.cantidav);
+                this.subtotal = this.producto.getPrecioVenta().multiply(cambiarcantidad);
+                BigDecimal valordescuento = cambiarcantidad.multiply(producto.getPrecioVenta().multiply(descuentov));
 
-                this.detalleventa.add(new Detalleventa(producto, venta, idProducto, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO));
+                this.detalleventa.add(new Detalleventa(producto, null, this.cantidav, this.producto.getPrecioVenta(), this.descuentov, this.subtotal.subtract(valordescuento)));
 
                 this.transaction.commit();
 
@@ -130,14 +207,97 @@ public class mbventa implements  Serializable{
         }
     }
 
-    
-    
-    
-    
-    
-    
-    
-     public Producto getProducto() {
+    public void retirarListaVentaDetalle(int codigoBarras) {
+        try {
+            int i = 0;
+            for (Detalleventa item : this.detalleventa) {
+                if (item.getProducto().getIdproducto().equals(codigoBarras)) {
+                    this.detalleventa.remove(i);
+                    break;
+                }
+                i++;
+            }
+            BigDecimal totalVenta = new BigDecimal("0");
+            for (Detalleventa item : this.detalleventa) {
+                BigDecimal valorvalor = item.getProducto().getPrecioVenta().multiply(new BigDecimal(item.getCantidad()));
+                BigDecimal totalVentaPorProducto = item.getProducto().getPrecioVenta().multiply(new BigDecimal(item.getCantidad()).multiply(item.getDescuento()));
+                BigDecimal valorcambio = valorvalor.subtract(totalVentaPorProducto);
+                item.setSubtotal(valorcambio);
+                totalVenta = totalVenta.add(valorcambio);
+
+            }
+            this.venta.setMoto(totalVenta);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Correcto", "Producto retirado de la lista de venta"));
+
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", ex.getMessage()));
+        }
+    }
+
+    public void calcularCostos() {
+        try {
+            BigDecimal totalVenta = new BigDecimal("0");
+
+            for (Detalleventa item : this.detalleventa) {
+                BigDecimal valorvalor = item.getProducto().getPrecioVenta().multiply(new BigDecimal(item.getCantidad()));
+
+                BigDecimal totalVentaPorProducto = item.getProducto().getPrecioVenta().multiply(new BigDecimal(item.getCantidad()).multiply(item.getDescuento()));
+                BigDecimal valorcambio = valorvalor.subtract(totalVentaPorProducto);
+                item.setSubtotal(valorcambio);
+                totalVenta = totalVenta.add(valorcambio);
+
+            }
+
+            this.venta.setMoto(totalVenta);
+
+            RequestContext.getCurrentInstance().update("formventa:panelFinalVenta");
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", ex.getMessage()));
+        }
+    }
+
+    public void realizarVenta() {
+        session = null;
+        transaction = null;
+
+        try {
+
+            session = HibernateUtil.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+            detalleventadao detallec = new detalleventadao();
+            productodao pdao = new productodao();
+            Venta venp = new Venta();
+            venp.setCliente((Cliente) session.get(Cliente.class, this.client));
+            venp.setCtgformapago((Ctgformapago) session.get(Ctgformapago.class, this.formapago));
+            venp.setCtgtipofactura((Ctgtipofactura) session.get(Ctgtipofactura.class, this.tipofactura));
+            venp.setDetallecaja((Detallecaja)session.get(Detallecaja.class, this.detacaja));
+            venp.setEmpleado((Empleado)session.get(Empleado.class, 1));
+            venp.setFecha(this.fecha);
+            venp.setMoto(this.venta.getMoto());
+
+            session.save(venp);
+
+            for (Detalleventa dcompra : this.detalleventa) {
+                this.producto = pdao.getByIdProducto(session, dcompra.getProducto().getIdproducto());
+                dcompra.setVenta(venp);
+                dcompra.setProducto(producto);
+                detallec.insert(session, dcompra);
+
+            }
+            transaction.commit();
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto", "Venta realizada correctamente."));
+        } catch (Exception e) {
+            transaction.rollback();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Problemas a guardar."));
+            System.err.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+
+    }
+
+    public Producto getProducto() {
         return producto;
     }
 
@@ -168,6 +328,5 @@ public class mbventa implements  Serializable{
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    
 
 }

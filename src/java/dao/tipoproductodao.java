@@ -31,6 +31,8 @@ public class tipoproductodao  {
             return query.list();
         } catch (Exception e) {
             System.err.println(e.getMessage());
+        }finally{
+        session.close();
         }
 
         return null;

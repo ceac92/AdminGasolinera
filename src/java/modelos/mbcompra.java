@@ -214,7 +214,7 @@ public class mbcompra implements Serializable {
                 totalVenta = totalVenta.add(totalVentaPorProducto);
             }
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Correcto", "Producto retirado de la lista de venta"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Correcto", "Producto retirado de la lista de Compra"));
             RequestContext.getCurrentInstance().update("frmRealizarVentas:tablaListaProductosVenta");
             RequestContext.getCurrentInstance().update("frmRealizarVentas:panelFinalVenta");
             RequestContext.getCurrentInstance().update("frmRealizarVentas:mensajeGeneral");

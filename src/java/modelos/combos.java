@@ -6,6 +6,7 @@
 package modelos;
 
 import entity.Bodega;
+import entity.Cliente;
 import entity.Ctgdepartamento;
 import entity.Ctgformapago;
 import entity.Ctgmunicipio;
@@ -14,6 +15,7 @@ import entity.Ctgtipocliente;
 import entity.Ctgtipodocumento;
 import entity.Ctgtipofactura;
 import entity.Ctgtipoproducto;
+import entity.Detallecaja;
 import entity.Proveedor;
 import hibernateutil.HibernateUtil;
 import java.io.Serializable;
@@ -30,8 +32,11 @@ import org.hibernate.Session;
  */
 @Named("combos")
 @ViewScoped
-public class combos implements Serializable{
- private List<SelectItem> itemproveedor;
+public class combos implements Serializable {
+
+    private List<SelectItem> itemproveedor;
+    private List<SelectItem> itemCliente;
+    private List<SelectItem> itemdetallecaja;
     private List<SelectItem> itemdepartamento;
     private List<SelectItem> itemformapago;
     private List<SelectItem> itemmunicipio;
@@ -42,12 +47,14 @@ public class combos implements Serializable{
     private List<SelectItem> itemtipoproducto;
     private List<SelectItem> itembodega;
     private List<Ctgdepartamento> departamentos;
+    private List<Cliente> cliente;
+    private List<Detallecaja> detallecaja;
     private List<Ctgformapago> formapagos;
     private List<Ctgmunicipio> municipio;
     private List<Ctgpaisproveedor> paisproveedors;
     private List<Ctgtipocliente> tipoclientes;
     private List<Ctgtipodocumento> tipodocumento;
-    private List<Ctgtipofactura>tipofactura;
+    private List<Ctgtipofactura> tipofactura;
     private List<Ctgtipoproducto> tipoproductos;
     private List<Bodega> bodegas;
     private List<Proveedor> proveedor;
@@ -60,32 +67,53 @@ public class combos implements Serializable{
     public void setValor(int valor) {
         this.valor = valor;
     }
-            /**
-             * Creates a new instance of combos
-             */
+
+    /**
+     * Creates a new instance of combos
+     */
 
     public combos() {
-      
-        this.itemdepartamento=new ArrayList<>();
-        this.itemfactuta=new ArrayList<>();
-        this.itemformapago=new ArrayList<>();
-        this.itemmunicipio=new ArrayList<>();
-        this.itempaisproveedor=new ArrayList<>();
-        this.itemtipocliente=new ArrayList<>();
-        this.itemtipodocumento=new ArrayList<>();
-        this.itemtipoproducto=new ArrayList<>();
-        this.itembodega=new ArrayList<>();
-        this.itemproveedor=new ArrayList<>();
-        this.bodegas=new ArrayList<>();
-        this.departamentos=new ArrayList<>();
-        this.formapagos=new ArrayList<>();
-        this.municipio=new ArrayList<>();
-        this.paisproveedors=new ArrayList<>();
-        this.tipoclientes=new ArrayList<>();
-        this.tipodocumento=new ArrayList<>();
-        this.tipofactura=new ArrayList<>();
-        this.tipoproductos=new ArrayList<>();
-        this.proveedor=new ArrayList<>();
+
+        this.itemdepartamento = new ArrayList<>();
+        this.itemfactuta = new ArrayList<>();
+        this.itemformapago = new ArrayList<>();
+        this.itemmunicipio = new ArrayList<>();
+        this.itempaisproveedor = new ArrayList<>();
+        this.itemtipocliente = new ArrayList<>();
+        this.itemtipodocumento = new ArrayList<>();
+        this.itemtipoproducto = new ArrayList<>();
+        this.itembodega = new ArrayList<>();
+        this.itemCliente= new ArrayList<>();
+        this.itemdetallecaja= new ArrayList<>();
+        this.itemproveedor = new ArrayList<>();
+        this.bodegas = new ArrayList<>();
+        this.departamentos = new ArrayList<>();
+        this.formapagos = new ArrayList<>();
+        this.municipio = new ArrayList<>();
+        this.paisproveedors = new ArrayList<>();
+        this.tipoclientes = new ArrayList<>();
+        this.tipodocumento = new ArrayList<>();
+        this.tipofactura = new ArrayList<>();
+        this.tipoproductos = new ArrayList<>();
+        this.proveedor = new ArrayList<>();
+        this.cliente= new ArrayList<>();
+        this.detallecaja= new ArrayList<>();
+    }
+
+    public List<Cliente> getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(List<Cliente> cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<Detallecaja> getDetallecaja() {
+        return detallecaja;
+    }
+
+    public void setDetallecaja(List<Detallecaja> detallecaja) {
+        this.detallecaja = detallecaja;
     }
 
     public List<SelectItem> getItemproveedor() {
@@ -103,9 +131,40 @@ public class combos implements Serializable{
     public void setProveedor(List<Proveedor> proveedor) {
         this.proveedor = proveedor;
     }
+
+    public List<SelectItem> getCLIENT() {
+        Session session = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            String hql = " from Cliente ";
+            this.cliente = session.createQuery(hql).list();
+            for (Cliente item : this.cliente) {
+                SelectItem selectItem = new SelectItem(item.getIdcliente(), item.getPrimerNombre().concat(" ").concat(item.getSegundoNombre()).concat(" ").concat(item.getPrimerApellido()).concat(" ").concat(item.getSegundoApellido()));
+                this.itemCliente.add(selectItem);
+            }
+        } catch (Exception ex) {
+            System.err.print(ex);
+        }
+        return this.itemCliente;
+    }
     
-    public List<SelectItem> getPROVEEDOR(){
-       Session session = null;
+    public List<SelectItem> getDETALLECAJ() {
+        Session session = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            String hql = " from Detallecaja";
+            this.detallecaja = session.createQuery(hql).list();
+            for (Detallecaja item : this.detallecaja) {
+                SelectItem selectItem = new SelectItem(item.getIddetalleCaja(), item.getTurno());
+                this.itemdetallecaja.add(selectItem);
+            }
+        } catch (Exception ex) {
+            System.err.print(ex);
+        }
+        return this.itemdetallecaja;
+    }
+    public List<SelectItem> getPROVEEDOR() {
+        Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             String hql = " from Proveedor ";
@@ -118,10 +177,10 @@ public class combos implements Serializable{
             System.err.print(ex);
         }
         return this.itemproveedor;
-   }
-    
-     public List<SelectItem> getFORMAP(){
-       Session session = null;
+    }
+
+    public List<SelectItem> getFORMAP() {
+        Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             String hql = " from Ctgformapago ";
@@ -134,9 +193,10 @@ public class combos implements Serializable{
             System.err.print(ex);
         }
         return this.itemformapago;
-   }
-   public List<SelectItem> getDEPA(){
-       Session session = null;
+    }
+
+    public List<SelectItem> getDEPA() {
+        Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             String hql = "select p from Ctgdepartamento p";
@@ -149,12 +209,10 @@ public class combos implements Serializable{
             System.err.print(ex);
         }
         return this.itemdepartamento;
-   }
-    
-  
-     
-public List<SelectItem> getMUNICIPIO(){
-     Session session = null;
+    }
+
+    public List<SelectItem> getMUNICIPIO() {
+        Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             String hql = "select m from Ctgmunicipio m";
@@ -168,8 +226,9 @@ public List<SelectItem> getMUNICIPIO(){
         }
         return this.itemmunicipio;
     }
-public List<SelectItem> getPAISPROVEEDOR(){
-     Session session = null;
+
+    public List<SelectItem> getPAISPROVEEDOR() {
+        Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             String hql = "select pl from Ctgpaisproveedor pl";
@@ -183,8 +242,9 @@ public List<SelectItem> getPAISPROVEEDOR(){
         }
         return this.itempaisproveedor;
     }
-public List<SelectItem> getTTIPOCLIENTE(){
-     Session session = null;
+
+    public List<SelectItem> getTTIPOCLIENTE() {
+        Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             String hql = "select tp from Ctgtipocliente tp";
@@ -198,8 +258,9 @@ public List<SelectItem> getTTIPOCLIENTE(){
         }
         return this.itemtipocliente;
     }
-public List<SelectItem> getTIPODOCUMENTO(){
-     Session session = null;
+
+    public List<SelectItem> getTIPODOCUMENTO() {
+        Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             String hql = "select pd from Ctgtipodocumento pd";
@@ -213,8 +274,9 @@ public List<SelectItem> getTIPODOCUMENTO(){
         }
         return this.itemtipodocumento;
     }
-public List<SelectItem> getTIPOFACTURA(){
-     Session session = null;
+
+    public List<SelectItem> getTIPOFACTURA() {
+        Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             String hql = "select tf from Ctgtipofactura tf";
@@ -228,8 +290,9 @@ public List<SelectItem> getTIPOFACTURA(){
         }
         return this.itemfactuta;
     }
-public List<SelectItem> getTIPOPRODUCTO(){
-     Session session = null;
+
+    public List<SelectItem> getTIPOPRODUCTO() {
+        Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             String hql = "select tp from Ctgtipoproducto tp";
@@ -243,8 +306,9 @@ public List<SelectItem> getTIPOPRODUCTO(){
         }
         return this.itemtipoproducto;
     }
-public List<SelectItem> getBODEGA(){
-     Session session = null;
+
+    public List<SelectItem> getBODEGA() {
+        Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             String hql = "select b from Bodega b";
@@ -258,6 +322,7 @@ public List<SelectItem> getBODEGA(){
         }
         return this.itembodega;
     }
+
     public List<SelectItem> getItemdepartamento() {
         return itemdepartamento;
     }

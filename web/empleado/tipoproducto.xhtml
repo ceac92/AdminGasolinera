@@ -24,17 +24,30 @@
                 </p:panelGrid> 
             </p:dialog> 
 
-            
-                <p:dataTable var="tp" value="#{mbtipoproducto.alltipopro}"  >
+             <p:dialog header="Actualizar" widgetVar="dlg3" style="white-space: 100%" modal="true" >
+                <p:panelGrid id="paneles" columns="2" style="white-space: 100%" columnClasses="forty-percent, sixty-percent,forty-percent, sixty-percent" >
+                    <h:outputLabel value="nombre" for="txtnombre" ></h:outputLabel>
+                    <h:inputText  id="txttnombre" value='#{mbtipoproducto.tipopro.nombre}' label="nombre"></h:inputText>
+                    <h:outputLabel value="Descripcion"></h:outputLabel>
+                    <h:inputText  id="txtlprecio" value='#{mbtipoproducto.tipopro.descripcion}'></h:inputText>
+                    <p:commandButton value="Enviar"  update="formtipoproducto"  ajax="true" action="#{mbtipoproducto.actualizar()}" />
+  
+                </p:panelGrid> 
+            </p:dialog> 
+            <p:dataTable var="tp" value="#{mbtipoproducto.alltipopro}" paginator="true"  >
                     <p:column headerText="nombre">
                         <h:outputText value="#{tp.nombre}" />
                     </p:column>
                     <p:column headerText="descripcion">
                         <h:outputText value="#{tp.descripcion}" />
                     </p:column>
-                    <p:column headerText="Detalles" width="20%">
-                        <p:commandButton value="Ver Detalles" ajax="true" action="#{mbtipoproducto.redirecc(miActionEvent, tp.idctgTipoProducto)}"></p:commandButton>
-                    </p:column>
+                   <p:column headerText="Acciones">
+                       <p:commandLink  value="Actualizar"
+                                       ajax="true" update=":formtipoproducto:paneles"
+                                           onclick="PF('dlg3').show();"  >                                
+                                <f:setPropertyActionListener id="actionSetProducto"   value="#{tp}"  target="#{mbtipoproducto.tipopro}" />    
+                            </p:commandLink>
+                        </p:column>
                 </p:dataTable>
             
 
