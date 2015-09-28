@@ -179,7 +179,11 @@ public class mbventa implements Serializable {
                         }
                     }
                 }
-
+                if (this.getProducto().getCantidadExistencia()<this.cantidav) {
+                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "La cantidad es mayor a la existencia disponible"));
+                    return;
+                }
+                 
                 if (item_duplicado == true) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "ya esta el producto seleccionado"));
                     RequestContext.getCurrentInstance().update("formventa:msgs");
