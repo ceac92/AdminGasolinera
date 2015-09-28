@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form id="registrosproducto">
+            <p:growl id="msg" autoUpdate="true" showDetail="true"/>
+            <p:panel id="panelregistroproducto">
+                <h:panelGrid columns="2" columnClasses="forty-percent, sixty-percent" width="70%">
+                    <p:outputLabel value="Codigo"/>
+                    <p:inputText id="txtcodigo" value="#{producto.codigo}" required="true" />
+                    <p:outputLabel value="Nombre"/>
+                    <p:inputText id="txtnombre" value="#{producto.nombre}" required="true" />
+                    <p:outputLabel value="Tipo producto"/>
+                    <p:selectOneMenu id="OCHO" value="#{mbproducto.tipoproductov}" required="true" requiredMessage="Seleccione una categoria"  filter="true" filterMatchMode="contains" style="width:80% !important">
+                        <f:selectItems value="#{combos.TIPOPRODUCTO}" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Bodega"/>
+                    <p:selectOneMenu id="TRES" value="#{mbproducto.bodegav}" required="true" requiredMessage="Seleccione una categoria"  filter="true" filterMatchMode="contains" style="width:80% !important">
+                        <f:selectItems value="#{combos.BODEGA}" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Descripcion"/>
+                    <p:inputText id="txtdescripcion" value="#{producto.descripcion}" required="true" />
+                    <p:outputLabel value="Cantidad Existencia"/>
+                    <p:inputText id="txtexistencia" value="#{producto.cantidadExistencia}" required="true" />
+                    <p:outputLabel value="Cantidad Minima"/>
+                    <p:inputText id="txtminima" value="#{producto.cantidadMinima}" required="true" />
+                    <p:outputLabel value="Precio Venta"/>
+                    <p:inputText id="txtventa" value="#{producto.precioVenta}" required="true" />
+                    <p:outputLabel value="Precio Costo"/>
+                    <p:inputText id="txtcosto" value="#{producto.precioCosto}" required="true" />
+                </h:panelGrid> 
+                <p:commandButton ajax="true" value="Registrar" actionListener="#{mbproducto.registrarProducto()}"/>
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>
+
