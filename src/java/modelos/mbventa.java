@@ -169,12 +169,12 @@ public class mbventa implements Serializable {
                 RequestContext.getCurrentInstance().update("formventa:msgs");
 
             } else {
-                boolean item_duplicado = false;
+                boolean coparar = false;
                 if (this.producto != null) {
                     for (Detalleventa item : this.detalleventa) {
                         if (item.getProducto().getIdproducto().equals(this.producto.getIdproducto())) {
 
-                            item_duplicado = true;
+                            coparar = true;
                             break;
                         }
                     }
@@ -184,7 +184,7 @@ public class mbventa implements Serializable {
                     return;
                 }
                  
-                if (item_duplicado == true) {
+                if (coparar == true) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "ya esta el producto seleccionado"));
                     RequestContext.getCurrentInstance().update("formventa:msgs");
                 } else {

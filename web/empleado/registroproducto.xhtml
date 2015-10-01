@@ -12,28 +12,26 @@
             <p:growl id="msg" autoUpdate="true" showDetail="true"/>
             <p:panel id="panelregistroproducto">
                 <h:panelGrid columns="2" columnClasses="forty-percent, sixty-percent" width="70%">
-                    <p:outputLabel value="Codigo"/>
-                    <p:inputText id="txtcodigo" value="#{producto.codigo}" required="true" />
-                    <p:outputLabel value="Nombre"/>
-                    <p:inputText id="txtnombre" value="#{producto.nombre}" required="true" />
-                    <p:outputLabel value="Tipo producto"/>
+                    <p:outputLabel value="Nombre*"/>
+                    <p:inputText id="txtnombre" value="#{producto.nombre}" required="true" requiredMessage="Ingrese un nombre" />
+                    <p:outputLabel value="Tipo producto*"/>
                     <p:selectOneMenu id="OCHO" value="#{mbproducto.tipoproductov}" required="true" requiredMessage="Seleccione una categoria"  filter="true" filterMatchMode="contains" style="width:80% !important">
                         <f:selectItems value="#{combos.TIPOPRODUCTO}" />
                     </p:selectOneMenu>
-                    <p:outputLabel value="Bodega"/>
+                    <p:outputLabel value="Bodega*"/>
                     <p:selectOneMenu id="TRES" value="#{mbproducto.bodegav}" required="true" requiredMessage="Seleccione una categoria"  filter="true" filterMatchMode="contains" style="width:80% !important">
                         <f:selectItems value="#{combos.BODEGA}" />
                     </p:selectOneMenu>
                     <p:outputLabel value="Descripcion"/>
-                    <p:inputText id="txtdescripcion" value="#{producto.descripcion}" required="true" />
-                    <p:outputLabel value="Cantidad Existencia"/>
-                    <p:inputText id="txtexistencia" value="#{producto.cantidadExistencia}" required="true" />
-                    <p:outputLabel value="Cantidad Minima"/>
-                    <p:inputText id="txtminima" value="#{producto.cantidadMinima}" required="true" />
-                    <p:outputLabel value="Precio Venta"/>
-                    <p:inputText id="txtventa" value="#{producto.precioVenta}" required="true" />
-                    <p:outputLabel value="Precio Costo"/>
-                    <p:inputText id="txtcosto" value="#{producto.precioCosto}" required="true" />
+                    <p:inputText id="txtdescripcion" value="#{producto.descripcion}"  />
+                    <p:outputLabel value="Cantidad Existencia*"/>
+                    <p:inputText id="txtexistencia" value="#{producto.cantidadExistencia}" required="true" requiredMessage="Ingrese un cantidad" />
+                    <p:outputLabel value="Cantidad Minima*"/>
+                    <p:inputText id="txtminima" value="#{producto.cantidadMinima}" required="true"  requiredMessage="ingrese una cantidad minima"/>
+                    <p:outputLabel value="Precio Costo*"/>
+                    <p:inputText id="txtcosto" value="#{producto.precioCosto}" required="true" requiredMessage="Ingrese Precio de costo" />
+                    <p:outputLabel value="Precio Venta*"/>
+                    <p:inputText id="txtventa" value="#{producto.precioVenta}" required="true" requiredMessage="Ingrese Precio de Venta" />
                 </h:panelGrid> 
                 <p:commandButton ajax="true" value="Registrar" actionListener="#{mbproducto.registrarProducto()}"/>
             </p:panel>

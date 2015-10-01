@@ -158,15 +158,15 @@ public class mbcompra implements Serializable {
         this.transaction = null;
 
         try {
-            boolean item_duplicado = false;
+            boolean comparar = false;
             for (Detallecompra item : this.detallecomp) {
                 if (item.getProducto().getIdproducto().equals(idProducto)) {
 
-                    item_duplicado = true;
+                   comparar = true;
                     break;
                 }
             }
-            if (item_duplicado == true) {
+            if (comparar == true) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", "ya esta el producto seleccionado"));
                 RequestContext.getCurrentInstance().update("frmRealizarVentas:mensajeGeneral");
             } else {

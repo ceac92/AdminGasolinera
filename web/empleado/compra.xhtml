@@ -27,14 +27,17 @@
                     </p:selectOneMenu>
                 </h:panelGrid>
                 <p:panelGrid columns="1">
-                    <p:dataTable id="tablaproducto" value="#{mbcompra.allProducto}" var="item" style="font-size: 10px;width: 700px;" scrollable="true" scrollHeight="100">
+                    <p:dataTable id="tablaproducto" value="#{mbcompra.allProducto}" var="item" style="font-size: 15px;width: 900px;" scrollable="true" scrollHeight="100">
+                         <p:column headerText="Codigo" filterBy="codigo">
+                             <h:outputText value="#{item.codigo}"/>
+                        </p:column>
                         <p:column headerText="NOMBRE" filterBy="nombre">
                             <h:outputText value="#{item.nombre}"/>
                         </p:column>
-                        <p:column headerText="PRECIO UNITARIO">
+                        <p:column headerText="PRECIO Compra">
                             <h:outputText value="#{item.precioCosto}"/>
                         </p:column>
-                        <p:column headerText="STOCK">
+                        <p:column headerText="Existencia">
                             <h:outputText value="#{item.cantidadExistencia}"/>
                         </p:column>
                         <p:column>

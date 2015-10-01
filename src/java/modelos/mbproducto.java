@@ -61,16 +61,24 @@ public class mbproducto implements Serializable {
         this.transaction = null;
 
         try {
+
             int valor = producto.getPrecioCosto().compareTo(producto.getPrecioVenta());
             this.session = HibernateUtil.getSessionFactory().openSession();
             this.transaction = session.beginTransaction();
             if (valor < 0) {
-
+                if (producto.getCantidadExistencia() <= 0) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Existencia", "Debe se mayor a cero"));
+                    return;
+                }
+                if (producto.getCantidadMinima() <= 0) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cantidad minima", "Debe se mayor a cero"));
+                    return;
+                }
                 Producto pr = new Producto();
                 pr.setBodega((Bodega) session.get(Bodega.class, this.bodegav));
                 pr.setCtgtipoproducto((Ctgtipoproducto) session.get(Ctgtipoproducto.class, this.tipoproductov));
                 pr.setEmpleado((Empleado) session.get(Empleado.class, 1));
-                pr.setCodigo(producto.getCodigo());
+                pr.setCodigo("");
                 pr.setNombre(producto.getNombre());
                 pr.setDescripcion(producto.getDescripcion());
                 pr.setCantidadExistencia(producto.getCantidadExistencia());
