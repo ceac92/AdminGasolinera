@@ -8,15 +8,13 @@ package modelos;
 import dao.tipoproductodao;
 import entity.Ctgtipoproducto;
 import hibernateutil.HibernateUtil;
-import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;//para esta liberia no permitia realizar el inser
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import javax.inject.Named;//con estas son esenciales para se llamadas desde la vista 
+import javax.inject.Named;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -105,7 +103,7 @@ public class mbtipoproducto implements Serializable {
     }
 
     // esta funcion lo que hacer redireccionar a otra vista, el valor que pasa es para ocuparla 
-    public void redirecc(ActionEvent miActionEvent, int idtipoproducto) throws IOException {
+   /* public void redirecc(ActionEvent miActionEvent, int idtipoproducto) throws IOException {
 
         if (idtipoproducto != 0) {
             this.valor = idtipoproducto;
@@ -116,7 +114,7 @@ public class mbtipoproducto implements Serializable {
             System.err.println(idtipoproducto);
         }
 
-    }
+    }*/
 // la forma de actualizar aun no encuentro como hacerla.
 
     public void actualizar() {

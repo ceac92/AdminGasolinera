@@ -44,14 +44,14 @@ public class mbventa implements Serializable {
     private Venta venta;
     java.util.Date fech = new Date();
     private Date fecha = fech;
-    private int cantidav;
+    private int cantidav=0;
     private BigDecimal montov;
-    private BigDecimal descuentov;
+    private BigDecimal descuentov=BigDecimal.ZERO;
     private BigDecimal subtotal;
     private int detacaja;
     private int client;
     private int formapago;
-    private int tipofactura;
+    private int tipofactura=1;
 
     public int getDetacaja() {
         return detacaja;

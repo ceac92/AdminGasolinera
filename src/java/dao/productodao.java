@@ -39,8 +39,20 @@ public class productodao implements interfaces.Iproducto{
         }
         return null;
     }
-    
-  
-
-             
+   
+    public static List<Producto> getALLproductosd(Session session)throws Exception{
+     session=null;
+     Query query=null;
+        try {
+            session=HibernateUtil.getSessionFactory().openSession();
+            String hql="from Producto p where p.estado='d'";
+            query=session.createQuery(hql);
+            return query.list();
+        } catch (Exception e) {
+           
+        }finally{
+         session.close();
+        }
+        return null;
+    } 
 }
