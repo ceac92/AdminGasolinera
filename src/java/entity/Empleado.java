@@ -5,6 +5,8 @@ package entity;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,6 +27,8 @@ import javax.persistence.TemporalType;
 @Table(name="empleado"
     ,catalog="bdgasolinera"
 )
+@Named("Empleado")
+@ViewScoped
 public class Empleado  implements java.io.Serializable {
 
 

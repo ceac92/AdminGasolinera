@@ -5,6 +5,8 @@ package entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -28,14 +30,14 @@ public class Detalledocumento  implements java.io.Serializable {
     public Detalledocumento() {
     }
 
-    public Detalledocumento(int iddetalledocumento, Ctgtipodocumento ctgtipodocumento, Empleado empleado, String numero) {
-       this.iddetalledocumento = iddetalledocumento;
-       this.ctgtipodocumento = ctgtipodocumento;
-       this.empleado = empleado;
-       this.numero = numero;
+    public Detalledocumento(Ctgtipodocumento ctgtipodocumento, Empleado empleado, String numero) {
+        this.ctgtipodocumento = ctgtipodocumento;
+        this.empleado = empleado;
+        this.numero = numero;
     }
+
    
-     @Id 
+     @Id @GeneratedValue(strategy=IDENTITY)
 
     
     @Column(name="iddetalledocumento", unique=true, nullable=false)
