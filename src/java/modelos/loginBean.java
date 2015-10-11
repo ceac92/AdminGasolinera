@@ -8,17 +8,16 @@ package modelos;
 import dao.loginDao;
 import entity.Empleado;
 import hibernateutil.MyUtil;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import java.io.Serializable;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -69,6 +68,10 @@ public class loginBean implements Serializable {
 
         try {
             Empleado usuario = userLogin.getEmpLogin(session, this.username);
+            if (usuario==null) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,  "Error de Login", "Credenciales Invalidas"));
+                  return;
+            } 
 
             if (username != null && username.equals(usuario.getMail()) && password != null && password.equals(usuario.getPassword())) {
                 loggedIn = true;
