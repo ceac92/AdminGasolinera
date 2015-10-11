@@ -7,6 +7,7 @@ package modelos;
 
 import dao.detalledocumentodao;
 import dao.documentodao;
+import dao.empleadodao;
 import entity.Ctgtipodocumento;
 import entity.Detalledocumento;
 import entity.Empleado;
@@ -35,6 +36,24 @@ public class mbempleado implements Serializable {
     Session session;
     Transaction transaction;
     private List<Detalledocumento> detalledocumen;
+    private List<Empleado> allempleado;
+    private Empleado emple;
+
+    public List<Empleado> getAllempleado() {
+        return allempleado;
+    }
+
+    public void setAllempleado(List<Empleado> allempleado) {
+        this.allempleado = allempleado;
+    }
+
+    public Empleado getEmple() {
+        return emple;
+    }
+
+    public void setEmple(Empleado emple) {
+        this.emple = emple;
+    }
     private String valordocumento;
     private Ctgtipodocumento tipodocumento;
     private int valortipodocu;
@@ -217,5 +236,19 @@ public class mbempleado implements Serializable {
         } finally {
             this.session.close();
         }
+    }
+    public List<Empleado> getEmpleado(){
+        this.session=null;
+        try {
+            session=HibernateUtil.getSessionFactory().openSession();
+            this.allempleado=empleadodao.getAllempleado(session);
+            return  this.allempleado;
+            
+        } catch (Exception e) {
+        }finally{
+        session.close();
+        }
+       return null;
+       
     }
 }

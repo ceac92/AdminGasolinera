@@ -17,6 +17,7 @@ import entity.Ctgtipofactura;
 import entity.Ctgtipoproducto;
 import entity.Detallecaja;
 import entity.Proveedor;
+import entity.Rol;
 import hibernateutil.HibernateUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ import org.hibernate.Session;
 public class combos implements Serializable {
 
     private List<SelectItem> itemproveedor;
+    private List<SelectItem> itemrol;
     private List<SelectItem> itemCliente;
     private List<SelectItem> itemdetallecaja;
     private List<SelectItem> itemdepartamento;
@@ -46,6 +48,7 @@ public class combos implements Serializable {
     private List<SelectItem> itemfactuta;
     private List<SelectItem> itemtipoproducto;
     private List<SelectItem> itembodega;
+    private List<Rol>roles;
     private List<Ctgdepartamento> departamentos;
     private List<Cliente> cliente;
     private List<Detallecaja> detallecaja;
@@ -59,6 +62,22 @@ public class combos implements Serializable {
     private List<Bodega> bodegas;
     private List<Proveedor> proveedor;
     private int valor;
+    public List<SelectItem> getItemrol() {
+        return itemrol;
+    }
+
+    public void setItemrol(List<SelectItem> itemrol) {
+        this.itemrol = itemrol;
+    }
+
+    public List<Rol> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Rol> roles) {
+        this.roles = roles;
+    }
+
 
     public int getValor() {
         return valor;
@@ -86,6 +105,7 @@ public class combos implements Serializable {
         this.itemCliente= new ArrayList<>();
         this.itemdetallecaja= new ArrayList<>();
         this.itemproveedor = new ArrayList<>();
+        this.itemrol=new ArrayList<>();
         this.bodegas = new ArrayList<>();
         this.departamentos = new ArrayList<>();
         this.formapagos = new ArrayList<>();
@@ -98,6 +118,7 @@ public class combos implements Serializable {
         this.proveedor = new ArrayList<>();
         this.cliente= new ArrayList<>();
         this.detallecaja= new ArrayList<>();
+        this.roles=new ArrayList<>();
     }
 
     public List<Cliente> getCliente() {
@@ -146,6 +167,21 @@ public class combos implements Serializable {
             System.err.print(ex);
         }
         return this.itemCliente;
+    }
+     public List<SelectItem> getRoll() {
+        Session session = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            String hql = " from Rol";
+            this.roles = session.createQuery(hql).list();
+            for (Rol item : this.roles) {
+                SelectItem selectItem = new SelectItem(item.getIdrol(), item.getNombre());
+                this.itemrol.add(selectItem);
+            }
+        } catch (Exception ex) {
+            System.err.print(ex);
+        }
+        return this.itemrol;
     }
     
     public List<SelectItem> getDETALLECAJ() {
