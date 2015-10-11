@@ -44,14 +44,14 @@ public class mbventa implements Serializable {
     private Venta venta;
     java.util.Date fech = new Date();
     private Date fecha = fech;
-    private int cantidav;
+    private int cantidav=0;
     private BigDecimal montov;
-    private BigDecimal descuentov;
+    private BigDecimal descuentov=BigDecimal.ZERO;
     private BigDecimal subtotal;
     private int detacaja;
     private int client;
     private int formapago;
-    private int tipofactura;
+    private int tipofactura=1;
 
     public int getDetacaja() {
         return detacaja;
@@ -133,6 +133,7 @@ public class mbventa implements Serializable {
         this.producto = new Producto();
         this.detalleventa = new ArrayList<>();
         this.venta = new Venta();
+        this.descuentov=new BigDecimal(0);
     }
 
     public List<Producto> getAllProducto() {
@@ -163,35 +164,45 @@ public class mbventa implements Serializable {
         this.transaction = null;
 
         try {
-            boolean item_duplicado = false;
-            if (this.producto != null) {
-                for (Detalleventa item : this.detalleventa) {
-                    if (item.getProducto().getIdproducto().equals(this.producto.getIdproducto())) {
+            if (cantidav <= 0) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "La Cantidad debe se mayor a cero"));
+                RequestContext.getCurrentInstance().update("formventa:msgs");
 
-                        item_duplicado = true;
-                        break;
+            } else {
+                boolean coparar = false;
+                if (this.producto != null) {
+                    for (Detalleventa item : this.detalleventa) {
+                        if (item.getProducto().getIdproducto().equals(this.producto.getIdproducto())) {
+
+                            coparar = true;
+                            break;
+                        }
                     }
                 }
-            }
+                if (this.getProducto().getCantidadExistencia()<this.cantidav) {
+                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "La cantidad es mayor a la existencia disponible"));
+                    return;
+                }
+                 
+                if (coparar == true) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "ya esta el producto seleccionado"));
+                    RequestContext.getCurrentInstance().update("formventa:msgs");
+                } else {
+                    this.session = HibernateUtil.getSessionFactory().openSession();
+                    this.transaction = this.session.beginTransaction();
+                    BigDecimal cambiarcantidad = new BigDecimal(this.cantidav);
+                    this.subtotal = this.producto.getPrecioVenta().multiply(cambiarcantidad);
+                    BigDecimal valordescuento = cambiarcantidad.multiply(producto.getPrecioVenta().multiply(descuentov));
 
-            if (item_duplicado == true) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", "ya esta el producto seleccionado"));
-                RequestContext.getCurrentInstance().update("formventa:msgs");
-            } else {
-                this.session = HibernateUtil.getSessionFactory().openSession();
-                this.transaction = this.session.beginTransaction();
-                BigDecimal cambiarcantidad = new BigDecimal(this.cantidav);
-                this.subtotal = this.producto.getPrecioVenta().multiply(cambiarcantidad);
-                BigDecimal valordescuento = cambiarcantidad.multiply(producto.getPrecioVenta().multiply(descuentov));
+                    this.detalleventa.add(new Detalleventa(producto, null, this.cantidav, this.producto.getPrecioVenta(), this.descuentov, this.subtotal.subtract(valordescuento)));
 
-                this.detalleventa.add(new Detalleventa(producto, null, this.cantidav, this.producto.getPrecioVenta(), this.descuentov, this.subtotal.subtract(valordescuento)));
+                    this.transaction.commit();
 
-                this.transaction.commit();
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto", "se agrego"));
+                    RequestContext.getCurrentInstance().update("frmRealizarVentas:tablaListaProductosVenta");
+                    RequestContext.getCurrentInstance().update("frmRealizarVentas:mensajeGeneral");
 
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto", "se agrego"));
-                RequestContext.getCurrentInstance().update("frmRealizarVentas:tablaListaProductosVenta");
-                RequestContext.getCurrentInstance().update("frmRealizarVentas:mensajeGeneral");
-
+                }
             }
 
         } catch (Exception ex) {
@@ -270,8 +281,8 @@ public class mbventa implements Serializable {
             venp.setCliente((Cliente) session.get(Cliente.class, this.client));
             venp.setCtgformapago((Ctgformapago) session.get(Ctgformapago.class, this.formapago));
             venp.setCtgtipofactura((Ctgtipofactura) session.get(Ctgtipofactura.class, this.tipofactura));
-            venp.setDetallecaja((Detallecaja)session.get(Detallecaja.class, this.detacaja));
-            venp.setEmpleado((Empleado)session.get(Empleado.class, 1));
+            venp.setDetallecaja((Detallecaja) session.get(Detallecaja.class, this.detacaja));
+            venp.setEmpleado((Empleado) session.get(Empleado.class, 1));
             venp.setFecha(this.fecha);
             venp.setMoto(this.venta.getMoto());
 
@@ -285,8 +296,20 @@ public class mbventa implements Serializable {
 
             }
             transaction.commit();
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto", "Venta realizada correctamente."));
+            this.detalleventa = new ArrayList<>();
+            this.venta = new Venta();
+            this.client=0;
+            this.descuentov=null;
+            this.detacaja=0;
+            this.formapago=0;
+            this.montov=null;
+            this.producto=new Producto();
+            this.subtotal=null;
+            this.venta=new Venta();
+             FacesContext.getCurrentInstance().getExternalContext().redirect("venta.xhtml");
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto", "Venta realizada correctamente."));
+           
         } catch (Exception e) {
             transaction.rollback();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Problemas a guardar."));

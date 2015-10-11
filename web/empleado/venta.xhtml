@@ -3,39 +3,46 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Venta Producto</title>
         <link href="#{appBean.baseURL}resources/css/login.css" type="text/css" rel="stylesheet"/>  
     </h:head>
     <h:body>
-        <h:form id="formventa">
+        <h:form id="formventa">           
             <p:growl id="msgs" showDetail="true"  autoUpdate="true"/>
-            <p:panel>
-                <h:panelGrid columns="2" columnClasses="forty-percent, sixty-percent" width="70%">
-                    <h:outputLabel value="fecha"/>
-                    <p:calendar id="calendar" value="#{mbventa.fecha}" pattern="yyyy-MM-dd" mask="9999-99-99" disabled="true" requiredMessage="La fecha es requerida" navigator="true"/> 
-                    <h:outputLabel value="Cliente"/>
-                    <p:selectOneMenu id="cliente" value="#{mbventa.client}" required="true" requiredMessage="Seleccione una categoria"  filter="true" filterMatchMode="contains" style="width:80% !important">
-                        <f:selectItems value="#{combos.CLIENT}" />
-                    </p:selectOneMenu>
-                    <h:outputLabel value="Turno"/>
-                    <p:selectOneMenu id="detallecaja" value="#{mbventa.detacaja}" required="true" requiredMessage="Seleccione una categoria"  filter="true" filterMatchMode="contains" style="width:80% !important">
-                        <f:selectItems value="#{combos.DETALLECAJ}" />
-                    </p:selectOneMenu>
-                    <h:outputLabel value="Tipo Factura"/>
-                    <p:selectOneRadio id="console" value="#{mbventa.tipofactura}">
-                        <f:selectItem itemLabel="consumido final" itemValue="1" />
-                        <f:selectItem itemLabel="Credito fiscal" itemValue="2" />
-                    </p:selectOneRadio>
-                    <h:outputLabel value="forma de pago"/>
-                    <p:selectOneMenu id="cmformapago" value="#{mbventa.formapago}" required="true" requiredMessage="Seleccione una categoria"  filter="true" filterMatchMode="contains" style="width:80% !important">
-                        <f:selectItems value="#{combos.FORMAP}" />
-                    </p:selectOneMenu>
+            <div  align="left">
+                <h2>Datos de venta</h2>
+                <p:panel  >
+                    <h:panelGrid columns="2" columnClasses="forty-percent, sixty-percent" width="50%">
+                        <h:outputLabel value="fecha"/>
+                        <p:calendar id="calendar" value="#{mbventa.fecha}" pattern="yyyy-MM-dd" mask="9999-99-99" disabled="true" requiredMessage="La fecha es requerida" navigator="true"/> 
+                        <h:outputLabel value="Cliente"/>
+                        <p:selectOneMenu id="cliente" value="#{mbventa.client}" required="true" requiredMessage="Seleccione un cliente"  filter="true" filterMatchMode="contains" style="width:80% !important">
 
-                </h:panelGrid>
-                <p:panelGrid  columns="1">
-                    <p:dataTable id="tablaproducto" style="font-size: 15px;width: 700px;" value="#{mbventa.allProducto}" var="item"  scrollHeight="100">
+                            <f:selectItems value="#{combos.CLIENT}" />
+                        </p:selectOneMenu>
+                        <h:outputLabel value="Turno"/>
+                        <p:selectOneMenu id="detallecaja" value="#{mbventa.detacaja}" required="true" requiredMessage="Seleccione caja"  filter="true" filterMatchMode="contains" style="width:80% !important">
+                            <f:selectItems value="#{combos.DETALLECAJ}" />
+                        </p:selectOneMenu>
+                        <h:outputLabel value="Tipo Factura"/>
+                        <p:selectOneRadio id="console" value="#{mbventa.tipofactura}">
+                            <f:selectItem itemLabel="consumido final" itemValue="1" />
+                            <f:selectItem itemLabel="Credito fiscal" itemValue="2" />
+                        </p:selectOneRadio>
+                        <h:outputLabel value="forma de pago"/>
+                        <p:selectOneMenu id="cmformapago" value="#{mbventa.formapago}" required="true" requiredMessage="Seleccione una forma de pago"  filter="true" filterMatchMode="contains" style="width:80% !important">
+                            <f:selectItems value="#{combos.FORMAP}" />
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                </p:panel>
+            </div>
+            <div >
+                <h2>Producto</h2>
+                <p:panelGrid  columns="1" >
+                    <p:dataTable id="tablaproducto" style="font-size: 15px;width: 900px;" value="#{mbventa.allProducto}" var="item"  scrollHeight="100">
 
                         <p:column headerText="codigo" filterBy="codigo">
                             <h:outputText value="#{item.codigo} " ></h:outputText>
@@ -55,40 +62,42 @@
                         <p:column headerText="Acciones">
                             <p:commandLink value='Seleccionar' 
                                            update=":formventa:tablaproductos "
-                                           ajax="true"   >                                
+                                           ajax="true"  onclick="PF('dlgdetallesproducto').show();"   >                                
                                 <f:setPropertyActionListener id="actionSetProducto"   value="#{item}"  target="#{mbventa.producto}" />    
                             </p:commandLink>
                         </p:column>
                     </p:dataTable>
                 </p:panelGrid>
-            </p:panel>
+            </div>
             <div id="contenedor">
-                <p:outputPanel id="tablaproductos" deferred="true" class="head-title">
-                    <p:panelGrid rendered="#{not empty mbventa.producto}" columns="2" columnClasses="p20 pull-left,p75 pull-right" style=" width: 70% !important">
-                        <h:outputLabel value="Codigo: "  class="pull-right"/>
-                        <p:inputText value="#{mbventa.producto.codigo}" 
-                                     class="readonly"
-                                     readonly="true" style="width: 50% !important" />
-                        <h:outputLabel value="Nombre: " class="pull-right"/>
-                        <p:inputText value="#{mbventa.producto.nombre}"
-                                     class="readonly"
-                                     readonly="true" style="width: 100% !important" />
-                        <h:outputLabel value="Cantidad: " class="pull-right"/>
-                        <p:inputText value="#{mbventa.cantidav}" 
-                                     style="width: 50% !important" />
-                        <h:outputLabel value="% Descuento: " class="pull-right"/>
-                        <p:inputText value="#{mbventa.descuentov}" style="width: 50% !important">
-                            <f:convertNumber type="percent" currencySymbol="%" />
-                        </p:inputText>   
-                        <p:commandButton id="btnAP" 
-                                         value="Agregar" 
-                                         ajax="true" process="tablaproductos"
-                                         update="tablaproductos tablaListaProductosVenta " 
-                                         actionListener="#{mbventa.agregarListaVentaDetalle()}"
-                                         class="btn btn-default pull-right" >                                             
-                        </p:commandButton>  
-                    </p:panelGrid>   
-                </p:outputPanel>
+                <p:dialog header="Detalle de Venta" widgetVar="dlgdetallesproducto" style="white-space: 100%" modal="true" >
+                    <p:outputPanel id="tablaproductos" deferred="true" class="head-title">
+                        <p:panelGrid rendered="#{not empty mbventa.producto}" columns="2" columnClasses="p20 pull-left,p50 pull-right" style=" width: 100% ">
+                            <h:outputLabel value="Codigo: "  class="pull-right"/>
+                            <p:inputText value="#{mbventa.producto.codigo}" 
+                                         class="readonly"
+                                         readonly="true" style="width: 100% " />
+                            <h:outputLabel value="Nombre: " class="pull-right"/>
+                            <p:inputText value="#{mbventa.producto.nombre}"
+                                         class="readonly"
+                                         readonly="true" style="width: 100% " />
+                            <h:outputLabel value="Cantidad: " class="pull-right"/>
+                            <p:inputText value="#{mbventa.cantidav}" 
+                                         style="width: 50% !important" /> 
+                            <h:outputLabel value="% Descuento: " class="pull-right"/>
+                            <p:inputText value="#{mbventa.descuentov}" style="width: 100% ">
+                                <f:convertNumber type="percent" currencySymbol="%" />
+                            </p:inputText>   
+                            <p:commandButton id="btnAP" 
+                                             value="Agregar" 
+                                             ajax="true" process="tablaproductos"
+                                             update="tablaproductos tablaListaProductosVenta " 
+                                             actionListener="#{mbventa.agregarListaVentaDetalle()}"
+                                             class="btn btn-default pull-right" oncomplete="PF('dlgdetallesproducto').hide()" >                                             
+                            </p:commandButton>  
+                        </p:panelGrid>   
+                    </p:outputPanel>
+                </p:dialog>
             </div>
 
             <p:panel>
@@ -100,13 +109,13 @@
                         <h:outputText value="#{item.producto.precioVenta}"/>
                     </p:column>
                     <p:column headerText="CANTIDAD" style="text-align: center;">
-                        <p:inputText value="#{item.cantidad}" style="text-align: center;" />                    
+                        <h:outputText  value="#{item.cantidad}" style="text-align: center;" />                    
                     </p:column>
                     <p:column headerText="DESCUENTO" style="text-align: center;">
-                        <p:inputText value="#{item.descuento}" style="text-align: center;" />                    
+                        <h:outputText value="#{item.descuento}" style="text-align: center;" />                    
                     </p:column>
                     <p:column headerText="Total producto" style="text-align: center;">
-                        <p:inputText value="#{item.subtotal}" style="text-align: center;" />                    
+                        <h:outputText  value="#{item.subtotal}" style="text-align: center;" />                    
                     </p:column>
                     <p:column style="text-align: center;">
                         <p:commandButton value="Retirar de la lista" update=":formventa:tablaListaProductosVenta" ajax="true" actionListener="#{mbventa.retirarListaVentaDetalle(item.producto.idproducto)}"/>
@@ -119,8 +128,8 @@
                     <p:commandButton value="Actualizar monto de compra" actionListener="#{mbventa.calcularCostos()}" />
                     S./ 
                     <h:outputText value="#{mbventa.venta.moto}" style="box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7);padding: 7px;"/>
-                    -------------------
-                    <p:commandButton value="Realizar venta" ajax="false" actionListener="#{mbventa.realizarVenta()}"/>
+
+                    <p:commandButton value="Realizar venta" ajax="true" actionListener="#{mbventa.realizarVenta()}"/>
                 </h:panelGroup>
             </p:panelGrid>
         </h:form>

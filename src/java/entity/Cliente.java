@@ -35,7 +35,7 @@ public class Cliente  implements java.io.Serializable {
      private Integer idcliente;
      private Ctgmunicipio ctgmunicipio;
      private Ctgtipocliente ctgtipocliente;
-     private String codigo;
+     private String codigo="";
      private String primerNombre;
      private String segundoNombre;
      private String primerApellido;

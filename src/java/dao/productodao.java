@@ -6,7 +6,9 @@
 package dao;
 
 import entity.Producto;
+import hibernateutil.HibernateUtil;
 import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
@@ -23,10 +25,34 @@ public class productodao implements interfaces.Iproducto{
 
     @Override
     public List<Producto> getAll(Session session) throws Exception {
-        return session.createCriteria(Producto.class).list();
+        session=null;
+        Query query=null;
+        try {
+            session=HibernateUtil.getSessionFactory().openSession();
+           String hql="from Producto p where p.estado='a'";
+           query=session.createQuery(hql);
+           return query.list();
+           
+        } catch (Exception e) {
+        }finally{
+        session.close();
+        }
+        return null;
     }
-    
-  
-
-             
+   
+    public static List<Producto> getALLproductosd(Session session)throws Exception{
+     session=null;
+     Query query=null;
+        try {
+            session=HibernateUtil.getSessionFactory().openSession();
+            String hql="from Producto p where p.estado='d'";
+            query=session.createQuery(hql);
+            return query.list();
+        } catch (Exception e) {
+           
+        }finally{
+         session.close();
+        }
+        return null;
+    } 
 }
