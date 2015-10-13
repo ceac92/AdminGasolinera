@@ -37,7 +37,16 @@ public class mbempleado implements Serializable {
     Transaction transaction;
     private List<Detalledocumento> detalledocumen;
     private List<Empleado> allempleado;
+      private List<Empleado> allempleadod;
     private Empleado emple;
+
+    public List<Empleado> getAllempleadod() {
+        return allempleadod;
+    }
+
+    public void setAllempleadod(List<Empleado> allempleadod) {
+        this.allempleadod = allempleadod;
+    }
 
     public List<Empleado> getAllempleado() {
         return allempleado;
@@ -60,6 +69,15 @@ public class mbempleado implements Serializable {
     private int idrol;
     private String estadocivil="soltero";
     private String generovalor="m";
+    private String estadoEmp="a";
+
+    public String getEstadoEmp() {
+        return estadoEmp;
+    }
+
+    public void setEstadoEmp(String estadoEmp) {
+        this.estadoEmp = estadoEmp;
+    }
 
     public int getValortipodocu() {
         return valortipodocu;
@@ -123,6 +141,7 @@ public class mbempleado implements Serializable {
     public mbempleado() {
         this.detalledocumen = new ArrayList<>();
         this.tipodocumento = new Ctgtipodocumento();
+        this.emple=new Empleado();
     }
 
     public void agregarListaDetalleDocumento() {
@@ -250,5 +269,39 @@ public class mbempleado implements Serializable {
         }
        return null;
        
+    }
+    
+    public List<Empleado> getEmpleadd(){
+        this.session=null;
+        try {
+            this.session=HibernateUtil.getSessionFactory().openSession();
+            this.allempleadod=empleadodao.getEmpleadod(session);
+            return this.allempleadod;
+        } catch (Exception e) {
+            
+        }finally{
+        this.session.close();
+        }
+    return null;
+    
+    }
+    
+    public void updateEmpleado(){
+    this.session=null;
+    this.transaction=null;
+    
+        try {
+            this.session=HibernateUtil.getSessionFactory().openSession();
+            this.transaction=session.beginTransaction();
+            this.emple.setEstado(estadoEmp);
+            this.session.update(this.emple);
+            this.transaction.commit();
+               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Empleado","Actualizado"));
+        } catch (Exception e) {
+            this.transaction.rollback();
+               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+        }finally{
+            this.session.close();
+        }
     }
 }

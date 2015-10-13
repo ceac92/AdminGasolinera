@@ -22,7 +22,7 @@ public class empleadodao {
         
         try {
            session= HibernateUtil.getSessionFactory().openSession();
-           String hql="from Empleado";
+           String hql="from Empleado e where e.estado='a' ";
            query=session.createQuery(hql);
            return query.list();
            
@@ -34,4 +34,21 @@ public class empleadodao {
         return null;
     }
     
+    public static List<Empleado> getEmpleadod(Session session){
+    session=null;
+    Query query=null;
+     
+       try {
+           session= HibernateUtil.getSessionFactory().openSession();
+           String hql="from Empleado e where e.estado='d' ";
+           query=session.createQuery(hql);
+           return query.list();
+           
+        } catch (Exception e) {
+            
+        }finally{
+        session.close();
+        }
+        return null;
+    }
 }
