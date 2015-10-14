@@ -23,10 +23,12 @@
                                  readonly="true" />
                     <p:outputLabel value="Tipo producto*"/>
                     <p:selectOneMenu id="tipopro" value="#{mbproducto.tipoproductov}" required="true" requiredMessage="Seleccione una categoria"  filter="true" filterMatchMode="contains" style="width:80% !important">
+                        <f:selectItem itemLabel="selecciones" itemValue="0"/>
                         <f:selectItems value="#{combos.TIPOPRODUCTO}" />
                     </p:selectOneMenu>
                     <p:outputLabel value="Bodega*"/>
                     <p:selectOneMenu id="bodega" value="#{mbproducto.bodegav}" required="true" requiredMessage="Seleccione una categoria"  filter="true" filterMatchMode="contains" style="width:80% !important">
+                         <f:selectItem itemLabel="selecciones" itemValue="0"/>
                         <f:selectItems value="#{combos.BODEGA}" />
                     </p:selectOneMenu>
                     <p:outputLabel value="Descripcion"/>

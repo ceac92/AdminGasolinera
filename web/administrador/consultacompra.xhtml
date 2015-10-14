@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form id="consultacompra">
+            <p:growl id="mensajegenral" showDetail="true" sticky="false" />
+            <p:dataTable var="tp" value="#{mbcompra.allDetallecompra}" paginator="true"  >
+                <p:column headerText="Codigo Empleado">
+                    <h:outputText value="#{tp.compra.empleado.idempleado}" />
+                </p:column>
+                <p:column headerText="Empleado">
+                    <h:outputText value="#{tp.compra.empleado.primerNombre},#{tp.compra.empleado.primerApellido}" />
+                </p:column>
+                <p:column headerText="Proveedor ">
+                    <h:outputText value="#{tp.compra.proveedor.nombre}" />
+                </p:column>
+                <p:column headerText="Fecha compra">
+                    <h:outputText value="#{tp.compra.fecha}" />
+                </p:column>
+                <p:column headerText="Monto de compra">
+                    <h:outputText value="#{tp.compra.valorcompra}" />
+                </p:column>
+                <p:column headerText="Detalles" width="10%">
+                    <p:commandButton value=" Detalles" ajax="true" action="#{mbdetallesg.verDetalles(miActionEvent, tp.compra.idcompra)}"></p:commandButton>
+                </p:column>
+            </p:dataTable>
+
+
+        </h:form>
+    </h:body>
+</html>
+
