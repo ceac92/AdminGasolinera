@@ -46,6 +46,15 @@ public class mbcompra implements Serializable {
     private BigDecimal costocompra;
     java.util.Date fecha = new Date();
     private Date fechas = fecha;
+    private int idempleado;
+
+    public int getIdempleado() {
+        return idempleado;
+    }
+
+    public void setIdempleado(int idempleado) {
+        this.idempleado = idempleado;
+    }
 
     public Date getFechas() {
         return fechas;
@@ -236,7 +245,7 @@ public class mbcompra implements Serializable {
             productodao pdao = new productodao();
             Compra Cp = new Compra();
             Cp.setCtgformapago((Ctgformapago) session.get(Ctgformapago.class, this.formapago));
-            Cp.setEmpleado((Empleado) session.get(Empleado.class, 1));
+            Cp.setEmpleado((Empleado) session.get(Empleado.class, this.idempleado));
             Cp.setFecha(fecha);
             Cp.setProveedor((Proveedor) session.get(Proveedor.class, this.proveedor));
             Cp.setValorcompra(this.costocompra);

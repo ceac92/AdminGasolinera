@@ -10,7 +10,13 @@
         <link href="#{appBean.baseURL}resources/css/login.css" type="text/css" rel="stylesheet"/>  
     </h:head>
     <h:body>
+        <h:form> Bienvenido #{loginBean.username};
+        <h:inputHidden value=" #{mbcompra.setIdempleado(loginBean.valorempleado)};"/></h:form>
+       
         <h:form id="frmRealizarVentas">
+
+
+
             <p:growl id="mensajeGeneral" showDetail="true"/>
             <h1>Compra  de Productos</h1>
             <p:panel>
@@ -30,8 +36,8 @@
                 </h:panelGrid>
                 <p:panelGrid columns="1">
                     <p:dataTable id="tablaproducto" value="#{mbcompra.allProducto}" var="item" style="font-size: 15px;width: 900px;" scrollable="true" scrollHeight="100">
-                         <p:column headerText="Codigo" filterBy="codigo">
-                             <h:outputText value="#{item.codigo}"/>
+                        <p:column headerText="Codigo" filterBy="codigo">
+                            <h:outputText value="#{item.codigo}"/>
                         </p:column>
                         <p:column headerText="NOMBRE" filterBy="nombre">
                             <h:outputText value="#{item.nombre}"/>
