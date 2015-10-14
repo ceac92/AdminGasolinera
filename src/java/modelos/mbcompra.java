@@ -47,6 +47,15 @@ public class mbcompra implements Serializable {
     java.util.Date fecha = new Date();
     private Date fechas = fecha;
     private int idempleado;
+    private List<Detallecompra> detacompralista;
+
+    public List<Detallecompra> getDetacompralista() {
+        return detacompralista;
+    }
+
+    public void setDetacompralista(List<Detallecompra> detacompralista) {
+        this.detacompralista = detacompralista;
+    }
 
     public int getIdempleado() {
         return idempleado;
@@ -276,4 +285,16 @@ public class mbcompra implements Serializable {
 
     }
 
+    public List<Detallecompra> getAllDetallecompra(){
+    this.session=null;
+        try {
+            this.session=HibernateUtil.getSessionFactory().openSession();
+            this.detacompralista=detallecompradao.detallecompr(session);
+            return this.detacompralista;
+            
+        } catch (Exception e) {
+        }finally{
+        }
+    return null;
+    }
 }

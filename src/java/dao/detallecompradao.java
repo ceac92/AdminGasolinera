@@ -6,7 +6,10 @@
 package dao;
 
 import entity.Detallecompra;
+import hibernateutil.HibernateUtil;
 import interfaces.Idetallecompra;
+import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
@@ -21,5 +24,20 @@ public class detallecompradao implements Idetallecompra {
 
         return true;
     }
-
+  public static List<Detallecompra> detallecompr(Session session){
+       session=null;
+        Query query=null;
+        try {
+          
+            session=HibernateUtil.getSessionFactory().openSession();
+            String hql="from Detallecompra ";
+            query=session.createQuery(hql);
+            
+            return query.list();
+        } catch (Exception e) {
+        }finally{
+        session.close();
+        }
+    return null;
+    }
 }
