@@ -110,8 +110,7 @@ public class Detalleventa  implements java.io.Serializable {
     }
     
     public void setDescuento(BigDecimal descuento) {
-        this.descuento = descuento;
-    }
+        this.descuento = descuento;    }
 
     
     @Column(name="subtotal", nullable=false, precision=12)
@@ -127,5 +126,15 @@ public class Detalleventa  implements java.io.Serializable {
 
 
 }
+
+
+
+
+
+
+
+
+
+
 
 

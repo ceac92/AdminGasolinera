@@ -6,6 +6,7 @@
 package modelos;
 
 import entity.Detallecompra;
+import entity.Detalleventa;
 import hibernateutil.HibernateUtil;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -35,6 +36,15 @@ public class mbdetallesg implements Serializable{
         this.iddetallecompra = iddetallecompra;
     }
     private int iddetallecompra ;
+    private int idetalleventa;
+
+    public int getIdetalleventa() {
+        return idetalleventa;
+    }
+
+    public void setIdetalleventa(int idetalleventa) {
+        this.idetalleventa = idetalleventa;
+    }
 
     /**
      * Creates a new instance of mbdetallesg
@@ -58,6 +68,31 @@ public class mbdetallesg implements Serializable{
             String hql="select dc.cantidad, p.precioCosto,p.nombre from Detallecompra as dc inner join dc.producto as p inner join dc.compra as c where c.idcompra=:iddetalle";
             query=session.createQuery(hql);
               query.setParameter("iddetalle", valor);
+            return query.list();
+        } catch (Exception e) {
+        }finally{
+        session.close();
+        }
+    return null;
+    }
+       public void verDetallesventa(ActionEvent miActionEvent, int iddetaventa) throws IOException {
+        if (iddetaventa != 0) {
+            this.idetalleventa = iddetaventa;
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../administrador/detalleventa.xhtml");
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudo procesar la peticion"));
+        }
+    }
+       
+        public  List<Detalleventa> detalleventa(int valores ){
+       session=null;
+        Query query=null;
+        try {
+            valores=this.idetalleventa;
+            session=HibernateUtil.getSessionFactory().openSession();
+            String hql="select p.codigo, p.nombre, p.precioVenta, dv.cantidad, dv.monto, dv.descuento, dv.subtotal from Detalleventa as dv inner join dv.venta as v inner join dv.producto as p where v.idventa=:iddetalleventa";
+            query=session.createQuery(hql);
+              query.setParameter("iddetalleventa", valores);
             return query.list();
         } catch (Exception e) {
         }finally{

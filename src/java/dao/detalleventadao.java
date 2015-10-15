@@ -6,9 +6,11 @@
 package dao;
 
 import entity.Detalleventa;
+import hibernateutil.HibernateUtil;
 import interfaces.Idetalleventa;
+import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
-
 /**
  *
  * @author An
@@ -21,4 +23,19 @@ public class detalleventadao implements Idetalleventa {
         return true;
     }
 
+    public static List<Detalleventa> detaventa(Session session){
+     session=null;
+     Query query=null;
+        try {
+            session=HibernateUtil.getSessionFactory().openSession();
+            String Hql="from Detalleventa ";
+            query=session.createQuery(Hql);
+            return query.list();
+        } catch (Exception e) {
+        }finally{
+        session.close();
+                
+        }
+    return null;
+    }
 }

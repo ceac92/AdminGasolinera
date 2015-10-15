@@ -52,6 +52,15 @@ public class mbventa implements Serializable {
     private int client;
     private int formapago;
     private int tipofactura=1;
+    private List<Detalleventa> detaventavalor;
+
+    public List<Detalleventa> getDetaventavalor() {
+        return detaventavalor;
+    }
+
+    public void setDetaventavalor(List<Detalleventa> detaventavalor) {
+        this.detaventavalor = detaventavalor;
+    }
 
     public int getDetacaja() {
         return detacaja;
@@ -320,6 +329,19 @@ public class mbventa implements Serializable {
 
     }
 
+    public List<Detalleventa> getAlldetalleventa(){
+    this.session=null;
+        try {
+            this.session=HibernateUtil.getSessionFactory().openSession();
+            this.detaventavalor=detalleventadao.detaventa(session);
+            return this.detaventavalor;
+                    
+        } catch (Exception e) {
+        }finally{
+        
+        }
+        return null;
+    }
     public Producto getProducto() {
         return producto;
     }
