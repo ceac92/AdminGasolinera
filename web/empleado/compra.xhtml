@@ -10,10 +10,9 @@
         <link href="#{appBean.baseURL}resources/css/login.css" type="text/css" rel="stylesheet"/>  
     </h:head>
     <h:body>
-        <h:form> Bienvenido #{loginBean.username};
-        <h:inputHidden value=" #{mbcompra.setIdempleado(loginBean.valorempleado)};"/></h:form>
-       
+        <ui:include src="menuemp.xhtml"/>
         <h:form id="frmRealizarVentas">
+           
 
 
 

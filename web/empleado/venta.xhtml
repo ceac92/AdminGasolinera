@@ -10,7 +10,8 @@
         <link href="#{appBean.baseURL}resources/css/login.css" type="text/css" rel="stylesheet"/>  
     </h:head>
     <h:body>
-        <h:form id="formventa">           
+        <ui:include src="menuemp.xhtml"/>
+        <h:form id="formventa">      
             <p:growl id="msgs" showDetail="true"  autoUpdate="true"/>
             <div  align="left">
                 <h2>Datos de venta</h2>
