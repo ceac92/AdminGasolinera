@@ -158,8 +158,7 @@ public class mbproducto implements Serializable {
             int valor2 = productou.getPrecioCosto().compareTo(productou.getPrecioVenta());
             if (valor2 < 0) {
                 this.productou.setEstado(estadov);
-                this.productou.setBodega((Bodega) session.get(Bodega.class, this.bodegav));
-                this.productou.setCtgtipoproducto((Ctgtipoproducto) session.get(Ctgtipoproducto.class, this.tipoproductov));
+
                this.session.update(this.productou);
 
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Producto", "Actualizado"));

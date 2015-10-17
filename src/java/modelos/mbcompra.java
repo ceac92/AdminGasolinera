@@ -46,7 +46,7 @@ public class mbcompra implements Serializable {
     private BigDecimal costocompra;
     java.util.Date fecha = new Date();
     private Date fechas = fecha;
-    private int idempleado;
+    private int idempleado=0;
     private List<Detallecompra> detacompralista;
 
     public List<Detallecompra> getDetacompralista() {
@@ -180,7 +180,7 @@ public class mbcompra implements Serializable {
             for (Detallecompra item : this.detallecomp) {
                 if (item.getProducto().getIdproducto().equals(idProducto)) {
 
-                   comparar = true;
+                    comparar = true;
                     break;
                 }
             }
@@ -244,9 +244,21 @@ public class mbcompra implements Serializable {
     public void realizarVenta() {
         session = null;
         transaction = null;
+        
+        if (idempleado == 0) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No es un empleado"));
+            return;
+        }
+        if (formapago == 0) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "seleccione una forma de pago"));
+            return;
+        }
+        if (proveedor == 0) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Seleccione un proveedor"));
+            return;
+        }
 
         try {
-         
 
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
@@ -273,6 +285,7 @@ public class mbcompra implements Serializable {
             this.proveedor = 0;
             this.costocompra = null;
             this.formapago = 0;
+             FacesContext.getCurrentInstance().getExternalContext().redirect("compra.xhtml");
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto", "Venta realizada correctamente"));
         } catch (Exception e) {
@@ -285,16 +298,16 @@ public class mbcompra implements Serializable {
 
     }
 
-    public List<Detallecompra> getAllDetallecompra(){
-    this.session=null;
+    public List<Detallecompra> getAllDetallecompra() {
+        this.session = null;
         try {
-            this.session=HibernateUtil.getSessionFactory().openSession();
-            this.detacompralista=detallecompradao.detallecompr(session);
+            this.session = HibernateUtil.getSessionFactory().openSession();
+            this.detacompralista = detallecompradao.detallecompr(session);
             return this.detacompralista;
-            
+
         } catch (Exception e) {
-        }finally{
+        } finally {
         }
-    return null;
+        return null;
     }
 }

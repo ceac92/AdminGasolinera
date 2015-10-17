@@ -16,6 +16,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.primefaces.context.RequestContext;
@@ -33,8 +34,16 @@ public class loginBean implements Serializable {
      */
     public loginBean() {
     }
-
+    private int valorempleado;
     private String username;
+
+    public int getValorempleado() {
+        return valorempleado;
+    }
+
+    public void setValorempleado(int valorempleado) {
+        this.valorempleado = valorempleado;
+    }
 
     private String password;
 
@@ -62,31 +71,30 @@ public class loginBean implements Serializable {
 
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message;
-        boolean loggedIn=false;
+        boolean loggedIn = false;
         String ruta = "";
         String refreshLogin = MyUtil.baseUrl();
 
         try {
             Empleado usuario = userLogin.getEmpLogin(session, this.username);
-            if (usuario==null) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,  "Error de Login", "Credenciales Invalidas"));
-                  return;
-            } 
+            if (usuario == null) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error de Login", "Credenciales Invalidas"));
+                return;
+            }
 
             if (username != null && username.equals(usuario.getMail()) && password != null && password.equals(usuario.getPassword())) {
                 loggedIn = true;
                 int rolUsuario = usuario.getRol().getIdrol();
                 String estado = usuario.getEstado();
+                this.valorempleado = usuario.getIdempleado();
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario.getMail());
                 message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", usuario.getMail());
 
-                if (rolUsuario == 1 && estado.equals("a")) 
-                {
+                if (rolUsuario == 1 && estado.equals("a")) {
                     ruta = MyUtil.basepathlogin() + "/administrador/inicio.xhtml";
-                } else if (rolUsuario ==2 && estado.equals("a") ) 
-                {
-                    ruta = MyUtil.basepathlogin() + "/empleado/inicio.xhtml";
-                }else{
+                } else if (rolUsuario == 2 && estado.equals("a")) {
+                    ruta = MyUtil.basepathlogin() + "empleado/compra.xhtml";
+                } else {
                     ruta = MyUtil.basepathlogin() + "/usuarioInactivo.xhtml";
                 }
 
@@ -105,5 +113,15 @@ public class loginBean implements Serializable {
         } finally {
             session.close();
         }
+    }
+
+    public String cerrarSesion() {
+        this.password = null;
+        this.username = null;
+
+        HttpSession httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        httpSession.invalidate();
+
+        return "/login";
     }
 }
