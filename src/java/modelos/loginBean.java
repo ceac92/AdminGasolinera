@@ -8,6 +8,7 @@ package modelos;
 import dao.loginDao;
 import entity.Empleado;
 import hibernateutil.MyUtil;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -63,6 +64,16 @@ public class loginBean implements Serializable {
         this.password = password;
     }
 
+    private Empleado empleadoAutenticado;
+
+    public Empleado getEmpleadoAutenticado() {
+        return empleadoAutenticado;
+    }
+
+    public void setEmpleadoAutenticado(Empleado empleadoAutenticado) {
+        this.empleadoAutenticado = empleadoAutenticado;
+    }
+
     public void login(ActionEvent event) {
 
         Session session = hibernateutil.HibernateUtil.getSessionFactory().openSession();
@@ -76,31 +87,31 @@ public class loginBean implements Serializable {
         String refreshLogin = MyUtil.baseUrl();
 
         try {
-            Empleado usuario = userLogin.getEmpLogin(session, this.username);
-            if (usuario == null) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error de Login", "Credenciales Invalidas"));
+            empleadoAutenticado = userLogin.getEmpLogin(session, this.username);
+            if (empleadoAutenticado == null) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, loginBean.class.getCanonicalName(), "load: Credenciales Invalidas"));
                 return;
             }
 
-            if (username != null && username.equals(usuario.getMail()) && password != null && password.equals(usuario.getPassword())) {
+            if (username != null && username.equals(empleadoAutenticado.getMail()) && password != null && password.equals(empleadoAutenticado.getPassword())) {
                 loggedIn = true;
-                int rolUsuario = usuario.getRol().getIdrol();
-                String estado = usuario.getEstado();
-                this.valorempleado = usuario.getIdempleado();
-                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario.getMail());
-                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", usuario.getMail());
+                int rolUsuario = empleadoAutenticado.getRol().getIdrol();
+                String estado = empleadoAutenticado.getEstado();
+                this.valorempleado = empleadoAutenticado.getIdempleado();
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", empleadoAutenticado.getMail());
+                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", empleadoAutenticado.getMail());
 
                 if (rolUsuario == 1 && estado.equals("a")) {
-                    ruta = MyUtil.basepathlogin() + "/administrador/inicio.xhtml";
+                    ruta = MyUtil.basepathlogin() + "/administrador/inicio.xhtml?faces-redirect=true";
                 } else if (rolUsuario == 2 && estado.equals("a")) {
-                    ruta = MyUtil.basepathlogin() + "empleado/compra.xhtml";
+                    ruta = MyUtil.basepathlogin() + "empleado/compra.xhtml?faces-redirect=true";
                 } else {
-                    ruta = MyUtil.basepathlogin() + "/usuarioInactivo.xhtml";
+                    ruta = MyUtil.basepathlogin() + "/usuarioInactivo.xhtml?faces-redirect=true";
                 }
 
             } else {
                 loggedIn = false;
-                message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error de Login", "Credenciales Invalidas");
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, loginBean.class.getCanonicalName(), "Credenciales Invalidas");
                 ruta = MyUtil.baseUrl();
             }
             txn.commit();
@@ -115,13 +126,23 @@ public class loginBean implements Serializable {
         }
     }
 
-    public String cerrarSesion() {
+    public void autenticarEmpleado(int idEmpleadoAuth) throws IOException {
+        if (idEmpleadoAuth != 0) {
+
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Autenticacion Invalida", "El usuario autenticado no es valido"));
+            RequestContext.getCurrentInstance().addCallbackParam("ruta", MyUtil.baseUrl());
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../login.xhtml?faces-redirect=true");
+        }
+    }
+
+    public void cerrarSesion() throws IOException {
         this.password = null;
         this.username = null;
 
         HttpSession httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         httpSession.invalidate();
+        FacesContext.getCurrentInstance().getExternalContext().redirect("../login.xhtml?faces-redirect=true");
 
-        return "/login";
     }
 }
