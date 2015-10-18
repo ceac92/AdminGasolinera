@@ -22,6 +22,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -33,7 +34,11 @@ import org.primefaces.context.RequestContext;
  */
 @Named(value = "mbcompra")
 @ViewScoped
+
 public class mbcompra implements Serializable {
+
+    @Inject
+    private loginBean usuarioLogueado;
 
     Session session;
     Transaction transaction;
@@ -46,7 +51,6 @@ public class mbcompra implements Serializable {
     private BigDecimal costocompra;
     java.util.Date fecha = new Date();
     private Date fechas = fecha;
-    private int idempleado=0;
     private List<Detallecompra> detacompralista;
 
     public List<Detallecompra> getDetacompralista() {
@@ -55,14 +59,6 @@ public class mbcompra implements Serializable {
 
     public void setDetacompralista(List<Detallecompra> detacompralista) {
         this.detacompralista = detacompralista;
-    }
-
-    public int getIdempleado() {
-        return idempleado;
-    }
-
-    public void setIdempleado(int idempleado) {
-        this.idempleado = idempleado;
     }
 
     public Date getFechas() {
@@ -244,8 +240,8 @@ public class mbcompra implements Serializable {
     public void realizarVenta() {
         session = null;
         transaction = null;
-        
-        if (idempleado == 0) {
+
+        if (usuarioLogueado.getEmpleadoAutenticado().getIdempleado() == 0) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No es un empleado"));
             return;
         }
@@ -266,7 +262,7 @@ public class mbcompra implements Serializable {
             productodao pdao = new productodao();
             Compra Cp = new Compra();
             Cp.setCtgformapago((Ctgformapago) session.get(Ctgformapago.class, this.formapago));
-            Cp.setEmpleado((Empleado) session.get(Empleado.class, this.idempleado));
+            Cp.setEmpleado((Empleado) session.get(Empleado.class, usuarioLogueado.getEmpleadoAutenticado().getIdempleado()));
             Cp.setFecha(fecha);
             Cp.setProveedor((Proveedor) session.get(Proveedor.class, this.proveedor));
             Cp.setValorcompra(this.costocompra);
@@ -285,7 +281,7 @@ public class mbcompra implements Serializable {
             this.proveedor = 0;
             this.costocompra = null;
             this.formapago = 0;
-             FacesContext.getCurrentInstance().getExternalContext().redirect("compra.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("compra.xhtml");
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto", "Venta realizada correctamente"));
         } catch (Exception e) {

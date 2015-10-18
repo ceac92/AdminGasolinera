@@ -34,7 +34,7 @@
             <div id="divSesionUsuario">
                 <span>
                     Bienvenido #{loginBean.username};
-                    <h:inputHidden value=" #{mbcompra.setIdempleado(loginBean.valorempleado)};"/>
+                    <f:event type="preRenderView" listener="#{loginBean.autenticarEmpleado(loginBean.empleadoAutenticado.idempleado)}"/>
                      <p:commandButton value="Cerrar sesión" action="#{loginBean.cerrarSesion()}"/>
                 </span>
 
