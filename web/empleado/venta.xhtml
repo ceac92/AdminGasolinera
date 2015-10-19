@@ -43,7 +43,7 @@
             <div >
                 <h2>Producto</h2>
                 <p:panelGrid  columns="1" >
-                    <p:dataTable id="tablaproducto" style="font-size: 15px;width: 900px;" value="#{mbventa.allProducto}" var="item"  scrollHeight="100">
+                    <p:dataTable id="tablaproducto" style="font-size: 15px;width: 900px;" value="#{mbventa.allProducto}" var="item" scrollable="true" scrollHeight="100">
 
                         <p:column headerText="codigo" filterBy="codigo">
                             <h:outputText value="#{item.codigo} " ></h:outputText>

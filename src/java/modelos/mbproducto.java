@@ -28,7 +28,8 @@ import org.hibernate.Transaction;
 @Named("mbproducto")
 @ViewScoped
 public class mbproducto implements Serializable {
-
+@Inject
+private loginBean usuariologiado;        
     Session session;
     Transaction transaction;
     private int bodegav;
@@ -95,7 +96,7 @@ public class mbproducto implements Serializable {
     @Inject
     private Producto producto;
 
-    public void registrarProducto() {
+    public void registrarProducto( int idempleado) {
         this.session = null;
         this.transaction = null;
 
@@ -116,7 +117,7 @@ public class mbproducto implements Serializable {
                 Producto pr = new Producto();
                 pr.setBodega((Bodega) session.get(Bodega.class, this.bodegav));
                 pr.setCtgtipoproducto((Ctgtipoproducto) session.get(Ctgtipoproducto.class, this.tipoproductov));
-                pr.setEmpleado((Empleado) session.get(Empleado.class, 1));
+                pr.setEmpleado((Empleado) session.get(Empleado.class,idempleado));
                 pr.setCodigo("");
                 pr.setNombre(producto.getNombre());
                 pr.setDescripcion(producto.getDescripcion());

@@ -37,7 +37,7 @@
                     <p:outputLabel value="Precio Venta*"/>
                     <p:inputText id="txtventa" value="#{producto.precioVenta}" required="true" requiredMessage="Ingrese Precio de Venta" />
                 </h:panelGrid> 
-                <p:commandButton ajax="true" value="Registrar" actionListener="#{mbproducto.registrarProducto()}"/>
+                <p:commandButton ajax="true" value="Registrar" actionListener="#{mbproducto.registrarProducto(loginBean.empleadoAutenticado.idempleado)}"/>
             </p:panel>
         </h:form>
     </h:body>

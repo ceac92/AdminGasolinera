@@ -12,7 +12,7 @@
         <ui:include src="menuadmin.xhtml"/>
         <h:form id="consultacompra">
             <p:growl id="mensajegenral" showDetail="true" sticky="false" />
-            <p:dataTable var="tp" value="#{mbcompra.allDetallecompra}" paginator="true"  >
+            <p:dataTable var="tp" value="#{mbcompra.allDetallecompra}" paginator="true" rows="10"   >
                 <p:column headerText="Codigo Empleado">
                     <h:outputText value="#{tp.compra.empleado.idempleado}" />
                 </p:column>
