@@ -35,8 +35,8 @@ import org.primefaces.context.RequestContext;
  */
 @Named("mbventa")
 @ViewScoped
-public class mbventa implements Serializable {
-
+public class mbventa implements Serializable {     
+        
     Session session;
     Transaction transaction;
     private Producto producto;
@@ -276,7 +276,7 @@ public class mbventa implements Serializable {
         }
     }
 
-    public void realizarVenta() {
+    public void realizarVenta(int idempleado) {
         session = null;
         transaction = null;
 
@@ -291,7 +291,7 @@ public class mbventa implements Serializable {
             venp.setCtgformapago((Ctgformapago) session.get(Ctgformapago.class, this.formapago));
             venp.setCtgtipofactura((Ctgtipofactura) session.get(Ctgtipofactura.class, this.tipofactura));
             venp.setDetallecaja((Detallecaja) session.get(Detallecaja.class, this.detacaja));
-            venp.setEmpleado((Empleado) session.get(Empleado.class, 1));
+            venp.setEmpleado((Empleado) session.get(Empleado.class, idempleado));
             venp.setFecha(this.fecha);
             venp.setMoto(this.venta.getMoto());
 
