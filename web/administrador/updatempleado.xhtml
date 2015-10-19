@@ -66,7 +66,7 @@
             <p:tabView>
                 <p:tab title="Empleado">
                     <h:panelGrid columns="2" cellpadding="10">
-                        <p:dataTable var="tp" value="#{mbempleado.empleado}" paginator="true"  >
+                        <p:dataTable var="tp" value="#{mbempleado.empleado}" paginator="true" rows="10" >
                             <p:column headerText="Codigo">
                                 <h:outputText value="#{tp.primerNombre},#{tp.segundoNombre},#{tp.primerApellido},#{tp.segundoApellido}" />
                             </p:column>
@@ -95,7 +95,7 @@
                 </p:tab>
                 <p:tab title="Empleado Bloqueado">
                     <h:panelGrid columns="2" cellpadding="10">
-                        <p:dataTable var="td" value="#{mbempleado.empleadd}" paginator="true"  >
+                        <p:dataTable var="td" value="#{mbempleado.empleadd}" paginator="true" rows="10"  >
                             <p:column headerText="Codigo">
                                 <h:outputText value="#{td.primerNombre},#{td.segundoNombre},#{td.primerApellido},#{td.segundoApellido}" />
                             </p:column>

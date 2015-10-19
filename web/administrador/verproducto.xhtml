@@ -46,7 +46,7 @@
                 <p:tab title="Editar producto">
                     <h:panelGrid columns="2" cellpadding="10">
 
-                        <p:dataTable var="tp" value="#{mbproducto.allproducto}" paginator="true"  >
+                        <p:dataTable var="tp" value="#{mbproducto.allproducto}" paginator="true" rows="10" >
                             <p:column headerText="Codigo">
                                 <h:outputText value="#{tp.codigo}" />
                             </p:column>
@@ -83,7 +83,7 @@
                 </p:tab>
                 <p:tab title="Productos Desactivados">
                     <h:panelGrid columns="2" cellpadding="10">
-                        <p:dataTable var="td" value="#{mbproducto.alldesactivado}" paginator="true"  >
+                        <p:dataTable var="td" value="#{mbproducto.alldesactivado}" paginator="true" rows="10"  >
                             <p:column headerText="Codigo">
                                 <h:outputText value="#{td.codigo}" />
                             </p:column>

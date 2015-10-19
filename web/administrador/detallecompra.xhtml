@@ -13,7 +13,7 @@
         <h2>Detalle de Compra</h2>
         <h:form id="detallecompra" >
             <p:growl id="mensajegenral" showDetail="true" sticky="false" />
-            <p:dataTable var="tp" value="#{mbdetallesg.detallecompr(valor)}" paginator="true"  >
+            <p:dataTable var="tp" value="#{mbdetallesg.detallecompr(valor)}" paginator="true" rows="10"  >
                 <p:column headerText="Producto">
                     <h:outputText value="${tp[2]}" />
                 </p:column>

@@ -35,7 +35,7 @@
   
                 </p:panelGrid> 
             </p:dialog> 
-            <p:dataTable var="tp" value="#{mbtipoproducto.alltipopro}" paginator="true"  >
+            <p:dataTable var="tp" value="#{mbtipoproducto.alltipopro}" paginator="true" rows="10" >
                     <p:column headerText="nombre">
                         <h:outputText value="#{tp.nombre}" />
                     </p:column>
