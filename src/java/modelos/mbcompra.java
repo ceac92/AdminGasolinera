@@ -237,11 +237,11 @@ public class mbcompra implements Serializable {
         }
     }
 
-    public void realizarVenta() {
+    public void realizarVenta(int idempleado) {
         session = null;
         transaction = null;
 
-        if (usuarioLogueado.getEmpleadoAutenticado().getIdempleado() == 0) {
+        if (idempleado == 0) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No es un empleado"));
             return;
         }
@@ -262,7 +262,7 @@ public class mbcompra implements Serializable {
             productodao pdao = new productodao();
             Compra Cp = new Compra();
             Cp.setCtgformapago((Ctgformapago) session.get(Ctgformapago.class, this.formapago));
-            Cp.setEmpleado((Empleado) session.get(Empleado.class, usuarioLogueado.getEmpleadoAutenticado().getIdempleado()));
+            Cp.setEmpleado((Empleado) session.get(Empleado.class, idempleado));
             Cp.setFecha(fecha);
             Cp.setProveedor((Proveedor) session.get(Proveedor.class, this.proveedor));
             Cp.setValorcompra(this.costocompra);
