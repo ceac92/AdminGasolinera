@@ -35,6 +35,15 @@ public class mbproducto implements Serializable {
     private Producto productou;
     private String estadov = "a";
     private List<Producto> productoD;
+    private List<Ctgtipoproducto> tipoproducto;
+
+    public List<Ctgtipoproducto> getTipoproducto() {
+        return tipoproducto;
+    }
+
+    public void setTipoproducto(List<Ctgtipoproducto> tipoproducto) {
+        this.tipoproducto = tipoproducto;
+    }
 
     public List<Producto> getProductoD() {
         return productoD;
@@ -213,5 +222,16 @@ public class mbproducto implements Serializable {
          this.session.close();
         }
         return null;
+    }
+    public List<Ctgtipoproducto> getAllcategoria(){
+    this.session=null;
+    this.transaction=null;
+        try {
+            this.session=HibernateUtil.getSessionFactory().openSession();
+            this.tipoproducto=productodao.listcategoria(session);
+            return this.tipoproducto;
+        } catch (Exception e) {
+        }
+        return  null;
     }
 }

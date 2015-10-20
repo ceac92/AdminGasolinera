@@ -5,6 +5,7 @@
  */
 package dao;
 
+import entity.Ctgtipoproducto;
 import entity.Producto;
 import hibernateutil.HibernateUtil;
 import java.util.List;
@@ -55,4 +56,17 @@ public class productodao implements interfaces.Iproducto{
         }
         return null;
     } 
+    
+    public static List<Ctgtipoproducto> listcategoria(Session session){
+    session=null;
+    Query query=null;
+        try {
+            session=HibernateUtil.getSessionFactory().openSession();
+            String hql="from Ctgtipoproducto";
+            query=session.createQuery(hql);
+            return query.list();
+        } catch (Exception e) {
+        }
+    return null;
+    }
 }
