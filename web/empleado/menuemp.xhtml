@@ -35,6 +35,7 @@
                 <span>
                     Bienvenido #{loginBean.username};
                     <f:event type="preRenderView" listener="#{loginBean.autenticarEmpleado(loginBean.empleadoAutenticado.idempleado)}"/>
+                    <f:event type="preRenderView" listener="#{combos.valorempleado(loginBean.empleadoAutenticado.idempleado)}"/>
                      <p:commandButton value="Cerrar sesión" action="#{loginBean.cerrarSesion()}"/>
                 </span>
 

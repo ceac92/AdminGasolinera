@@ -35,16 +35,16 @@
                         <h:panelGrid id="Personal" columns="2" columnClasses="grid,grid">
                             <h:panelGrid columns="2" columnClasses="label, value">
                                 <h:outputText value="Primer Nombre: *" />
-                                <p:inputText id="txtnombre" value="#{mbUserWizard.empleado.primerNombre}" required="true" label="PrimerNombre"/>
+                                <p:inputText id="txtnombre" value="#{Empleado.primerNombre}" required="true" label="PrimerNombre"/>
 
                                 <h:outputText value="Segundo Nombre: " />
-                                <p:inputText id="txtsegundonombre" value="#{mbUserWizard.empleado.segundoNombre}" required="false" label="SegundoNombre"/>
+                                <p:inputText id="txtsegundonombre" value="#{Empleado.segundoNombre}" required="false" label="SegundoNombre"/>
 
                                 <h:outputText value="Primer Apellido: *" />
-                                <p:inputText id="txtapellido" value="#{mbUserWizard.empleado.primerApellido}" required="true" label="PrimerApellido"/>
+                                <p:inputText id="txtapellido" value="#{Empleado.primerApellido}" required="true" label="PrimerApellido"/>
 
                                 <h:outputText value="Segundo Apellido: " />
-                                <p:inputText id="txtsegundoapellido" value="#{mbUserWizard.empleado.segundoApellido}" required="false" label="SegundoApellido"/>
+                                <p:inputText id="txtsegundoapellido" value="#{Empleado.segundoApellido}" required="false" label="SegundoApellido"/>
 
                             </h:panelGrid>
 

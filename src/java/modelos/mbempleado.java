@@ -242,7 +242,7 @@ public class mbempleado implements Serializable {
                 ddocudao.insert(session, detdocu);
             }
             this.transaction.commit();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto", "Empleado registrado correctamente."));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Exitoso!", "Bienvenido :" + emp.getPrimerNombre()));
             this.detalledocumen = new ArrayList<>();
             this.tipodocumento = new Ctgtipodocumento();
         

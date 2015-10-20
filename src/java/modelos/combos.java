@@ -62,6 +62,7 @@ public class combos implements Serializable {
     private List<Bodega> bodegas;
     private List<Proveedor> proveedor;
     private int valor;
+    private int valorempleado;
     public List<SelectItem> getItemrol() {
         return itemrol;
     }
@@ -152,7 +153,11 @@ public class combos implements Serializable {
     public void setProveedor(List<Proveedor> proveedor) {
         this.proveedor = proveedor;
     }
-
+public void  valorempleado(int idempleado){
+    if (idempleado>0) {
+        this.valorempleado=idempleado;
+    }
+}
     public List<SelectItem> getCLIENT() {
         Session session = null;
         try {
@@ -188,7 +193,7 @@ public class combos implements Serializable {
         Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            String hql = " from Detallecaja";
+            String hql = "from Detallecaja as d where d.empleado.idempleado="+this.valorempleado;
             this.detallecaja = session.createQuery(hql).list();
             for (Detallecaja item : this.detallecaja) {
                 SelectItem selectItem = new SelectItem(item.getIddetalleCaja(), item.getTurno());
