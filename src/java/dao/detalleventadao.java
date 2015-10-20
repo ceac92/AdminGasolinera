@@ -28,7 +28,7 @@ public class detalleventadao implements Idetalleventa {
      Query query=null;
         try {
             session=HibernateUtil.getSessionFactory().openSession();
-            String Hql="from Detalleventa ";
+            String Hql="from Detalleventa as dc ORDER BY dc.venta.idventa DESC ";
             query=session.createQuery(Hql);
             return query.list();
         } catch (Exception e) {

@@ -22,7 +22,6 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -36,10 +35,6 @@ import org.primefaces.context.RequestContext;
 @ViewScoped
 
 public class mbcompra implements Serializable {
-
-    @Inject
-    private loginBean usuarioLogueado;
-
     Session session;
     Transaction transaction;
     private Producto producto;

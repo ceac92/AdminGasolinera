@@ -27,9 +27,7 @@ import org.hibernate.Transaction;
  */
 @Named("mbproducto")
 @ViewScoped
-public class mbproducto implements Serializable {
-@Inject
-private loginBean usuariologiado;        
+public class mbproducto implements Serializable {      
     Session session;
     Transaction transaction;
     private int bodegav;

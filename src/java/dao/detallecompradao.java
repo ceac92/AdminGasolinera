@@ -30,7 +30,7 @@ public class detallecompradao implements Idetallecompra {
         try {
           
             session=HibernateUtil.getSessionFactory().openSession();
-            String hql="from Detallecompra ";
+            String hql="from Detallecompra as dc ORDER BY dc.compra.idcompra DESC ";
             query=session.createQuery(hql);
             
             return query.list();
