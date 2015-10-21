@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Registro Empleado</title>
+    </h:head>
+    <h:body>
+        <ui:include src="menuadmin.xhtml"/>
+        <h:form id="formregistroempleado">
+            <p:dialog header="Crear documento" widgetVar="dlg2" style="white-space: 100%" modal="true" >
+                <p:panelGrid id="panel" columns="2" style="white-space: 100%" columnClasses="forty-percent, sixty-percent,forty-percent, sixty-percent" >
+                    <h:outputLabel value="nombre" for="txtnombre" ></h:outputLabel>
+
+                    <p:selectOneMenu id="ctipodocu" value="#{mbempleado.valortipodocu}" required="true" requiredMessage="Seleccione un documento"  filter="true" filterMatchMode="contains" style="width:80% !important">
+                        <f:selectItems value="#{combos.TIPODOCUMENTO}" />
+                    </p:selectOneMenu>
+                    <h:outputLabel value="Descripcion"></h:outputLabel>
+                    <h:inputText  id="txtnumerodocumento" value='#{mbempleado.valordocumento}'></h:inputText>
+                    <p:commandButton value="Enviar"  update=":formregistroempleado:tabladocumentos"  oncomplete="PF('dlg2').hide()"  ajax="true" action="#{mbempleado.agregarListaDetalleDocumento()}" />   
+                </p:panelGrid> 
+            </p:dialog> 
+
+            <h1>Registro Empleado</h1>           
+            <p:growl id="growl" sticky="true" showDetail="true"/>
+
+            <p:wizard flowListener="#{mbUserWizard.onFlowProcess}">
+                <p:tab id="personal" title="Personal">
+
+                    <p:panel header="Datos Generales">
+                        <p:messages />
+                        <h:panelGrid id="Personal" columns="2" columnClasses="grid,grid">
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputText value="Primer Nombre: *" />
+                                <p:inputText id="txtnombre" value="#{Empleado.primerNombre}" required="true" label="PrimerNombre"/>
+
+                                <h:outputText value="Segundo Nombre: " />
+                                <p:inputText id="txtsegundonombre" value="#{Empleado.segundoNombre}" required="false" label="SegundoNombre"/>
+
+                                <h:outputText value="Primer Apellido: *" />
+                                <p:inputText id="txtapellido" value="#{Empleado.primerApellido}" required="true" label="PrimerApellido"/>
+
+                                <h:outputText value="Segundo Apellido: " />
+                                <p:inputText id="txtsegundoapellido" value="#{Empleado.segundoApellido}" required="false" label="SegundoApellido"/>
+
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputText value="Género: "/>
+                                <p:selectOneRadio id="rgenero" value="#{mbempleado.generovalor}">
+                                    <f:selectItem itemLabel="Femenino" itemValue="f" />
+                                    <f:selectItem itemLabel="Masculino" itemValue="m" />
+                                </p:selectOneRadio>
+
+                                <h:outputLabel value="Estado civil"/>
+                                <p:selectOneMenu id="cestadocivil" value="#{mbempleado.estadocivil}"  > 
+                                    <f:selectItem itemLabel="Select One" itemValue="" /> 
+                                    <f:selectItem itemLabel="Soltero" itemValue="soltero" /> 
+                                    <f:selectItem itemLabel="Casado" itemValue="casado" /> 
+                                    <f:selectItem itemLabel="Viudo" itemValue="viudo" /> 
+                                </p:selectOneMenu>
+
+                                <h:outputLabel value="Fecha de nacimiento"/>
+                                <p:calendar id="calendarnamiento" value="#{Empleado.fechaNacimiento}" pattern="yyyy-MM-dd" mask="9999-99-99"  requiredMessage="La fecha es requerida" /> 
+
+                            </h:panelGrid>
+                        </h:panelGrid>  
+                    </p:panel>
+                </p:tab>
+
+                <p:tab id="Contactos" title="Contacto">
+                    <p:panel header="Detalles de Contacto">
+                        <p:messages />
+                        <h:panelGrid id="Contacto" columns="2" columnClasses="grid,grid">
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <p:outputLabel value="Telefono fijo: "/>
+                                <p:inputText id="txttelefonofijo" value="#{Empleado.telefonoFijo}"  required="true" requiredMessage="Ingresar teléfono fijo"  maxlength="25"/>
+                                <p:outputLabel value="Telefono movil: "/>
+                                <p:inputText id="txttelefonomovil" value="#{Empleado.telefonoMovil}"  required="true" requiredMessage="Ingresar teléfono movil"  maxlength="25"/>
+
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <p:outputLabel value="Dirección: "/>
+                                <p:inputTextarea value="#{Empleado.direccion}" rows="6" cols="33" id="txtDireccion" required="true" requiredMessage="ingresa direccion"/>
+
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab id="documento" title="Documentos">
+                    <p:panel header="Documentos">
+                        <p:messages />
+                        <h:panelGrid columns="1" cellpadding="5">
+                            <p:commandButton value="Añadir documento" type="button" onclick="PF('dlg2').show();" />
+                        </h:panelGrid>
+                        <p:panelGrid  columns="1" >
+                            <p:dataTable id="tabladocumentos" style="font-size: 15px;width: 900px;" value="#{mbempleado.detalledocumen}" var="item"  scrollHeight="100">
+
+                                <p:column headerText="Tipo de documento" style="text-align: center;">
+                                    <h:outputText value="#{item.ctgtipodocumento.nombre} " ></h:outputText>
+                                </p:column>
+                                <p:column headerText="Número"  >
+                                    <h:outputText value="#{item.numero}" ></h:outputText>
+                                </p:column>  
+                                <p:column headerText="Acción" style="text-align: center;">
+                                    <p:commandButton value="Retirar de la lista" update=":formregistroempleado:tabladocumentos" ajax="true" actionListener="#{mbempleado.retirarListaVentaDetalle(item.ctgtipodocumento.idctgTipoDocumento)}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab id="acceso" title="Acceso">
+                    <p:panel header="Detalles de Acceso">
+                        <p:messages />
+                        <h:panelGrid id="Acceso" columns="2" columnClasses="grid,grid">
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <p:outputLabel value="correo*"/>
+                                <p:inputText id="txtmail" value="#{Empleado.mail}"  required="true" requiredMessage="Ingresar Correo"  maxlength="25"/>
+                                <p:outputLabel value="Contraseña*"/>
+                                <p:password  id="txtcontrasenia" value="#{Empleado.password}"  required="true" requiredMessage="Ingresar Contraseña"  maxlength="25"/>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <p:outputLabel value="Rol: "/>
+                                <p:selectOneMenu id="crol" value="#{mbempleado.idrol}" required="true" requiredMessage="Seleccione un Rol"  filter="true" filterMatchMode="contains" style="width:120% !important">
+                                    <f:selectItems value="#{combos.roll}" />
+                                </p:selectOneMenu>
+                                <h:outputLabel value="Fecha: "/>
+                                <p:calendar id="calendar" value="#{Empleado.fechaContratacion}" pattern="yyyy-MM-dd" mask="9999-99-99"  requiredMessage="La fecha es requerida" /> 
+
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab id="confirmar" title="Confirmar">
+                    <p:panel header="Confirmar Registro de Empleado">
+                        <h:panelGrid id="confirmation" columns="1">
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h3>¿Está seguro que desea agregar nuevo empleado? </h3>
+                                                               
+                            </h:panelGrid>
+
+                           
+                        </h:panelGrid>
+
+                        <p:commandButton value="Registrar Empleado" actionListener="#{mbempleado.regisTraempleado()}" update=":formregistroempleado" process="@this"/>
+                    </p:panel>
+                </p:tab>
+            </p:wizard>
+
+        </h:form>
+    </h:body>
+</html>
+

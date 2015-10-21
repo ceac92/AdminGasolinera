@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <style >
+            #divSesionUsuario
+{
+    position: fixed;
+    right: 10px;
+    top: 15px;
+}
+
+#divSesionUsuario > span
+{
+    color: black;
+}
+        </style>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:menubar  >
+               
+                <p:submenu label="Empleado">
+                 
+                    
+                         <p:menuitem value="Registrar Empleado" url="registroempleado.xhtml"/>
+                         <p:menuitem value="ACtualizar Empleado" url="updatempleado.xhtml"/>
+                  
+                    
+                </p:submenu>
+                 <p:submenu label="Producto">
+                   
+                         <p:menuitem value="Registrar producto" url="registroproducto.xhtml"/>
+                         <p:menuitem value="Actualizar Producto" url="verproducto.xhtml"/>
+                   
+                    
+                </p:submenu>
+                <p:submenu label="Consulta">
+                   
+                         <p:menuitem value="Registros de Compra" url="consultacompra.xhtml"/>
+                         <p:menuitem value="Registros de Venta" url="consultaventa.xhtml"/>
+                   
+                </p:submenu>
+                
+
+            <p:submenu label="Catalogo">
+                   
+                         <p:menuitem value="Catalogo Pais Proveedor" url="ctgpais.xhtml"/>
+                         <p:menuitem value="Catalogo tipo producto" url="tipoproducto.xhtml"/>
+                 
+                    
+                </p:submenu>
+          
+            </p:menubar>
+            <div id="divSesionUsuario">
+                <span>
+                    Bienvenido #{loginBean.username};
+                   
+                     <p:commandButton value="Cerrar sesión" action="#{loginBean.cerrarSesion()}"/>
+                </span>
+
+            </div>
+        </h:form>
+    </h:body>
+</html>
+

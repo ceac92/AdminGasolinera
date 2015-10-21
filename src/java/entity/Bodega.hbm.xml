@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19-sep-2015 2:07:50 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Bodega" table="bodega" catalog="bdgasolinera" optimistic-lock="version">
+        <id name="idbodega" type="java.lang.Integer">
+            <column name="idbodega" />
+            <generator class="identity" />
+        </id>
+        <property name="codigo" type="string">
+            <column name="codigo" length="50" not-null="true" />
+        </property>
+        <property name="ubicacion" type="string">
+            <column name="ubicacion" length="45" not-null="true" />
+        </property>
+        <set name="productos" table="producto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkbodega" not-null="true" />
+            </key>
+            <one-to-many class="entity.Producto" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="bdgasolinera"/>
+  <table-filter match-name="ctgtipoproducto"/>
+  <table-filter match-name="ctgtipocliente"/>
+  <table-filter match-name="empleado"/>
+  <table-filter match-name="cventa"/>
+  <table-filter match-name="detallecompra"/>
+  <table-filter match-name="rol"/>
+  <table-filter match-name="compra"/>
+  <table-filter match-name="detallebombatc"/>
+  <table-filter match-name="ctgtipofactura"/>
+  <table-filter match-name="ctgtipodocumento"/>
+  <table-filter match-name="detalleventa"/>
+  <table-filter match-name="venta"/>
+  <table-filter match-name="ctgformapago"/>
+  <table-filter match-name="ctgpaisproveedor"/>
+  <table-filter match-name="detalleccompra"/>
+  <table-filter match-name="bodega"/>
+  <table-filter match-name="tipocombustible"/>
+  <table-filter match-name="proveedor"/>
+  <table-filter match-name="ccompra"/>
+  <table-filter match-name="detallecaja"/>
+  <table-filter match-name="detalleventac"/>
+  <table-filter match-name="tanque"/>
+  <table-filter match-name="cliente"/>
+  <table-filter match-name="producto"/>
+  <table-filter match-name="detalledocumento"/>
+  <table-filter match-name="bomba"/>
+  <table-filter match-name="ctgmunicipio"/>
+  <table-filter match-name="ctgdepartamento"/>
+</hibernate-reverse-engineering>

@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Compra a Proveedor</title>
+        <link href="#{appBean.baseURL}resources/css/login.css" type="text/css" rel="stylesheet"/>  
+    </h:head>
+    <h:body>
+        <ui:include src="menuemp.xhtml"/>
+        <h:form id="frmRealizarVentas">
+           
+
+
+
+            <p:growl id="mensajeGeneral" showDetail="true"/>
+            <h1>Compra  de Productos</h1>
+            <p:panel>
+                <h:panelGrid columns="2" columnClasses="forty-percent, sixty-percent" width="70%">
+                    <h:outputLabel value="fecha"/>
+                    <p:calendar id="calendar" value="#{mbcompra.fechas}" pattern="yyyy-MM-dd" mask="9999-99-99" disabled="true" requiredMessage="La fecha es requerida" navigator="true"/> 
+                    <h:outputLabel value="Compra $"/>
+                    <p:inputText id="txtcantidad" value="#{mbcompra.costocompra}" required="true" requiredMessage="ingresa cantidad de compra"  maxlength="25"/>
+                    <h:outputLabel value="proveedo"/>
+                    <p:selectOneMenu id="cmbproveedor" value="#{mbcompra.proveedor}" required="true" requiredMessage="Seleccione un proveedor "  filter="true" filterMatchMode="contains" style="width:80% !important">
+                        <f:selectItems value="#{combos.PROVEEDOR}" />
+                    </p:selectOneMenu>
+                    <h:outputLabel value="forma de pago"/>
+                    <p:selectOneMenu id="cmformapago" value="#{mbcompra.formapago}" required="true" requiredMessage="Seleccione una forma pago"  filter="true" filterMatchMode="contains" style="width:80% !important">
+                        <f:selectItems value="#{combos.FORMAP}" />
+                    </p:selectOneMenu>
+                </h:panelGrid>
+                <p:panelGrid columns="1">
+                    <p:dataTable id="tablaproducto" value="#{mbcompra.allProducto}" var="item" style="font-size: 15px;width: 900px;" scrollable="true" scrollHeight="100">
+                        <p:column headerText="Codigo" filterBy="codigo">
+                            <h:outputText value="#{item.codigo}"/>
+                        </p:column>
+                        <p:column headerText="NOMBRE" filterBy="nombre">
+                            <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                        <p:column headerText="PRECIO Compra">
+                            <h:outputText value="#{item.precioCosto}"/>
+                        </p:column>
+                        <p:column headerText="Existencia">
+                            <h:outputText value="#{item.cantidadExistencia}"/>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton value="Agregar" ajax="true" actionListener="#{mbcompra.agregarListaVentaDetalle(item.idproducto)}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panelGrid>
+            </p:panel>
+            <b>Lista de productos Comprar</b>
+            <hr />
+            <p:dataTable id="tablaListaProductosVenta" value="#{mbcompra.detallecomp}" var="item" style="font-size: 10px;">
+                <p:column headerText="NOMBRE" style="text-align: left;">
+                    <h:outputText value="#{item.producto.nombre}"/>
+                </p:column>
+
+                <p:column headerText="PRECIO UNITARIO" style="text-align: center;">
+                    <h:outputText value="#{item.producto.precioCosto}"/>
+                </p:column>
+                <p:column headerText="Cantidad" style="text-align: center;">
+                    <p:inputText value="#{item.cantidad}" style="text-align: center;" />                    
+                </p:column>
+
+                <p:column style="text-align: center;">
+                    <p:commandButton value="Retirar de la lista" ajax="true" actionListener="#{mbcompra.retirarListaVentaDetalle(item.producto.idproducto)}"/>
+                </p:column>
+            </p:dataTable>
+            <p:panelGrid id="panelFinalVenta" columns="1" style="text-align: right;width: 100%;">
+                <h:panelGroup>
+
+                    <p:commandButton value="Realizar venta" ajax="false" actionListener="#{mbcompra.realizarVenta(loginBean.empleadoAutenticado.idempleado)}"/>
+                </h:panelGroup>
+            </p:panelGrid>
+
+            <p:growl id="msgs" showDetail="true"  autoUpdate="true"/>
+        </h:form>
+    </h:body>
+</html>
+

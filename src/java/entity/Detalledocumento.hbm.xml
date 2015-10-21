@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19-sep-2015 2:07:50 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Detalledocumento" table="detalledocumento" catalog="bdgasolinera" optimistic-lock="version">
+        <id name="iddetalledocumento" type="java.lang.Integer">
+            <column name="iddetalledocumento" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="ctgtipodocumento" class="entity.Ctgtipodocumento" fetch="select">
+            <column name="fkctgTipoDocumento" not-null="true" />
+        </many-to-one>
+        <many-to-one name="empleado" class="entity.Empleado" fetch="select">
+            <column name="kfempleado" not-null="true" />
+        </many-to-one>
+        <property name="numero" type="string">
+            <column name="numero" length="50" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
