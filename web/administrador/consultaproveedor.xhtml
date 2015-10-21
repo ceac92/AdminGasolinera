@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:include src="menuadmin.xhtml"/>
+        <h:form id="consultaprovee">
+            <p:growl id="mensajegenral" showDetail="true" sticky="false" />
+            <p:dataTable var="tp" value="#{mbproducto.allproveedor}" paginator="true" rows="10" >
+                <p:column headerText="codigo proveedor">
+                    <h:outputText value="#{tp.codigo}" />
+                </p:column>
+                <p:column headerText="nombre proveedor">
+                    <h:outputText value="#{tp.nombre}" />
+                </p:column>
+                <p:column headerText="Pais">
+                    <h:outputText value="#{tp.ctgpaisproveedor.nombre}" />
+                </p:column>
+                <p:column headerText="Direccion">
+                    <h:outputText value="#{tp.direccion}" />
+                </p:column>
+                <p:column headerText="Mail">
+                    <h:outputText value="#{tp.mail}" />
+                </p:column>
+                 <p:column headerText="Telefono">
+                     <h:outputText value="#{tp.telefono}" />
+                </p:column>
+            </p:dataTable>
+
+
+        </h:form>
+    </h:body>
+</html>
+

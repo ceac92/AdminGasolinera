@@ -10,6 +10,7 @@ import entity.Bodega;
 import entity.Ctgtipoproducto;
 import entity.Empleado;
 import entity.Producto;
+import entity.Proveedor;
 import hibernateutil.HibernateUtil;
 import java.io.Serializable;
 import java.util.List;
@@ -27,7 +28,8 @@ import org.hibernate.Transaction;
  */
 @Named("mbproducto")
 @ViewScoped
-public class mbproducto implements Serializable {      
+public class mbproducto implements Serializable {
+
     Session session;
     Transaction transaction;
     private int bodegav;
@@ -36,6 +38,13 @@ public class mbproducto implements Serializable {
     private String estadov = "a";
     private List<Producto> productoD;
     private List<Ctgtipoproducto> tipoproducto;
+    private List<Proveedor> proveedor;
+    public List<Proveedor> getProveedor() {
+        return proveedor;
+    }
+    public void setProveedor(List<Proveedor> proveedor) {
+        this.proveedor = proveedor;
+    }
 
     public List<Ctgtipoproducto> getTipoproducto() {
         return tipoproducto;
@@ -103,7 +112,7 @@ public class mbproducto implements Serializable {
     @Inject
     private Producto producto;
 
-    public void registrarProducto( int idempleado) {
+    public void registrarProducto(int idempleado) {
         this.session = null;
         this.transaction = null;
 
@@ -124,7 +133,7 @@ public class mbproducto implements Serializable {
                 Producto pr = new Producto();
                 pr.setBodega((Bodega) session.get(Bodega.class, this.bodegav));
                 pr.setCtgtipoproducto((Ctgtipoproducto) session.get(Ctgtipoproducto.class, this.tipoproductov));
-                pr.setEmpleado((Empleado) session.get(Empleado.class,idempleado));
+                pr.setEmpleado((Empleado) session.get(Empleado.class, idempleado));
                 pr.setCodigo("");
                 pr.setNombre(producto.getNombre());
                 pr.setDescripcion(producto.getDescripcion());
@@ -167,7 +176,7 @@ public class mbproducto implements Serializable {
             if (valor2 < 0) {
                 this.productou.setEstado(estadov);
 
-               this.session.update(this.productou);
+                this.session.update(this.productou);
 
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Producto", "Actualizado"));
             } else {
@@ -177,15 +186,13 @@ public class mbproducto implements Serializable {
             this.productou = new Producto();
         } catch (Exception e) {
             transaction.rollback();
-              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Producto", e.getMessage()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Producto", e.getMessage()));
         } finally {
             this.session.close();
 
         }
 
     }
-
-  
 
     public List<Producto> getAllproducto() {
         this.session = null;
@@ -217,21 +224,40 @@ public class mbproducto implements Serializable {
 
             return this.productoD;
         } catch (Exception e) {
-           this.transaction.rollback();
-        }finally{
-         this.session.close();
+            this.transaction.rollback();
+        } finally {
+            this.session.close();
         }
         return null;
     }
-    public List<Ctgtipoproducto> getAllcategoria(){
-    this.session=null;
-    this.transaction=null;
+
+    public List<Ctgtipoproducto> getAllcategoria() {
+        this.session = null;
+        this.transaction = null;
         try {
-            this.session=HibernateUtil.getSessionFactory().openSession();
-            this.tipoproducto=productodao.listcategoria(session);
+            this.session = HibernateUtil.getSessionFactory().openSession();
+            this.tipoproducto = productodao.listcategoria(session);
             return this.tipoproducto;
         } catch (Exception e) {
+        } finally {
+            session.close();
         }
-        return  null;
+        return null;
+    }
+
+    public List<Proveedor> getAllproveedor() {
+        this.session = null;
+
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            this.proveedor = productodao.proveedor(session);
+            return this.proveedor;
+
+        } catch (Exception e) {
+        } finally {
+            session.close();
+        }
+
+        return null;
     }
 }
