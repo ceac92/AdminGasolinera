@@ -7,7 +7,6 @@ package dao;
 
 import entity.Ctgtipoproducto;
 import entity.Producto;
-import entity.Proveedor;
 import hibernateutil.HibernateUtil;
 import java.util.List;
 import org.hibernate.Query;
@@ -73,19 +72,5 @@ public class productodao implements interfaces.Iproducto{
     return null;
     }
     
-    public static  List<Proveedor> proveedor(Session session){
-        session=null;
-        Query query=null;
-        
-        try {
-            session=HibernateUtil.getSessionFactory().openSession();
-            String hql="from Proveedor";
-            query=session.createQuery(hql);
-            return query.list();
-        } catch (Exception e) {
-        }finally{
-         session.close();
-        }
-    return null;
-    }
+  
 }

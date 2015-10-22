@@ -245,19 +245,5 @@ public class mbproducto implements Serializable {
         return null;
     }
 
-    public List<Proveedor> getAllproveedor() {
-        this.session = null;
 
-        try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            this.proveedor = productodao.proveedor(session);
-            return this.proveedor;
-
-        } catch (Exception e) {
-        } finally {
-            session.close();
-        }
-
-        return null;
-    }
 }

@@ -4,6 +4,8 @@ package entity;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,6 +22,8 @@ import javax.persistence.Table;
 @Table(name="ctgtipofactura"
     ,catalog="bdgasolinera"
 )
+@Named(value = "Tipofactura")//para ser invocado desde la vista 
+@ViewScoped
 public class Ctgtipofactura  implements java.io.Serializable {
 
 

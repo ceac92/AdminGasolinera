@@ -5,9 +5,11 @@
  */
 package modelos;
 
+import entity.Compra;
 import entity.Ctgtipoproducto;
 import entity.Detallecompra;
 import entity.Detalleventa;
+import entity.Proveedor;
 import hibernateutil.HibernateUtil;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -40,6 +42,24 @@ public class mbdetallesg implements Serializable {
     private int iddetallecompra;
     private int idetalleventa;
     private int idtipoproducto;
+    private int idproveedor;
+    private int iddetalleproveedor;
+
+    public int getIddetalleproveedor() {
+        return iddetalleproveedor;
+    }
+
+    public void setIddetalleproveedor(int iddetalleproveedor) {
+        this.iddetalleproveedor = iddetalleproveedor;
+    }
+
+    public int getIdproveedor() {
+        return idproveedor;
+    }
+
+    public void setIdproveedor(int idproveedor) {
+        this.idproveedor = idproveedor;
+    }
 
     public int getIdtipoproducto() {
         return idtipoproducto;
@@ -138,5 +158,46 @@ public class mbdetallesg implements Serializable {
         }
         return null;
     }
-   
+     public  List<Proveedor> getAllproveedor(){
+        session=null;
+        Query query=null;
+        
+        try {
+            session=HibernateUtil.getSessionFactory().openSession();
+            String hql="from Proveedor p where p.idproveedor=:valor";
+            query=session.createQuery(hql);
+            query.setParameter("valor", this.idproveedor);
+            return query.list();
+        } catch (Exception e) {
+        }finally{
+         session.close();
+        }
+    return null;
+    }
+     
+    public void verDetallesproveedor(ActionEvent miActionEvent, int iddetaproveedor) throws IOException {
+        if ( iddetaproveedor != 0) {
+            this.iddetalleproveedor =  iddetaproveedor;
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../administrador/detalleproveedor.xhtml");
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudo procesar la peticion"));
+        }
+    }
+    
+    public List<Compra> getAllvercompraproveedor(int valorproveedor){
+        session=null;
+        Query query=null;
+       valorproveedor=this.iddetalleproveedor;
+        try {
+            session=HibernateUtil.getSessionFactory().openSession();
+            String hql="select dc.cantidad, p.precioCosto,p.nombre, c.fecha from Detallecompra as dc inner join dc.producto as p inner join dc.compra as c where c.proveedor.idproveedor=valorp";
+            query=session.createQuery(hql);
+            query.setParameter("valorp", valorproveedor);
+            return query.list();
+        } catch (Exception e) {
+        }finally{
+        session.close();
+        }
+    return null;
+    }
 }
