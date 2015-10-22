@@ -124,18 +124,19 @@ public class mbdetallesg implements Serializable {
         }
     }
 
-    public List<Ctgtipoproducto> tipoproductoc(int idtipopro) {
+    public List<Ctgtipoproducto> getAlltipoproductoc() {
         session = null;
         Query query = null;
-        idtipopro = this.idtipoproducto;
+       
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             String hql = "select p.codigo,p.bodega.codigo, p.nombre, p.cantidadExistencia, p.cantidadMinima, p. precioVenta, p.precioCosto from Producto as p where p.ctgtipoproducto.idctgTipoProducto=:idctgtipop";
             query = session.createQuery(hql);
-            query.setParameter("idctgtipop", idtipopro);
+            query.setParameter("idctgtipop",  this.idtipoproducto);
             return query.list();
         } catch (Exception e) {
         }
         return null;
     }
+   
 }

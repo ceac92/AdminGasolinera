@@ -47,10 +47,10 @@
                     <h:panelGrid columns="2" cellpadding="10">
 
                         <p:dataTable var="tp" value="#{mbproducto.allproducto}" paginator="true" rows="10" >
-                            <p:column headerText="Codigo">
-                                <h:outputText value="#{tp.codigo}" />
+                            <p:column headerText="Codigo de Producto" filterBy="codigo">
+                                <h:outputText value="#{tp.codigo}  " />
                             </p:column>
-                            <p:column headerText="Nombre">
+                            <p:column headerText="Nombre" filterBy="nombre">
                                 <h:outputText value="#{tp.nombre}" />
                             </p:column>
                             <p:column headerText="Precio venta">
@@ -84,10 +84,10 @@
                 <p:tab title="Productos Desactivados">
                     <h:panelGrid columns="2" cellpadding="10">
                         <p:dataTable var="td" value="#{mbproducto.alldesactivado}" paginator="true" rows="10"  >
-                            <p:column headerText="Codigo">
+                            <p:column headerText="Codigo de Producto"  filterBy="codigo">
                                 <h:outputText value="#{td.codigo}" />
                             </p:column>
-                            <p:column headerText="Nombre">
+                            <p:column headerText="Nombre"  filterBy="nombre">
                                 <h:outputText value="#{td.nombre}" />
                             </p:column>
                             <p:column headerText="Precio venta">
@@ -120,21 +120,7 @@
                         </p:dataTable>
                     </h:panelGrid>
                 </p:tab>
-                <p:tab title="Categoria de Producto">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <p:dataTable var="tp" value="#{mbproducto.allcategoria}" paginator="true" rows="10" >
-                            <p:column headerText="Nombre">
-                                <h:outputText value="#{tp.nombre}" />
-                            </p:column>
-                            <p:column headerText="Nombre">
-                                <h:outputText value="#{tp.descripcion}" />
-                            </p:column>
-                            <p:column headerText="Detalles" width="10%">
-                                <p:commandButton value=" Detalles" ajax="true" action="#{mbdetallesg.vercataloproducto(miActionEvent, tp.idctgTipoProducto)}"></p:commandButton>
-                            </p:column>
-                        </p:dataTable>
-                    </h:panelGrid>
-                </p:tab>
+             
             </p:tabView>
 
         </h:form>

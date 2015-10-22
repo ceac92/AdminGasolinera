@@ -13,13 +13,13 @@
         <h:form id="consultacompra">
             <p:growl id="mensajegenral" showDetail="true" sticky="false" />
             <p:dataTable var="tp" value="#{mbcompra.allDetallecompra}" paginator="true" rows="10"   >
-                <p:column headerText="Codigo Empleado">
+                <p:column headerText="Codigo Empleado" filterBy="#{tp.compra.empleado.idempleado}" >
                     <h:outputText value="#{tp.compra.empleado.idempleado}" />
                 </p:column>
-                <p:column headerText="Empleado">
+                <p:column headerText="Empleado"  filterBy="#{tp.compra.empleado.primerNombre}">
                     <h:outputText value="#{tp.compra.empleado.primerNombre},#{tp.compra.empleado.primerApellido}" />
                 </p:column>
-                <p:column headerText="Proveedor ">
+                <p:column headerText="Proveedor" filterBy="#{tp.compra.proveedor.nombre}">
                     <h:outputText value="#{tp.compra.proveedor.nombre}" />
                 </p:column>
                 <p:column headerText="Fecha compra" >
