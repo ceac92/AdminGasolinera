@@ -147,57 +147,58 @@ public class mbdetallesg implements Serializable {
     public List<Ctgtipoproducto> getAlltipoproductoc() {
         session = null;
         Query query = null;
-       
+
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             String hql = "select p.codigo,p.bodega.codigo, p.nombre, p.cantidadExistencia, p.cantidadMinima, p. precioVenta, p.precioCosto from Producto as p where p.ctgtipoproducto.idctgTipoProducto=:idctgtipop";
             query = session.createQuery(hql);
-            query.setParameter("idctgtipop",  this.idtipoproducto);
+            query.setParameter("idctgtipop", this.idtipoproducto);
             return query.list();
         } catch (Exception e) {
         }
         return null;
     }
-     public  List<Proveedor> getAllproveedor(){
-        session=null;
-        Query query=null;
-        
+
+    public List<Proveedor> getAllproveedor() {
+        session = null;
+        Query query = null;
+
         try {
-            session=HibernateUtil.getSessionFactory().openSession();
-            String hql="from Proveedor p where p.idproveedor=:valor";
-            query=session.createQuery(hql);
+            session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Proveedor p where p.idproveedor=:valor";
+            query = session.createQuery(hql);
             query.setParameter("valor", this.idproveedor);
             return query.list();
         } catch (Exception e) {
-        }finally{
-         session.close();
+        } finally {
+            session.close();
         }
-    return null;
+        return null;
     }
-     
+
     public void verDetallesproveedor(ActionEvent miActionEvent, int iddetaproveedor) throws IOException {
-        if ( iddetaproveedor != 0) {
-            this.iddetalleproveedor =  iddetaproveedor;
+        if (iddetaproveedor != 0) {
+            this.iddetalleproveedor = iddetaproveedor;
             FacesContext.getCurrentInstance().getExternalContext().redirect("../administrador/detalleproveedor.xhtml");
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudo procesar la peticion"));
         }
     }
-    
-    public List<Compra> getAllvercompraproveedor(int valorproveedor){
-        session=null;
-        Query query=null;
-       valorproveedor=this.iddetalleproveedor;
+
+    public List<Compra> getAllvercompraproveedor(int valorproveedor) {
+        session = null;
+        Query query = null;
+        valorproveedor = this.iddetalleproveedor;
         try {
-            session=HibernateUtil.getSessionFactory().openSession();
-            String hql="select dc.cantidad, p.precioCosto,p.nombre, c.fecha from Detallecompra as dc inner join dc.producto as p inner join dc.compra as c where c.proveedor.idproveedor=valorp";
-            query=session.createQuery(hql);
+            session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "select dc.cantidad, p.precioCosto,p.nombre, c.fecha from Detallecompra as dc inner join dc.producto as p inner join dc.compra as c where c.proveedor.idproveedor=:valorp ORDER BY  c.fecha DESC ";
+            query = session.createQuery(hql);
             query.setParameter("valorp", valorproveedor);
             return query.list();
         } catch (Exception e) {
-        }finally{
-        session.close();
+        } finally {
+            session.close();
         }
-    return null;
+        return null;
     }
 }
