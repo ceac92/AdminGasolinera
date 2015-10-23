@@ -35,7 +35,25 @@ public class mbproducto implements Serializable {
     private int bodegav;
     private int tipoproductov;
     private Producto productou;
+    private Producto productoud;
+
+    public Producto getProductoud() {
+        return productoud;
+    }
+
+    public void setProductoud(Producto productoud) {
+        this.productoud = productoud;
+    }
     private String estadov = "a";
+    private String estadod="d";
+
+    public String getEstadod() {
+        return estadod;
+    }
+
+    public void setEstadod(String estadod) {
+        this.estadod = estadod;
+    }
     private List<Producto> productoD;
     private List<Ctgtipoproducto> tipoproducto;
     private List<Proveedor> proveedor;
@@ -108,6 +126,7 @@ public class mbproducto implements Serializable {
      */
     public mbproducto() {
         this.productou = new Producto();
+        this.productoud=new  Producto();
     }
     @Inject
     private Producto producto;
@@ -193,7 +212,42 @@ public class mbproducto implements Serializable {
         }
 
     }
+ public void updateproductod() {
+        this.session = null;
+        this.transaction = null;
 
+        try {
+            if (this.productoud.getCantidadExistencia() <= 0) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Existencia", "Debe se mayor a cero"));
+                return;
+            }
+            if (this.productoud.getCantidadMinima() <= 0) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cantidad minima", "Debe se mayor a cero"));
+                return;
+            }
+            this.session = HibernateUtil.getSessionFactory().openSession();
+            this.transaction = session.beginTransaction();
+            int valor2 = this.productoud.getPrecioCosto().compareTo(this.productoud.getPrecioVenta());
+            if (valor2 < 0) {
+            this.productoud.setEstado(this.estadod);
+
+                this.session.update(this.productoud);
+
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Producto", "Actualizado"));
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Producto", " Valor venta debe ser mayor al de compra"));
+            }
+            this.transaction.commit();
+          this.productoud = new Producto();
+        } catch (Exception e) {
+            transaction.rollback();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Producto", e.getMessage()));
+        } finally {
+            this.session.close();
+
+        }
+
+    }
     public List<Producto> getAllproducto() {
         this.session = null;
         this.transaction = null;

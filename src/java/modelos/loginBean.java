@@ -89,7 +89,7 @@ public class loginBean implements Serializable {
         try {
             empleadoAutenticado = userLogin.getEmpLogin(session, this.username);
             if (empleadoAutenticado == null) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, loginBean.class.getCanonicalName(), "load: Credenciales Invalidas"));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "load: Credenciales Invalidas"));
                 return;
             }
 
@@ -111,7 +111,7 @@ public class loginBean implements Serializable {
 
             } else {
                 loggedIn = false;
-                message = new FacesMessage(FacesMessage.SEVERITY_WARN, loginBean.class.getCanonicalName(), "Credenciales Invalidas");
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", "Credenciales Invalidas");
                 ruta = MyUtil.baseUrl();
             }
             txn.commit();
