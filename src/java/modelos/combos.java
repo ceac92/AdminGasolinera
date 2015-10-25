@@ -48,7 +48,7 @@ public class combos implements Serializable {
     private List<SelectItem> itemfactuta;
     private List<SelectItem> itemtipoproducto;
     private List<SelectItem> itembodega;
-    private List<Rol>roles;
+    private List<Rol> roles;
     private List<Ctgdepartamento> departamentos;
     private List<Cliente> cliente;
     private List<Detallecaja> detallecaja;
@@ -63,6 +63,7 @@ public class combos implements Serializable {
     private List<Proveedor> proveedor;
     private int valor;
     private int valorempleado;
+
     public List<SelectItem> getItemrol() {
         return itemrol;
     }
@@ -79,7 +80,6 @@ public class combos implements Serializable {
         this.roles = roles;
     }
 
-
     public int getValor() {
         return valor;
     }
@@ -91,7 +91,6 @@ public class combos implements Serializable {
     /**
      * Creates a new instance of combos
      */
-
     public combos() {
 
         this.itemdepartamento = new ArrayList<>();
@@ -103,10 +102,10 @@ public class combos implements Serializable {
         this.itemtipodocumento = new ArrayList<>();
         this.itemtipoproducto = new ArrayList<>();
         this.itembodega = new ArrayList<>();
-        this.itemCliente= new ArrayList<>();
-        this.itemdetallecaja= new ArrayList<>();
+        this.itemCliente = new ArrayList<>();
+        this.itemdetallecaja = new ArrayList<>();
         this.itemproveedor = new ArrayList<>();
-        this.itemrol=new ArrayList<>();
+        this.itemrol = new ArrayList<>();
         this.bodegas = new ArrayList<>();
         this.departamentos = new ArrayList<>();
         this.formapagos = new ArrayList<>();
@@ -117,9 +116,9 @@ public class combos implements Serializable {
         this.tipofactura = new ArrayList<>();
         this.tipoproductos = new ArrayList<>();
         this.proveedor = new ArrayList<>();
-        this.cliente= new ArrayList<>();
-        this.detallecaja= new ArrayList<>();
-        this.roles=new ArrayList<>();
+        this.cliente = new ArrayList<>();
+        this.detallecaja = new ArrayList<>();
+        this.roles = new ArrayList<>();
     }
 
     public List<Cliente> getCliente() {
@@ -153,11 +152,13 @@ public class combos implements Serializable {
     public void setProveedor(List<Proveedor> proveedor) {
         this.proveedor = proveedor;
     }
-public void  valorempleado(int idempleado){
-    if (idempleado>0) {
-        this.valorempleado=idempleado;
+
+    public void valorempleado(int idempleado) {
+        if (idempleado > 0) {
+            this.valorempleado = idempleado;
+        }
     }
-}
+
     public List<SelectItem> getCLIENT() {
         Session session = null;
         try {
@@ -168,12 +169,17 @@ public void  valorempleado(int idempleado){
                 SelectItem selectItem = new SelectItem(item.getIdcliente(), item.getPrimerNombre().concat(" ").concat(item.getSegundoNombre()).concat(" ").concat(item.getPrimerApellido()).concat(" ").concat(item.getSegundoApellido()));
                 this.itemCliente.add(selectItem);
             }
+            return this.itemCliente;
         } catch (Exception ex) {
             System.err.print(ex);
+        } finally {
+            session.close();
         }
-        return this.itemCliente;
+
+        return null;
     }
-     public List<SelectItem> getRoll() {
+
+    public List<SelectItem> getRoll() {
         Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
@@ -183,27 +189,36 @@ public void  valorempleado(int idempleado){
                 SelectItem selectItem = new SelectItem(item.getIdrol(), item.getNombre());
                 this.itemrol.add(selectItem);
             }
+            return this.itemrol;
         } catch (Exception ex) {
             System.err.print(ex);
+        } finally {
+            session.close();
         }
-        return this.itemrol;
+
+        return null;
     }
-    
+
     public List<SelectItem> getDETALLECAJ() {
         Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            String hql = "from Detallecaja as d where d.empleado.idempleado="+this.valorempleado;
+            String hql = "from Detallecaja as d where d.empleado.idempleado=" + this.valorempleado;
             this.detallecaja = session.createQuery(hql).list();
             for (Detallecaja item : this.detallecaja) {
                 SelectItem selectItem = new SelectItem(item.getIddetalleCaja(), item.getTurno());
                 this.itemdetallecaja.add(selectItem);
             }
+            return this.itemdetallecaja;
         } catch (Exception ex) {
             System.err.print(ex);
+        } finally {
+            session.close();
         }
-        return this.itemdetallecaja;
+
+        return null;
     }
+
     public List<SelectItem> getPROVEEDOR() {
         Session session = null;
         try {
@@ -214,10 +229,13 @@ public void  valorempleado(int idempleado){
                 SelectItem selectItem = new SelectItem(item.getIdproveedor(), item.getNombre());
                 this.itemproveedor.add(selectItem);
             }
+            return this.itemproveedor;
         } catch (Exception ex) {
             System.err.print(ex);
+        } finally {
+            session.close();
         }
-        return this.itemproveedor;
+        return null;
     }
 
     public List<SelectItem> getFORMAP() {
@@ -230,10 +248,14 @@ public void  valorempleado(int idempleado){
                 SelectItem selectItem = new SelectItem(item.getIdctgFormaPago(), item.getNombre());
                 this.itemformapago.add(selectItem);
             }
+            return this.itemformapago;
         } catch (Exception ex) {
             System.err.print(ex);
+        } finally {
+            session.close();
         }
-        return this.itemformapago;
+
+        return null;
     }
 
     public List<SelectItem> getDEPA() {
@@ -246,10 +268,14 @@ public void  valorempleado(int idempleado){
                 SelectItem selectItem = new SelectItem(item.getIdctgDepartamento(), item.getNombre());
                 this.itemdepartamento.add(selectItem);
             }
+            return this.itemdepartamento;
         } catch (Exception ex) {
             System.err.print(ex);
+        } finally {
+            session.close();
         }
-        return this.itemdepartamento;
+
+        return null;
     }
 
     public List<SelectItem> getMUNICIPIO() {
@@ -262,10 +288,14 @@ public void  valorempleado(int idempleado){
                 SelectItem selectItem = new SelectItem(item.getIdctgMunicipio(), item.getNombre());
                 this.itemmunicipio.add(selectItem);
             }
+            return this.itemmunicipio;
         } catch (Exception ex) {
             System.err.print(ex);
+        } finally {
+            session.close();
         }
-        return this.itemmunicipio;
+
+        return null;
     }
 
     public List<SelectItem> getPAISPROVEEDOR() {
@@ -278,10 +308,14 @@ public void  valorempleado(int idempleado){
                 SelectItem selectItem = new SelectItem(item.getIdctgPaisProveedor(), item.getNombre());
                 this.itempaisproveedor.add(selectItem);
             }
+            return this.itempaisproveedor;
         } catch (Exception ex) {
             System.err.print(ex);
+        } finally {
+            session.close();
         }
-        return this.itempaisproveedor;
+
+        return null;
     }
 
     public List<SelectItem> getTTIPOCLIENTE() {
@@ -294,10 +328,14 @@ public void  valorempleado(int idempleado){
                 SelectItem selectItem = new SelectItem(item.getIdctgTipoCliente(), item.getNombre());
                 this.itemtipocliente.add(selectItem);
             }
+            return this.itemtipocliente;
         } catch (Exception ex) {
             System.err.print(ex);
+        } finally {
+            session.close();
         }
-        return this.itemtipocliente;
+
+        return null;
     }
 
     public List<SelectItem> getTIPODOCUMENTO() {
@@ -310,10 +348,14 @@ public void  valorempleado(int idempleado){
                 SelectItem selectItem = new SelectItem(item.getIdctgTipoDocumento(), item.getNombre());
                 this.itemtipodocumento.add(selectItem);
             }
+            return this.itemtipodocumento;
         } catch (Exception ex) {
             System.err.print(ex);
+        } finally {
+            session.close();
         }
-        return this.itemtipodocumento;
+
+        return null;
     }
 
     public List<SelectItem> getTIPOFACTURA() {
@@ -326,10 +368,14 @@ public void  valorempleado(int idempleado){
                 SelectItem selectItem = new SelectItem(item.getIdctgTipoFactura(), item.getNombre());
                 this.itemfactuta.add(selectItem);
             }
+            return this.itemfactuta;
         } catch (Exception ex) {
             System.err.print(ex);
+        } finally {
+            session.close();
         }
-        return this.itemfactuta;
+
+        return null;
     }
 
     public List<SelectItem> getTIPOPRODUCTO() {
@@ -342,10 +388,14 @@ public void  valorempleado(int idempleado){
                 SelectItem selectItem = new SelectItem(item.getIdctgTipoProducto(), item.getNombre());
                 this.itemtipoproducto.add(selectItem);
             }
+            return this.itemtipoproducto;
         } catch (Exception ex) {
             System.err.print(ex);
+        } finally {
+            session.close();
         }
-        return this.itemtipoproducto;
+
+        return null;
     }
 
     public List<SelectItem> getBODEGA() {
@@ -358,10 +408,14 @@ public void  valorempleado(int idempleado){
                 SelectItem selectItem = new SelectItem(item.getIdbodega(), item.getUbicacion());
                 this.itembodega.add(selectItem);
             }
+            return this.itembodega;
         } catch (Exception ex) {
             System.err.print(ex);
+        } finally {
+            session.close();
         }
-        return this.itembodega;
+
+        return null;
     }
 
     public List<SelectItem> getItemdepartamento() {

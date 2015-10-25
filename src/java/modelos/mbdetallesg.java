@@ -10,10 +10,12 @@ import entity.Ctgtipoproducto;
 import entity.Detallecompra;
 import entity.Detalleventa;
 import entity.Proveedor;
+import entity.Venta;
 import hibernateutil.HibernateUtil;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -44,6 +46,25 @@ public class mbdetallesg implements Serializable {
     private int idtipoproducto;
     private int idproveedor;
     private int iddetalleproveedor;
+
+    public Date getFechainicial() {
+        return fechainicial;
+    }
+
+    public void setFechainicial(Date fechainicial) {
+        this.fechainicial = fechainicial;
+    }
+
+    public Date getFechafinal() {
+        return fechafinal;
+    }
+
+    public void setFechafinal(Date fechafinal) {
+        this.fechafinal = fechafinal;
+    }
+    private Date fechainicial;
+    private Date fechafinal;
+    
 
     public int getIddetalleproveedor() {
         return iddetalleproveedor;
@@ -155,6 +176,8 @@ public class mbdetallesg implements Serializable {
             query.setParameter("idctgtipop", this.idtipoproducto);
             return query.list();
         } catch (Exception e) {
+        }finally{
+        session.close();
         }
         return null;
     }
@@ -194,6 +217,40 @@ public class mbdetallesg implements Serializable {
             String hql = "select dc.cantidad, p.precioCosto,p.nombre, c.fecha from Detallecompra as dc inner join dc.producto as p inner join dc.compra as c where c.proveedor.idproveedor=:valorp ORDER BY  c.fecha DESC ";
             query = session.createQuery(hql);
             query.setParameter("valorp", valorproveedor);
+            return query.list();
+        } catch (Exception e) {
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
+    public List<Compra> getAllcomprafecha() {
+        session = null;
+        Query query = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Compra as c  where c.fecha BETWEEN :fechaini AND :fechafin ";
+            query = session.createQuery(hql);
+            query.setParameter("fechaini",this.fechainicial);
+            query.setParameter("fechafin", this.fechafinal);
+            return query.list();
+        } catch (Exception e) {
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+     
+    public List<Venta> getAllventa(){
+     session = null;
+        Query query = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Venta as c  where c.fecha BETWEEN :fechaini AND :fechafin ";
+            query = session.createQuery(hql);
+            query.setParameter("fechaini",this.fechainicial);
+            query.setParameter("fechafin", this.fechafinal);
             return query.list();
         } catch (Exception e) {
         } finally {
