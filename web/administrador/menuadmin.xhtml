@@ -8,59 +8,56 @@
         <title>Facelet Title</title>
         <style >
             #divSesionUsuario
-{
-    position: fixed;
-    right: 10px;
-    top: 15px;
-}
+            {
+                position: fixed;
+                right: 10px;
+                top: 15px;
+            }
 
-#divSesionUsuario > span
-{
-    color: black;
-}
+            #divSesionUsuario > span
+            {
+                color: black;
+            }
         </style>
     </h:head>
     <h:body>
         <h:form>
             <p:menubar  >
-               
+
                 <p:submenu label="Empleado">
-                 
-                    
-                         <p:menuitem value="Registrar Empleado" url="registroempleado.xhtml"/>
-                         <p:menuitem value="ACtualizar Empleado" url="updatempleado.xhtml"/>
-                  
-                    
+                    <p:menuitem value="Registrar Empleado" url="registroempleado.xhtml"/>
+                    <p:menuitem value="ACtualizar Empleado" url="updatempleado.xhtml"/>
                 </p:submenu>
-                 <p:submenu label="Producto">
-                   
-                         <p:menuitem value="Registrar producto" url="registroproducto.xhtml"/>
-                         <p:menuitem value="Actualizar Producto" url="verproducto.xhtml"/>
-                   
-                    
+                <p:submenu label="Producto">
+                    <p:menuitem value="Registrar producto" url="registroproducto.xhtml"/>
+                    <p:menuitem value="Actualizar Producto" url="verproducto.xhtml"/>
                 </p:submenu>
                 <p:submenu label="Consulta">
-                   
-                         <p:menuitem value="Registros de Compra" url="consulta/consultafecha.xhtml"/>
-                         <p:menuitem value="Registros de Venta" url="Consulta/consultaventa.xhtml"/>
-                   
+                    <p:menuitem value="consulta Fecha de venta" url="consulta/consultafecha.xhtml"/>
+                    <p:menuitem value="Registros de Venta" url="consulta/consultaventa.xhtml"/>
+                    <p:menuitem value="consulta Fecha/cliente de venta" url="consulta/consultafechacliente.xhtml"/>
+                    <p:menuitem value="consulta de Proveedor" url="consulta/consultaproveedor.xhtml"/> 
+                    <p:menuitem value="consulta de Tipo Producto" url="Consulta/consultatipoproducto.xhtml"/> 
+                    <p:menuitem value="consulta de  Producto" url="consulta/consultaproducto.xhtml"/> 
+                    <p:menuitem value="consulta de Tipo Producto" url="consulta/consultatipoproducto.xhtml"/> 
+                    <p:menuitem value="consulta de Tipo Documento" url="consulta/tipodocumento.xhtml"/> 
+                    <p:menuitem value="consulta de precio" url="consulta/precioproducto.xhtml"/> 
                 </p:submenu>
-                
-
-            <p:submenu label="Catalogo">
-                   
-                         <p:menuitem value="Catalogo Pais Proveedor" url="catalogo/ctgpais.xhtml"/>
-                         <p:menuitem value="Catalogo tipo producto" url="catalogo/tipoproducto.xhtml"/>
-                 
-                    
+                <p:submenu label="Catalogo">
+                    <p:menuitem value=" Pais Proveedor" url="catalogo/ctgpais.xhtml"/>
+                    <p:menuitem value=" tipo producto" url="catalogo/tipoproducto.xhtml"/>
+                    <p:menuitem value="  Departamento" url="catalogo/ctdepartamento.xhtml"/>
+                    <p:menuitem value=" Tipo Cliente" url="catalogo/tipocliente.xhtml"/>
+                    <p:menuitem value=" Municipio" url="catalogo/ctmunicipio.xhtml"/>
+                    <p:menuitem value=" Forma de pago" url="catalogo/formapago.xhtml"/>
+                    <p:menuitem value=" Tipo Factura" url="catalogo/tipofactura.xhtml"/>
                 </p:submenu>
-          
             </p:menubar>
             <div id="divSesionUsuario">
                 <span>
                     Bienvenido #{loginBean.username};
-                   
-                     <p:commandButton value="Cerrar sesión" action="#{loginBean.cerrarSesion()}"/>
+
+                    <p:commandButton value="Cerrar sesión" action="#{loginBean.cerrarSesion()}"/>
                 </span>
 
             </div>

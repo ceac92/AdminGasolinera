@@ -9,6 +9,7 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
+        <ui:include src="../menuadmin.xhtml"/>
         <h:form id="formpago">
             <p:messages showDetail="true" autoUpdate="true" closable="true" showSummary="true"></p:messages>
             <h2>Forma Pago</h2>
@@ -25,32 +26,32 @@
                 </p:panelGrid> 
             </p:dialog> 
 
-             <p:dialog header="Actualizar" widgetVar="dlg3" style="white-space: 100%" modal="true" >
+            <p:dialog header="Actualizar" widgetVar="dlg3" style="white-space: 100%" modal="true" >
                 <p:panelGrid id="paneles" columns="2" style="white-space: 100%" columnClasses="forty-percent, sixty-percent,forty-percent, sixty-percent" >
                     <h:outputLabel value="nombre" for="txtnombre" ></h:outputLabel>
                     <h:inputText  id="txttnombre" value='#{mbformapago.formapago.nombre}' label="nombre"></h:inputText>
                     <h:outputLabel value="Descripcion"></h:outputLabel>
                     <h:inputText  id="txtlprecio" value='#{mbformapago.formapago.descripcion}'></h:inputText>
                     <p:commandButton value="Enviar"  update="formpago"  ajax="true" action="#{mbformapago.actualiza()}" />
-  
+
                 </p:panelGrid> 
             </p:dialog> 
             <p:dataTable var="fp" value="#{mbformapago.allformapago}" paginator="true"  >
-                    <p:column headerText="nombre">
-                        <h:outputText value="#{fp.nombre}" />
-                    </p:column>
-                    <p:column headerText="descripcion">
-                        <h:outputText value="#{fp.descripcion}" />
-                    </p:column>
-                   <p:column headerText="Acciones">
-                       <p:commandLink  value="Actualizar"
-                                       ajax="true" update=":formpago:paneles"
-                                           onclick="PF('dlg3').show();"  >                                
-                           <f:setPropertyActionListener id="actionSetPago"   value="#{fp}"  target="#{mbformapago.formapago}" />    
-                            </p:commandLink>
-                        </p:column>
-                </p:dataTable>
-            
+                <p:column headerText="nombre">
+                    <h:outputText value="#{fp.nombre}" />
+                </p:column>
+                <p:column headerText="descripcion">
+                    <h:outputText value="#{fp.descripcion}" />
+                </p:column>
+                <p:column headerText="Acciones">
+                    <p:commandLink  value="Actualizar"
+                                    ajax="true" update=":formpago:paneles"
+                                    onclick="PF('dlg3').show();"  >                                
+                        <f:setPropertyActionListener id="actionSetPago"   value="#{fp}"  target="#{mbformapago.formapago}" />    
+                    </p:commandLink>
+                </p:column>
+            </p:dataTable>
+
 
         </h:form>
     </h:body>
