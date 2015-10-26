@@ -46,6 +46,24 @@ public class mbdetallesg implements Serializable {
     private int idtipoproducto;
     private int idproveedor;
     private int iddetalleproveedor;
+    private int idproducto;
+    private int idcliente;
+
+    public int getIdcliente() {
+        return idcliente;
+    }
+
+    public void setIdcliente(int idcliente) {
+        this.idcliente = idcliente;
+    }
+
+    public int getIdproducto() {
+        return idproducto;
+    }
+
+    public void setIdproducto(int idproducto) {
+        this.idproducto = idproducto;
+    }
 
     public Date getFechainicial() {
         return fechainicial;
@@ -64,7 +82,6 @@ public class mbdetallesg implements Serializable {
     }
     private Date fechainicial;
     private Date fechafinal;
-    
 
     public int getIddetalleproveedor() {
         return iddetalleproveedor;
@@ -107,7 +124,7 @@ public class mbdetallesg implements Serializable {
     public void verDetalles(ActionEvent miActionEvent, int iddetacompra) throws IOException {
         if (iddetacompra != 0) {
             this.iddetallecompra = iddetacompra;
-            FacesContext.getCurrentInstance().getExternalContext().redirect("../administrador/detallecompra.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../administrador/consulta/detallecompra.xhtml");
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudo procesar la peticion"));
         }
@@ -125,7 +142,7 @@ public class mbdetallesg implements Serializable {
             return query.list();
         } catch (Exception e) {
         } finally {
-            session.close();
+          //  session.close();
         }
         return null;
     }
@@ -133,7 +150,7 @@ public class mbdetallesg implements Serializable {
     public void verDetallesventa(ActionEvent miActionEvent, int iddetaventa) throws IOException {
         if (iddetaventa != 0) {
             this.idetalleventa = iddetaventa;
-            FacesContext.getCurrentInstance().getExternalContext().redirect("../administrador/detalleventa.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../administrador/consulta/detalleventa.xhtml");
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudo procesar la peticion"));
         }
@@ -151,7 +168,7 @@ public class mbdetallesg implements Serializable {
             return query.list();
         } catch (Exception e) {
         } finally {
-            session.close();
+           // session.close();
         }
         return null;
     }
@@ -159,7 +176,7 @@ public class mbdetallesg implements Serializable {
     public void vercataloproducto(ActionEvent miActionEvent, int idcataloproducto) throws IOException {
         if (idcataloproducto != 0) {
             this.idtipoproducto = idcataloproducto;
-            FacesContext.getCurrentInstance().getExternalContext().redirect("../administrador/detalletipoproducto.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../administrador/consulta/detalletipoproducto.xhtml");
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudo procesar la peticion"));
         }
@@ -176,8 +193,8 @@ public class mbdetallesg implements Serializable {
             query.setParameter("idctgtipop", this.idtipoproducto);
             return query.list();
         } catch (Exception e) {
-        }finally{
-        session.close();
+        } finally {
+           // session.close();
         }
         return null;
     }
@@ -194,7 +211,7 @@ public class mbdetallesg implements Serializable {
             return query.list();
         } catch (Exception e) {
         } finally {
-            session.close();
+          //  session.close();
         }
         return null;
     }
@@ -202,7 +219,7 @@ public class mbdetallesg implements Serializable {
     public void verDetallesproveedor(ActionEvent miActionEvent, int iddetaproveedor) throws IOException {
         if (iddetaproveedor != 0) {
             this.iddetalleproveedor = iddetaproveedor;
-            FacesContext.getCurrentInstance().getExternalContext().redirect("../administrador/detalleproveedor.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../administrador/consulta/detalleproveedor.xhtml");
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudo procesar la peticion"));
         }
@@ -220,7 +237,7 @@ public class mbdetallesg implements Serializable {
             return query.list();
         } catch (Exception e) {
         } finally {
-            session.close();
+           // session.close();
         }
         return null;
     }
@@ -232,30 +249,62 @@ public class mbdetallesg implements Serializable {
             session = HibernateUtil.getSessionFactory().openSession();
             String hql = "from Compra as c  where c.fecha BETWEEN :fechaini AND :fechafin ";
             query = session.createQuery(hql);
-            query.setParameter("fechaini",this.fechainicial);
+            query.setParameter("fechaini", this.fechainicial);
             query.setParameter("fechafin", this.fechafinal);
             return query.list();
         } catch (Exception e) {
         } finally {
-            session.close();
+           // session.close();
         }
         return null;
     }
-     
-    public List<Venta> getAllventa(){
-     session = null;
+
+    public List<Venta> getAllventa() {
+        session = null;
         Query query = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             String hql = "from Venta as c  where c.fecha BETWEEN :fechaini AND :fechafin ";
             query = session.createQuery(hql);
-            query.setParameter("fechaini",this.fechainicial);
+            query.setParameter("fechaini", this.fechainicial);
             query.setParameter("fechafin", this.fechafinal);
             return query.list();
         } catch (Exception e) {
         } finally {
-            session.close();
+           // session.close();
         }
         return null;
+    }
+
+    public List<Detalleventa> getAllventaproduc() {
+        this.session = null;
+        Query query = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Detalleventa  as dv where dv.producto.idproducto=:idpro";
+            query = session.createQuery(hql);
+            query.setParameter("idpro", this.idproducto);
+            return query.list();
+        } catch (Exception e) {
+        } finally {
+          
+        }
+        return null;
+    }
+    
+    public List<Detalleventa> getAllventacliente(){
+        session=null;
+        Query query=null;
+        try {
+            session=HibernateUtil.getSessionFactory().openSession();
+            String hql="from Detalleventa as dv where dv.venta.cliente.idcliente=:idc and dv.venta.fecha BETWEEN :fechaini AND :fechafinal";
+            query=session.createQuery(hql);
+            query.setParameter("fechafinal",this.fechafinal);
+            query.setParameter("fechaini",this.fechainicial);
+            query.setParameter("idc", this.idcliente);
+            return query.list();
+        } catch (Exception e) {
+        }
+    return null;
     }
 }

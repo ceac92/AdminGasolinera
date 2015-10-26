@@ -16,6 +16,7 @@ import entity.Ctgtipodocumento;
 import entity.Ctgtipofactura;
 import entity.Ctgtipoproducto;
 import entity.Detallecaja;
+import entity.Producto;
 import entity.Proveedor;
 import entity.Rol;
 import hibernateutil.HibernateUtil;
@@ -48,6 +49,7 @@ public class combos implements Serializable {
     private List<SelectItem> itemfactuta;
     private List<SelectItem> itemtipoproducto;
     private List<SelectItem> itembodega;
+     private List<SelectItem> itemproducto;
     private List<Rol> roles;
     private List<Ctgdepartamento> departamentos;
     private List<Cliente> cliente;
@@ -61,6 +63,7 @@ public class combos implements Serializable {
     private List<Ctgtipoproducto> tipoproductos;
     private List<Bodega> bodegas;
     private List<Proveedor> proveedor;
+     private List<Producto> produc; 
     private int valor;
     private int valorempleado;
 
@@ -106,6 +109,7 @@ public class combos implements Serializable {
         this.itemdetallecaja = new ArrayList<>();
         this.itemproveedor = new ArrayList<>();
         this.itemrol = new ArrayList<>();
+        this.itemproducto= new ArrayList<>();
         this.bodegas = new ArrayList<>();
         this.departamentos = new ArrayList<>();
         this.formapagos = new ArrayList<>();
@@ -119,6 +123,7 @@ public class combos implements Serializable {
         this.cliente = new ArrayList<>();
         this.detallecaja = new ArrayList<>();
         this.roles = new ArrayList<>();
+        this.produc= new ArrayList<>();
     }
 
     public List<Cliente> getCliente() {
@@ -158,7 +163,25 @@ public class combos implements Serializable {
             this.valorempleado = idempleado;
         }
     }
+ public List<SelectItem> getPRODUCT() {
+        Session session = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            String hql = " from Producto ";
+            this.produc = session.createQuery(hql).list();
+            for (Producto item : this.produc) {
+                SelectItem selectItem = new SelectItem(item.getIdproducto(),item.getNombre());
+                this.itemproducto.add(selectItem);
+            }
+            return this.itemproducto;
+        } catch (Exception ex) {
+            System.err.print(ex);
+        } finally {
+            session.close();
+        }
 
+        return null;
+    }
     public List<SelectItem> getCLIENT() {
         Session session = null;
         try {
