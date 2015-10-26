@@ -124,7 +124,7 @@ public class mbdetallesg implements Serializable {
     public void verDetalles(ActionEvent miActionEvent, int iddetacompra) throws IOException {
         if (iddetacompra != 0) {
             this.iddetallecompra = iddetacompra;
-            FacesContext.getCurrentInstance().getExternalContext().redirect("../administrador/consulta/detallecompra.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../consulta/detallecompra.xhtml");
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudo procesar la peticion"));
         }
@@ -150,7 +150,7 @@ public class mbdetallesg implements Serializable {
     public void verDetallesventa(ActionEvent miActionEvent, int iddetaventa) throws IOException {
         if (iddetaventa != 0) {
             this.idetalleventa = iddetaventa;
-            FacesContext.getCurrentInstance().getExternalContext().redirect("../administrador/consulta/detalleventa.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../consulta/detalleventa.xhtml");
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudo procesar la peticion"));
         }
@@ -176,7 +176,7 @@ public class mbdetallesg implements Serializable {
     public void vercataloproducto(ActionEvent miActionEvent, int idcataloproducto) throws IOException {
         if (idcataloproducto != 0) {
             this.idtipoproducto = idcataloproducto;
-            FacesContext.getCurrentInstance().getExternalContext().redirect("../administrador/consulta/detalletipoproducto.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../consulta/detalletipoproducto.xhtml");
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudo procesar la peticion"));
         }
@@ -219,7 +219,7 @@ public class mbdetallesg implements Serializable {
     public void verDetallesproveedor(ActionEvent miActionEvent, int iddetaproveedor) throws IOException {
         if (iddetaproveedor != 0) {
             this.iddetalleproveedor = iddetaproveedor;
-            FacesContext.getCurrentInstance().getExternalContext().redirect("../administrador/consulta/detalleproveedor.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../consulta/detalleproveedor.xhtml");
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudo procesar la peticion"));
         }
