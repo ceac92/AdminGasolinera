@@ -24,7 +24,7 @@
                     <p:selectOneMenu id="uno" value="#{mbmunicipio.iddepartamento}" required="true" requiredMessage="Seleccione una categoria"  filter="true" filterMatchMode="contains" style="width:80% !important">
                         <f:selectItems value="#{combos.DEPA}" />
                     </p:selectOneMenu>
-                    <p:commandButton value="Enviar"  update="formmunicipio"  ajax="true" action="#{mbmunicipio.agregar()}" />   
+                    <p:commandButton value="Enviar"  update="formmunicipio"  ajax="true" action="#{mbmunicipio.agregar()}" oncomplete="window.location.reload()" />   
                 </p:panelGrid> 
             </p:dialog> 
 

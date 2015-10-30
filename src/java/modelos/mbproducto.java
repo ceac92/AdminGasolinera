@@ -36,6 +36,17 @@ public class mbproducto implements Serializable {
     private int tipoproductov;
     private Producto productou;
     private Producto productoud;
+    private List<Producto> stock;
+
+    public List<Producto> getStock() {
+        return stock;
+    }
+
+    public void setStock(List<Producto> stock) {
+        this.stock = stock;
+    }
+
+ 
 
     public Producto getProductoud() {
         return productoud;
@@ -297,6 +308,19 @@ public class mbproducto implements Serializable {
             session.close();
         }
         return null;
+    }
+    public List<Producto> getAllstock(){
+    this.session=null;
+        try {
+            this.session=HibernateUtil.getSessionFactory().openSession();
+            this.stock=productodao.productostock(session);
+            return  this.stock;
+            
+        } catch (Exception e) {
+        }finally{
+        session.close();
+        }
+    return  null;
     }
 
 

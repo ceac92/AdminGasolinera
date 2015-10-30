@@ -18,7 +18,7 @@
                     <f:selectItems value="#{combos.TIPOPRODUCTO}" />
                 </p:selectOneMenu>
                 <h:outputLabel value=" "  ></h:outputLabel>
-                <p:commandButton value="Buscar" icon="ui-icon-circle-plus" validateClient="true"  onclick="submit()"/>
+                <p:commandButton value="Buscar" icon="ui-icon-circle-plus" validateClient="true"  onclick="submit()" oncomplete="window.location.reload()"/>
             </p:panelGrid>
 
             <h:panelGrid title="Gestion de facturas" columns="4" cellpadding="10" width="100%">

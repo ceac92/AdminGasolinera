@@ -16,61 +16,74 @@ import org.hibernate.Session;
  *
  * @author An
  */
-public class productodao implements interfaces.Iproducto{
-
+public class productodao implements interfaces.Iproducto {
 
     @Override
     public Producto getByIdProducto(Session session, Integer idProducto) throws Exception {
-    return (Producto) session.load(Producto.class, idProducto);  
+        return (Producto) session.load(Producto.class, idProducto);
     }
 
     @Override
     public List<Producto> getAll(Session session) throws Exception {
-        session=null;
-        Query query=null;
+        session = null;
+        Query query = null;
         try {
-            session=HibernateUtil.getSessionFactory().openSession();
-           String hql="from Producto p where p.estado='a'";
-           query=session.createQuery(hql);
-           return query.list();
-           
+            session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Producto p where p.estado='a'";
+            query = session.createQuery(hql);
+            return query.list();
+
         } catch (Exception e) {
-        }finally{
-        session.close();
+        } finally {
+            session.close();
         }
         return null;
     }
-   
-    public static List<Producto> getALLproductosd(Session session)throws Exception{
-     session=null;
-     Query query=null;
+
+    public static List<Producto> getALLproductosd(Session session) throws Exception {
+        session = null;
+        Query query = null;
         try {
-            session=HibernateUtil.getSessionFactory().openSession();
-            String hql="from Producto p where p.estado='d'";
-            query=session.createQuery(hql);
+            session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Producto p where p.estado='d'";
+            query = session.createQuery(hql);
             return query.list();
         } catch (Exception e) {
-           
-        }finally{
-         session.close();
+
+        } finally {
+            session.close();
         }
         return null;
-    } 
-    
-    public static List<Ctgtipoproducto> listcategoria(Session session){
-    session=null;
-    Query query=null;
+    }
+
+    public static List<Ctgtipoproducto> listcategoria(Session session) {
+        session = null;
+        Query query = null;
         try {
-            session=HibernateUtil.getSessionFactory().openSession();
-            String hql="from Ctgtipoproducto";
-            query=session.createQuery(hql);
+            session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Ctgtipoproducto";
+            query = session.createQuery(hql);
             return query.list();
         } catch (Exception e) {
-        }finally{
-         session.close();
+        } finally {
+            session.close();
         }
-    return null;
+        return null;
     }
-    
-  
+
+    public static List<Producto> productostock(Session session) {
+        session = null;
+        Query query = null;
+
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Producto";
+            query = session.createQuery(hql);
+            return query.list();
+        } catch (Exception e) {
+        } finally {
+
+        }
+        return null;
+    }
 }

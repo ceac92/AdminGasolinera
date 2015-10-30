@@ -195,9 +195,7 @@ public class combos implements Serializable {
             return this.itemCliente;
         } catch (Exception ex) {
             System.err.print(ex);
-        } finally {
-            session.close();
-        }
+        } 
 
         return null;
     }
