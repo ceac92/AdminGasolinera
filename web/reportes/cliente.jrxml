@@ -13,10 +13,14 @@
 			<style mode="Opaque" backcolor="#F0EFEF"/>
 		</conditionalStyle>
 	</style>
-	<queryString language="SQL">
+	<parameter name="id" class="java.lang.String"/>
+	<parameter name="idc" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
 		<![CDATA[select cl.codigo, concat( cl.primer_nombre,' ', cl.segundo_nombre,' ', cl.primer_apellido,' ', cl.segundo_apellido) as registroclient,
  cl.fecha_registro,
-cl.tipo_documento, cl.numero_documento, cl.mail, cl.direccion from cliente as cl]]>
+cl.tipo_documento, cl.numero_documento, cl.mail, cl.direccion from cliente as cl where cl.idcliente=$P{idc}]]>
 	</queryString>
 	<field name="codigo" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -55,6 +59,10 @@ cl.tipo_documento, cl.numero_documento, cl.mail, cl.direccion from cliente as cl
 					</textElement>
 					<text><![CDATA[Cherry Title]]></text>
 				</staticText>
+				<textField>
+					<reportElement x="237" y="46" width="100" height="20" uuid="001420ad-78f0-4f41-91c6-b693635b4f95"/>
+					<textFieldExpression><![CDATA[$P{id}]]></textFieldExpression>
+				</textField>
 				<staticText>
 					<reportElement style="SubTitle" x="157" y="66" width="249" height="29" uuid="e4ea9c09-a4ca-40c2-8110-a5bcc045d4db"/>
 					<textElement>
@@ -62,6 +70,10 @@ cl.tipo_documento, cl.numero_documento, cl.mail, cl.direccion from cliente as cl
 					</textElement>
 					<text><![CDATA[Cherry SubTitle]]></text>
 				</staticText>
+				<textField>
+					<reportElement x="237" y="66" width="100" height="20" uuid="b5b2c954-e215-4a21-8ddd-cadfd9668e7c"/>
+					<textFieldExpression><![CDATA[$P{idc}]]></textFieldExpression>
+				</textField>
 			</frame>
 			<frame>
 				<reportElement mode="Opaque" x="0" y="100" width="451" height="32" forecolor="#000000" backcolor="#CC0000" uuid="92ddc10d-29a5-4d68-b8c6-73a64e78e128"/>

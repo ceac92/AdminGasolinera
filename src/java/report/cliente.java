@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.Connection;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -37,12 +39,15 @@ public class cliente extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         Connection cnn;
-          byte[] bytes = null;
+        Connection cnn;
+        int valor=Integer.parseInt(request.getParameter("cliente"));
+        Map paramtermap= new HashMap();
+        byte[] bytes = null;
         try {
             cnn = dbManager.OpenConection();
-            File reportFile = new File(getServletConfig().getServletContext() .getRealPath("/reportes/cliente.jasper"));
-          bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), null, cnn);
+            File reportFile = new File(getServletConfig().getServletContext().getRealPath("/reportes/cliente.jasper"));
+            paramtermap.put("idc", valor);
+            bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), paramtermap, cnn);
 
             response.setContentType("application/pdf");
             response.setContentLength(bytes.length);
