@@ -1,25 +1,71 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Administrador</title>
 
-    <body>
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="css" name="portada.css"  />
+        <div id="header">
+            <div class="titulo-portal">Administrador</div>
+            <div class="logoff">
+                <p><h:graphicImage library="img" name="logoff1.png" width="50px" /></p>
+            </div>
+            <div class="nav1">
+                <h6>Usuario: #{loginBean.empleadoAutenticado.primerNombre} #{loginBean.empleadoAutenticado.primerApellido} </h6>
+                             
 
-        <ui:composition template="./template.xhtml">
+            </div>
+        </div>
+        <div id="cuerpo">
+            <div class="columnas">
+                <div class="izquierda">
+                    <h2>Mantenimiento</h2>
+                    <div class="button-rojo">Paises Proveedor</div>
+                    <div class="button-amarillo">Tipo Documento</div>
+                    <div class="button-verde">Departamentos</div>
+                    <div class="button-morado">Municipios</div>
+                    <div class="button-naranja">Tipo Factura</div>
+                    <div class="button-rojo">Tipo Cliente</div>
+                    <div class="button-amarillo">Tipo Producto</div>
+                    <div class="button-verde">Forma Pago</div>
 
-            <ui:define name="top">
-                Bienvenido #{loginBean.username};
-            </ui:define>
+                </div>
+                <div class="centro1">
+                    <h2>Empleado</h2>
+                    <div class="button-verde-largo">Nuevo Registro
+                        <p><h:graphicImage library="img" name="add.png" width="140px" /></p>
+                    </div>
+                    <div class="button-rojo-largo">Actualizar Datos
+                        <p><h:graphicImage library="img" name="update.png" width="125px" /></p>
+                    </div>
 
-            <ui:define name="content">
-                <h1>Bienvenido al portal Administrador</h1>
-            </ui:define>
-
-            <ui:define name="bottom">
-                bottom
-            </ui:define>
-
-        </ui:composition>
-
-    </body>
+                </div>
+                <div class="centro2">
+                    <h2>Producto</h2>
+                    <div class="button-morado">Registro</div>
+                    <div class="button-naranja">Precios</div>
+                    <div class="button-amarillo">Actualizar</div>
+                    <div class="button-verde">Categorias</div>
+                    <div class="button-naranja">Proveedores</div>
+                    <div class="button-rojo">Inventario</div>
+                </div>
+                <div class="derecha">
+                    <h2>Consulta</h2>
+                    <div class="button-rojo">Ventas</div>
+                    <div class="button-amarillo">Clientes</div>
+                    <div class="button-verde">Datos Proveedor</div>
+                    <div class="button-morado">Compra a Proveedor</div>
+                    <div class="button-naranja">Existencias</div>
+                    <div class="button-rojo">Tipo Cliente</div>
+                    <div class="button-amarillo">Tipo Producto</div>
+                    <div class="button-verde">Forma Pago</div>
+                </div>
+            </div>
+        </div>
+    </h:body>
 </html>
+

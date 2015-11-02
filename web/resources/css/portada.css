@@ -1,0 +1,208 @@
+body {
+    background-color:#151515;
+}
+h2,h5,h6{
+	font-family:"Segoe UI";
+	color:#ffffff;
+	text-align:center;
+}
+#header {
+    background-color:#151515;
+    color:white;
+    font-family:"Segoe UI";
+	font-size:20pt;
+	text-decoration:none;
+	padding:15px;
+	
+}
+.logoff{
+        float: right;
+        display: inline-block;
+	padding: 0px 20px 0px 0px;
+        margin: 5px;
+        width: 75px;
+        height: 75px;
+        background-color:#151515;
+        
+}
+.nav1{
+    float: right;
+    width: 200px;
+    height: 70px;
+    background-color:#151515;
+}
+#cuerpo{ 
+    margin-left:20px; 
+	width: 1300px;
+	background-color:#ffffff;
+} 
+.titulo-portal{
+		border:none;
+		display: inline-block;
+		padding:10px;
+		margin: 10px;
+		height: 50px;
+		width:500px;
+		color:#ffffff;
+		text-decoration:none;
+		text-align:left;
+		font-family:"Segoe UI";
+		font-size:30pt;
+}
+.button-rojo{
+		border:none;
+		display: inline-block;
+		padding:10px;
+		margin: 5px;
+		height: 75px;
+		width:130px;
+		background-color:#E90C31;
+		color:#ffffff;
+		text-decoration:none;
+		text-align:center;
+		font-family:"Segoe UI";
+		font-size:15pt;
+}
+.button-amarillo{
+		border:none;
+		display: inline-block;
+		padding:10px;
+		margin: 5px;
+		height: 75px;
+		width:130px;
+		background-color:#F9CD0A;
+		color:#ffffff;
+		text-decoration:none;
+		text-align:center;
+		font-family:"Segoe UI";
+		font-size:15pt;
+}
+.button-verde{
+		border:none;
+		display: inline-block;
+		padding:10px;
+		margin: 5px;
+		height: 75px;
+		width:130px;
+		background-color:#18AC1A;
+		color:#ffffff;
+		text-decoration:none;
+		text-align:center;
+		font-family:"Segoe UI";
+		font-size:15pt;
+}
+.button-morado{
+		border:none;
+		display: inline-block;
+		padding:10px;
+		margin: 5px;
+		height: 75px;
+		width:130px;
+		background-color:#7100D5;
+		color:#ffffff;
+		text-decoration:none;
+		text-align:center;
+		font-family:"Segoe UI";
+		font-size:15pt;
+}
+.button-naranja{
+		border:none;
+		display: inline-block;
+		padding:10px;
+		margin: 5px;
+		height: 75px;
+		width:130px;
+		background-color:#FF8000;
+		color:#ffffff;
+		text-decoration:none;
+		text-align:center;
+		font-family:"Segoe UI";
+		font-size:15pt;
+}
+.button-rojo:hover{background-color:#5598EF;}
+.button-amarillo:hover{background-color:#5598EF;}
+.button-verde:hover{background-color:#5598EF;}
+.button-naranja:hover{background-color:#5598EF;}
+.button-morado:hover{background-color:#5598EF;}
+
+.columnas {
+  width: 100%;
+  min-width: 1300px;
+}
+
+.izquierda {
+  float: left;
+  width: 325px;
+  height: 500px;
+  background-color:#151515;
+}
+
+.centro1 {  
+float: left;
+  width: 325px;
+  height: 500px;
+  background-color:#151515;
+  
+}
+.centro2 { 
+float: left;
+  width: 325px;
+  height: 500px;
+  background-color:#151515;
+}
+.derecha {
+  float: right;
+  width: 325px;
+  height: 500px;
+  background-color:#151515;
+}
+
+
+
+.button-amarillo-largo{
+		border:none;
+		display: inline-block;
+		padding:10px;
+		margin: 5px;
+		height: 180px;
+		width:290px;
+		background-color:#F9CD0A;
+		color:#ffffff;
+		text-decoration:none;
+		text-align:center;
+		font-family:"Segoe UI";
+		font-size:15pt;
+}
+.button-verde-largo{
+		border:none;
+		display: inline-block;
+		padding:10px;
+		margin: 5px;
+		height: 180px;
+		width:290px;
+		background-color:#18AC1A;
+		color:#ffffff;
+		text-decoration:none;
+		text-align:center;
+		font-family:"Segoe UI";
+		font-size:15pt;
+}
+.button-rojo-largo{
+		border:none;
+		display: inline-block;
+		padding:10px;
+		margin: 5px;
+		height: 180px;
+		width:290px;
+		background-color:#E90C31;
+		color:#ffffff;
+		text-decoration:none;
+		text-align:center;
+		font-family:"Segoe UI";
+		font-size:15pt;
+}
+.button-rojo-largo:hover{background-color:#5598EF;}
+.button-amarillo-largo:hover{background-color:#5598EF;}
+.button-verde-largo:hover{background-color:#5598EF;}
+.button-naranja-largo:hover{background-color:#5598EF;}
+.button-morado-largo:hover{background-color:#5598EF;}
