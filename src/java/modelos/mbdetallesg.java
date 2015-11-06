@@ -23,6 +23,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -33,6 +34,7 @@ import org.hibernate.Session;
 public class mbdetallesg implements Serializable {
 
     Session session;
+    Transaction transaction;
 
     public int getIddetallecompra() {
         return iddetallecompra;
@@ -142,7 +144,7 @@ public class mbdetallesg implements Serializable {
             return query.list();
         } catch (Exception e) {
         } finally {
-          //  session.close();
+            //  session.close();
         }
         return null;
     }
@@ -168,7 +170,7 @@ public class mbdetallesg implements Serializable {
             return query.list();
         } catch (Exception e) {
         } finally {
-           // session.close();
+            // session.close();
         }
         return null;
     }
@@ -194,7 +196,7 @@ public class mbdetallesg implements Serializable {
             return query.list();
         } catch (Exception e) {
         } finally {
-           // session.close();
+            // session.close();
         }
         return null;
     }
@@ -211,7 +213,7 @@ public class mbdetallesg implements Serializable {
             return query.list();
         } catch (Exception e) {
         } finally {
-          //  session.close();
+            //  session.close();
         }
         return null;
     }
@@ -237,7 +239,7 @@ public class mbdetallesg implements Serializable {
             return query.list();
         } catch (Exception e) {
         } finally {
-           // session.close();
+            // session.close();
         }
         return null;
     }
@@ -254,7 +256,7 @@ public class mbdetallesg implements Serializable {
             return query.list();
         } catch (Exception e) {
         } finally {
-           // session.close();
+            // session.close();
         }
         return null;
     }
@@ -271,7 +273,7 @@ public class mbdetallesg implements Serializable {
             return query.list();
         } catch (Exception e) {
         } finally {
-           // session.close();
+            // session.close();
         }
         return null;
     }
@@ -287,24 +289,24 @@ public class mbdetallesg implements Serializable {
             return query.list();
         } catch (Exception e) {
         } finally {
-          
+
         }
         return null;
     }
-    
-    public List<Detalleventa> getAllventacliente(){
-        session=null;
-        Query query=null;
+
+    public List<Detalleventa> getAllventacliente() {
+        session = null;
+        Query query = null;
         try {
-            session=HibernateUtil.getSessionFactory().openSession();
-            String hql="from Detalleventa as dv where dv.venta.cliente.idcliente=:idc and dv.venta.fecha BETWEEN :fechaini AND :fechafinal";
-            query=session.createQuery(hql);
-            query.setParameter("fechafinal",this.fechafinal);
-            query.setParameter("fechaini",this.fechainicial);
+            session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Detalleventa as dv where dv.venta.cliente.idcliente=:idc and dv.venta.fecha BETWEEN :fechaini AND :fechafinal";
+            query = session.createQuery(hql);
+            query.setParameter("fechafinal", this.fechafinal);
+            query.setParameter("fechaini", this.fechainicial);
             query.setParameter("idc", this.idcliente);
             return query.list();
         } catch (Exception e) {
         }
-    return null;
+        return null;
     }
 }

@@ -109,9 +109,9 @@
                             <p:column headerText="Acciones">
                                  <p:column headerText="Acciones">
                                 <p:commandLink  value="Actualizar"
-                                                ajax="true" update=":formproductoactu:paneleactualizar"
-                                                onclick="PF('dlg3').show();"  >                                
-                                    <f:setPropertyActionListener id="actionProducto"   value="#{td}"  target="#{mbproducto.productou}" />    
+                                                ajax="true" update=":formproductoactu:paneleactualizard"
+                                                onclick="PF('dlg2').show();"  >                                
+                                    <f:setPropertyActionListener id="actionProducto"   value="#{td}"  target="#{mbproducto.productoud}" />    
                                 </p:commandLink>
                             </p:column>
                               
@@ -120,13 +120,38 @@
                         </p:dataTable>
                     </h:panelGrid>
                 </p:tab>
-                <p:tab title="Godfather Part III">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        
-                    </h:panelGrid>
-                </p:tab>
+                
             </p:tabView>
-           
+            <p:dialog header="Actualizar" widgetVar="dlg2" style="white-space: 100%" modal="true" >
+                <h:panelGrid id="paneleactualizard" columns="2" columnClasses="forty-percent, sixty-percent" width="70%">
+                    <p:outputLabel value="codigo"/>
+                    <p:inputText id="txtcodigod" value="#{mbproducto.productoud.nombre}" 
+                                 class="readonly"
+                                 readonly="true"/>
+
+                    <p:outputLabel value="Nombre*"/>
+                    <p:inputText id="txtnombred" value="#{mbproducto.productoud.nombre}"  class="readonly"
+                                 readonly="true" />
+                   
+                    <p:outputLabel value="Descripcion"/>
+                    <p:inputText id="txtdescripciond" value="#{mbproducto.productoud.descripcion}"  />
+                    <p:outputLabel value="Cantidad Existencia*"/>
+                    <p:inputText id="txtexistenciad" value="#{mbproducto.productoud.cantidadExistencia}"  />
+                    <p:outputLabel value="Cantidad Minima*"/>
+                    <p:inputText id="txtminimad" value="#{mbproducto.productoud.cantidadMinima}" />
+                    <p:outputLabel value="Precio Costo*"/>
+                    <p:inputText id="txtcostod" value="#{mbproducto.productoud.precioCosto}" />
+                    <p:outputLabel value="Precio Venta*"/>
+                    <p:inputText id="txtventad" value="#{mbproducto.productoud.precioVenta}"  />
+                    <p:outputLabel value="Estado producto*"/>
+                    <p:selectOneRadio id="consoled" value="#{mbproducto.estadod}">
+                        <f:selectItem itemLabel="Activar" itemValue="a" />
+                        <f:selectItem itemLabel="Desactivar" itemValue="d" />
+                    </p:selectOneRadio>
+                    <p:commandButton id="updateproductod" update="formproductoactu" value="Actualizar" actionListener="#{mbproducto.updateproductod()}"/>
+
+                </h:panelGrid> 
+            </p:dialog> 
         </h:form>
     </h:body>
 </html>

@@ -77,9 +77,9 @@
                         <h:panelGrid id="Contacto" columns="2" columnClasses="grid,grid">
                             <h:panelGrid columns="2" columnClasses="label, value">
                                 <p:outputLabel value="Telefono fijo: "/>
-                                <p:inputText id="txttelefonofijo" value="#{Empleado.telefonoFijo}"  required="true" requiredMessage="Ingresar teléfono fijo"  maxlength="25"/>
+                                <p:inputMask id="txttelefonofijo" value="#{Empleado.telefonoFijo}"  required="true" requiredMessage="Ingresar teléfono fijo"  mask="9999-9999"/>
                                 <p:outputLabel value="Telefono movil: "/>
-                                <p:inputText id="txttelefonomovil" value="#{Empleado.telefonoMovil}"  required="true" requiredMessage="Ingresar teléfono movil"  maxlength="25"/>
+                                <p:inputMask id="txttelefonomovil" value="#{Empleado.telefonoMovil}"  required="true" requiredMessage="Ingresar teléfono movil"   mask="9999-9999"/>
 
                             </h:panelGrid>
 

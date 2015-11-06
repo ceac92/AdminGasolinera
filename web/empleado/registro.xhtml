@@ -32,11 +32,11 @@
                     <p:outputLabel value="Tipo Documento*"/>
                     <p:inputText id="txttipodocumento" value="#{Cliente.tipoDocumento}"  required="true" requiredMessage="ingresa tipo documento"  maxlength="25"/>
                     <p:outputLabel value="Documento*"/>
-                    <p:inputText id="txtdocumento" value="#{Cliente.numeroDocumento}"  required="true" requiredMessage="ingresa documento"  maxlength="25"/>
+                    <p:inputText id="txtdocumento" value="#{Cliente.numeroDocumento}"  required="true" requiredMessage="ingresa documento"  maxlength="15"/>
                     <p:outputLabel value="Telefono fijo"/>
-                    <p:inputText id="txttelefonofijo" value="#{Cliente.telefonoFijo}"  required="true" requiredMessage="ingresa telefono fijo"  maxlength="25"/>
+                    <p:inputMask id="txttelefonofijo" value="#{Cliente.telefonoFijo}"  required="true" requiredMessage="ingresa telefono fijo" mask="9999-9999"/>
                     <p:outputLabel value="Telefono movil*"/>
-                    <p:inputText id="txttelefonomovil" value="#{Cliente.telefonoMovil}"  required="true" requiredMessage="ingresa telefono movil"  maxlength="25"/>
+                    <p:inputMask id="txttelefonomovil" value="#{Cliente.telefonoMovil}"  required="true" requiredMessage="ingresa telefono movil"  mask="9999-9999"/>
                     <p:outputLabel value="correo*"/>
                     <p:inputText id="txtmail" value="#{Cliente.mail}"  required="true" requiredMessage="ingresa correo"  maxlength="25"/>
                     <p:outputLabel value="Municipio"/>

@@ -9,56 +9,18 @@
         <title>Actualizar Empleado</title>
     </h:head>
     <h:body>
-          <ui:include src="menuadmin.xhtml"/>
+        <ui:include src="menuadmin.xhtml"/>
         <h:form id="updatempleado">
 
             <p:growl id="msgs" showDetail="true" />
-            <p:dialog header="Editar Empleado" widgetVar="dlg2" style="white-space: 100%" modal="true" >
-                <h:panelGrid id="edempleado" columns="2" columnClasses="forty-percent, sixty-percent" width="70%">   
-                    <p:outputLabel value="Rol"/>
-                    <p:selectOneMenu id="crol" value="#{mbempleado.idrol}" required="true" requiredMessage="Seleccione un Rol"  filter="true" filterMatchMode="contains" style="width:80% !important">
-                        <f:selectItems value="#{combos.roll}" />
-                    </p:selectOneMenu>
-                    <p:outputLabel value="Nombre*"/>
-                    <p:inputText id="txtnombre" value="#{mbempleado.emple.primerNombre}"   maxlength="25"/>
-                    <p:outputLabel value="Segundo nombre"/>
-                    <p:inputText id="txtsegundonombre" value="#{mbempleado.emple.segundoNombre}"   maxlength="25"/>
-                    <p:outputLabel value="apellido*"/>
-                    <p:inputText id="txtapellido" value="#{mbempleado.emple.primerApellido}" maxlength="25"/>
-                    <p:outputLabel value="segundo apellido"/>
-                    <p:inputText id="txtsegundoapellido" value="#{mbempleado.emple.segundoApellido}"    maxlength="25"/>
-                    <h:outputLabel value="fecha nacimiento"/>
-                    <p:calendar id="calendarnamiento" value="#{mbempleado.emple.fechaNacimiento}" pattern="yyyy-MM-dd" mask="9999-99-99"  requiredMessage="La fecha es requerida" /> 
-                    <h:outputLabel value="fecha contratacion"/>
-                    <p:calendar id="calendar" value="#{mbempleado.emple.fechaContratacion}" pattern="yyyy-MM-dd" mask="9999-99-99"  requiredMessage="La fecha es requerida" /> 
-                    <h:outputLabel value="Genero"/>
-                    <p:selectOneRadio id="rgenero" value="#{mbempleado.emple.genero}">
-                        <f:selectItem itemLabel="Femenido" itemValue="f" />
-                        <f:selectItem itemLabel="Masculino" itemValue="m" />
-                    </p:selectOneRadio>
-                    <h:outputLabel value="Estado civil"/>
-                    <p:selectOneMenu id="cestadocivil" value="#{mbempleado.estadocivil}"  > 
-                        <f:selectItem itemLabel="Select One" itemValue="" /> 
-                        <f:selectItem itemLabel="Soltero" itemValue="soltero" /> 
-                        <f:selectItem itemLabel="Casado" itemValue="casado" /> 
-                        <f:selectItem itemLabel="Viudo" itemValue="viudo" /> 
-                    </p:selectOneMenu>
+            <p:dialog header="Estado" widgetVar="dlg2" style="white-space: 100%" modal="true" >
+                <h:panelGrid id="edempleado" >
                     <h:outputLabel value="Estado"/>
                     <p:selectOneRadio id="restado" value="#{mbempleado.estadoEmp}">
                         <f:selectItem itemLabel="Activo" itemValue="a" />
                         <f:selectItem itemLabel="Desactivar" itemValue="d" />
                     </p:selectOneRadio>
 
-                    <p:outputLabel value="Telefono fijo"/>
-                    <p:inputText id="txttelefonofijo" value="#{mbempleado.emple.telefonoFijo}"    maxlength="25"/>
-                    <p:outputLabel value="Telefono movil*"/>
-                    <p:inputText id="txttelefonomovil" value="#{mbempleado.emple.telefonoMovil}"    maxlength="25"/>
-                    <p:outputLabel value="correo*"/>
-                    <p:inputText id="txtmail" value="#{mbempleado.emple.mail}"  maxlength="25"/>
-                    <p:outputLabel value="Contraseña*"/>
-                    <p:inputText  id="txtcontrasenia" value="#{mbempleado.emple.password}"    maxlength="25"/>
-                    <p:outputLabel value="Direccion"/>
-                    <p:inputTextarea value="#{mbempleado.emple.direccion}" rows="6" cols="33" id="txtDireccion" />
                     <p:commandButton id="btmregistrar"  value="Actualizar" action='#{mbempleado.updateEmpleado()}' update=":updatempleado"/>
                 </h:panelGrid>
             </p:dialog> 
@@ -84,11 +46,14 @@
                             </p:column>
 
                             <p:column headerText="Acciones">
-                                <p:commandLink  value="Actualizar"
+                                <p:commandLink  value="Estado"
                                                 ajax="true" update=":updatempleado:edempleado"
                                                 onclick="PF('dlg2').show();"  >                                
                                     <f:setPropertyActionListener id="actionSetProducto"   value="#{tp}"  target="#{mbempleado.emple}" />    
                                 </p:commandLink>
+                            </p:column>
+                            <p:column headerText="Editar" width="10%">
+                                <p:commandButton value="Actualizar " ajax="true" action="#{mbconsultag.empleadoupdate(miActionEvent, tp.idempleado)}"></p:commandButton>
                             </p:column>
                         </p:dataTable>
                     </h:panelGrid>
@@ -112,14 +77,15 @@
                                 <h:outputText value="#{td.estado}" />
                             </p:column>
                             <p:column headerText="Acciones">
-                                <p:commandLink  value="Actualizar"
+                                <p:commandLink  value="Estado"
                                                 ajax="true" update=":updatempleado:edempleado"
                                                 onclick="PF('dlg2').show();"  >                                
                                     <f:setPropertyActionListener id="actionSetProducto"   value="#{td}"  target="#{mbempleado.emple}" />    
                                 </p:commandLink>
                             </p:column>
-
-
+                            <p:column headerText="Editar" width="10%">
+                                <p:commandButton value="Actualizar" ajax="true" action="#{mbconsultag.empleadoupdate(miActionEvent, td.idempleado)}"></p:commandButton>
+                            </p:column>
                         </p:dataTable>
                     </h:panelGrid>
                 </p:tab>              

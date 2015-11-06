@@ -33,7 +33,6 @@
                     <h:outputLabel value="Descripcion"></h:outputLabel>
                     <h:inputText  id="txtlprecio" value='#{mbformapago.formapago.descripcion}'></h:inputText>
                     <p:commandButton value="Enviar"  update="formpago"  ajax="true" action="#{mbformapago.actualiza()}" />
-
                 </p:panelGrid> 
             </p:dialog> 
             <p:dataTable var="fp" value="#{mbformapago.allformapago}" paginator="true"  >
@@ -51,8 +50,6 @@
                     </p:commandLink>
                 </p:column>
             </p:dataTable>
-
-
         </h:form>
     </h:body>
 </html>

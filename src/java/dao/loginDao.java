@@ -18,13 +18,20 @@ public class loginDao implements Iusuario {
 
     @Override
     public Empleado getEmpLogin(Session session, String email) throws Exception {
-        
-        String hql = "FROM Empleado WHERE mail=:Usuario"; 
+
+        String hql = "FROM Empleado WHERE mail=:Usuario";
         Query query = session.createQuery(hql);
         query.setParameter("Usuario", email);
         Empleado user = (Empleado) query.uniqueResult();
         return user;
-        
-    }
 
+    }
+public static  Empleado getEmple(Session session,int idempleado){
+  String hql = "FROM Empleado WHERE  idempleado=:Usuario";
+        Query query = session.createQuery(hql);
+        query.setParameter("Usuario", idempleado);
+        Empleado user = (Empleado) query.uniqueResult();
+        return user;
+}
+   
 }
