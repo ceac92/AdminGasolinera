@@ -102,7 +102,7 @@ public class loginBean implements Serializable {
                 message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", empleadoAutenticado.getMail());
 
                 if (rolUsuario == 1 && estado.equals("a")) {
-                    ruta = MyUtil.basepathlogin() + "administrador/registroempleadoflujo.xhtml?faces-redirect=true";
+                    ruta = MyUtil.basepathlogin() + "administrador/inicio.xhtml?faces-redirect=true";
                 } else if (rolUsuario == 2 && estado.equals("a")) {
                     ruta = MyUtil.basepathlogin() + "empleado/compra.xhtml?faces-redirect=true";
                 } else {
