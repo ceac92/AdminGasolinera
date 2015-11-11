@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Consulta venta</title>
+    </h:head>
+    <h:body>
+        
+        <form></form>
+        <h:form id="caja">
+            <h2>Consulta Venta</h2>
+            <p:panelGrid id="panel" columns="2" style="white-space: 100%" columnClasses="forty-percent, sixty-percent,forty-percent, sixty-percent" >
+                <h:outputLabel value="Empleado"/>
+                <p:selectOneMenu id="empleado" value="#{mbconsultag.idemple}"  required="true" requiredMessage="Seleccione un cliente"  filter="true" filterMatchMode="contains" style="width:100% !important">
+                    <f:selectItems value="#{combos.EMPLEADO}" />
+                </p:selectOneMenu>
+                <h:outputLabel value=" "  ></h:outputLabel>
+                <p:commandButton value="Buscar" icon="ui-icon-circle-plus" validateClient="true"  onclick="submit()" oncomplete="window.location.reload()"/>
+            </p:panelGrid>
+            <h:panelGrid columns="1" cellpadding="5">
+                <p:commandButton value="Crear Pais Proveedor" type="button" onclick="PF('dlg2').show();" />
+            </h:panelGrid>
+            <p:dialog header="Crear Pais Proveedor" widgetVar="dlg2" style="white-space: 100%" modal="true" >
+                <p:panelGrid id="panelcaja" columns="2" style="white-space: 100%" columnClasses="forty-percent, sixty-percent,forty-percent, sixty-percent" >
+                    <h:outputLabel value="codigo" for="txtnombre" ></h:outputLabel>
+                    <h:inputText  id="txtidempleado" value='#{mbconsultag.idemple}' class="readonly"
+                                  readonly="true" style="width: 100% " label="nombre"></h:inputText>
+                    <h:outputLabel value="nombre"></h:outputLabel>
+                    <p:selectOneMenu id="horario" value="#{mbconsultag.turno}"  > 
+                        <f:selectItem itemLabel="Select One" itemValue="" /> 
+                        <f:selectItem itemLabel="Mañana" itemValue="Mañana" /> 
+                        <f:selectItem itemLabel="Tarde" itemValue="Tarde" /> 
+                        <f:selectItem itemLabel="Noche" itemValue="Noche" /> 
+                    </p:selectOneMenu>
+                    <p:commandButton value="Enviar"  update="caja"  ajax="true" action="#{mbconsultag.guardarTurno()}" />   
+                </p:panelGrid> 
+            </p:dialog> 
+
+            <h:panelGrid title="Gestion de facturas" columns="4" cellpadding="10" width="100%">
+                <p:dataTable id="cajaempleado" value="#{mbconsultag.getAllcaja(idemple)}" var="sol" style='margin:auto;width: 100%' paginator="true" rows="5"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="3,5,10,15,25,50" paginatorPosition="top" sortMode="multiple">                                
+                    <p:column headerText="numero empleado" >
+                        <h:outputText value="#{sol.empleado.idempleado}" />
+                    </p:column>
+                    <p:column headerText="nombre" >
+                        <h:outputText value="#{sol.empleado.primerNombre}#{sol.empleado.segundoNombre} #{sol.empleado.primerApellido}#{sol.empleado.segundoApellido}"/>
+                    </p:column>
+                    <p:column headerText="Turno" >
+                        <h:outputText value="#{sol.turno}"/>
+                    </p:column>
+                </p:dataTable>
+
+            </h:panelGrid>
+        </h:form>
+
+    </h:body>
+</html>
+

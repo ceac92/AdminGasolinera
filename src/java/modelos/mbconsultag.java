@@ -7,6 +7,7 @@ package modelos;
 
 import dao.loginDao;
 import entity.Ctgtipodocumento;
+import entity.Detallecaja;
 import entity.Detalledocumento;
 import entity.Empleado;
 import hibernateutil.HibernateUtil;
@@ -36,6 +37,15 @@ public class mbconsultag implements Serializable {
     private Empleado emple;
     private Detalledocumento detadocu;
     private int idtipodocumento;
+    private String turno;
+
+    public String getTurno() {
+        return turno;
+    }
+
+    public void setTurno(String turno) {
+        this.turno = turno;
+    }
 
     public int getIdtipodocumento() {
         return idtipodocumento;
@@ -73,7 +83,7 @@ public class mbconsultag implements Serializable {
      * Creates a new instance of mbconsultag
      */
     public mbconsultag() {
-        this.detadocu= new Detalledocumento();
+        this.detadocu = new Detalledocumento();
     }
 
     public void empleadoupdate(ActionEvent miActionEvent, int idempleadoup) throws IOException {
@@ -82,11 +92,11 @@ public class mbconsultag implements Serializable {
             this.idemple = idempleadoup;
             this.emple = loginDao.getEmple(session, idempleadoup);
             FacesContext.getCurrentInstance().getExternalContext().redirect("registroempleado.xhtml");
-          
+
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudo procesar la peticion"));
         }
-          session.close();
+        session.close();
     }
 
     public void updateempleado() {
@@ -124,22 +134,59 @@ public class mbconsultag implements Serializable {
         }
         return null;
     }
-     public void upddatedocumento(){
-         this.session=null;
-         this.transaction=null;
-         
-         try {
-         session=HibernateUtil.getSessionFactory().openSession();
-         transaction=session.beginTransaction();
-         this.detadocu.setCtgtipodocumento((Ctgtipodocumento)session.get(Ctgtipodocumento.class, this.idtipodocumento));
-         session.update(this.detadocu);
-         transaction.commit();
-           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Documento", "Actualizado"));
-         } catch (Exception e) {
-         transaction.rollback();
-                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
-         }finally{
-         session.close();
-         }
-     }
+
+    public void upddatedocumento() {
+        this.session = null;
+        this.transaction = null;
+
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+            this.detadocu.setCtgtipodocumento((Ctgtipodocumento) session.get(Ctgtipodocumento.class, this.idtipodocumento));
+            session.update(this.detadocu);
+            transaction.commit();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Documento", "Actualizado"));
+        } catch (Exception e) {
+            transaction.rollback();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+        } finally {
+            session.close();
+        }
+    }
+
+    public List<Detallecaja> getAllcaja(int idemple) {
+        this.session = null;
+        Query query = null;
+        try {
+            idemple=this.idemple;
+            this.session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Detallecaja dd where dd.empleado.idempleado=:uno";
+            query = session.createQuery(hql);
+            query.setParameter("uno",idemple );
+            return query.list();
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public void guardarTurno() {
+        this.session = null;
+        this.transaction = null;
+        Detallecaja dc = new Detallecaja();
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+            dc.setEmpleado((Empleado) session.get(Empleado.class, this.idemple));
+            dc.setTurno(this.turno);
+            session.save(dc);
+            transaction.commit();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "turno", "Agregado"));
+        } catch (Exception e) {
+            transaction.rollback();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", e.getMessage()));
+        } finally {
+            session.close();
+        }
+
+    }
 }
