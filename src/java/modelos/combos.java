@@ -16,6 +16,7 @@ import entity.Ctgtipodocumento;
 import entity.Ctgtipofactura;
 import entity.Ctgtipoproducto;
 import entity.Detallecaja;
+import entity.Empleado;
 import entity.Producto;
 import entity.Proveedor;
 import entity.Rol;
@@ -38,6 +39,7 @@ public class combos implements Serializable {
 
     private List<SelectItem> itemproveedor;
     private List<SelectItem> itemrol;
+    private List<SelectItem> itemempleado;
     private List<SelectItem> itemCliente;
     private List<SelectItem> itemdetallecaja;
     private List<SelectItem> itemdepartamento;
@@ -63,6 +65,7 @@ public class combos implements Serializable {
     private List<Ctgtipoproducto> tipoproductos;
     private List<Bodega> bodegas;
     private List<Proveedor> proveedor;
+    private List<Empleado> empleados;
      private List<Producto> produc; 
     private int valor;
     private int valorempleado;
@@ -110,6 +113,7 @@ public class combos implements Serializable {
         this.itemproveedor = new ArrayList<>();
         this.itemrol = new ArrayList<>();
         this.itemproducto= new ArrayList<>();
+        this.itemempleado= new ArrayList<>();
         this.bodegas = new ArrayList<>();
         this.departamentos = new ArrayList<>();
         this.formapagos = new ArrayList<>();
@@ -124,6 +128,7 @@ public class combos implements Serializable {
         this.detallecaja = new ArrayList<>();
         this.roles = new ArrayList<>();
         this.produc= new ArrayList<>();
+        this.empleados= new ArrayList<>();
     }
 
     public List<Cliente> getCliente() {
@@ -162,6 +167,25 @@ public class combos implements Serializable {
         if (idempleado > 0) {
             this.valorempleado = idempleado;
         }
+    }
+    public List<SelectItem> getEMPLEADO() {
+        Session session = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            String hql = " from Empleado ";
+            this.empleados = session.createQuery(hql).list();
+            for (Empleado item : this.empleados) {
+                SelectItem selectItem = new SelectItem(item.getIdempleado(),item.getPrimerNombre().concat(" ").concat(item.getSegundoNombre()).concat(" ").concat(item.getPrimerApellido()).concat(" ").concat(item.getSegundoApellido()));
+                this.itemempleado.add(selectItem);
+            }
+            return this.itemempleado;
+        } catch (Exception ex) {
+            System.err.print(ex);
+        } finally {
+            session.close();
+        }
+
+        return null;
     }
  public List<SelectItem> getPRODUCT() {
         Session session = null;

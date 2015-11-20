@@ -5,6 +5,7 @@
  */
 package modelos;
 
+import dao.empleadodao;
 import dao.loginDao;
 import entity.Ctgtipodocumento;
 import entity.Detallecaja;
@@ -38,6 +39,15 @@ public class mbconsultag implements Serializable {
     private Detalledocumento detadocu;
     private int idtipodocumento;
     private String turno;
+    private Detallecaja cajas;
+
+    public Detallecaja getCajas() {
+        return cajas;
+    }
+
+    public void setCajas(Detallecaja cajas) {
+        this.cajas = cajas;
+    }
 
     public String getTurno() {
         return turno;
@@ -173,6 +183,12 @@ public class mbconsultag implements Serializable {
         this.session = null;
         this.transaction = null;
         Detallecaja dc = new Detallecaja();
+       this.cajas= empleadodao.empleadolistaunica(session, turno, idemple);
+         if (this.cajas != null) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Turno ya creado"));
+            return;
+        }
+        
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();

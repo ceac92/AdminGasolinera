@@ -5,6 +5,7 @@
  */
 package dao;
 
+import entity.Detallecaja;
 import entity.Empleado;
 import hibernateutil.HibernateUtil;
 import java.util.List;
@@ -48,6 +49,21 @@ public class empleadodao {
             
         }finally{
         session.close();
+        }
+        return null;
+    }
+    
+    public static  Detallecaja empleadolistaunica(Session session, String valor, int idepleado){
+    session=null;
+    Query query=null;
+        try {
+            session=HibernateUtil.getSessionFactory().openSession();
+            String hql="from Detallecaja dc where dc.empleado.idempleado=:idem and dc.turno=:valor";
+            query=session.createQuery(hql);
+            query.setParameter("valor", valor);
+            query.setParameter("idem", idepleado);
+            return (Detallecaja) query.uniqueResult();
+        } catch (Exception e) {
         }
         return null;
     }
