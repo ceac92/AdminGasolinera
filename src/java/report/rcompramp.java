@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -24,8 +25,8 @@ import net.sf.jasperreports.engine.JasperRunManager;
  *
  * @author An
  */
-@WebServlet(name = "cliente", urlPatterns = {"/cliente"})
-public class cliente extends HttpServlet {
+@WebServlet(name = "rcompramp", urlPatterns = {"/rcompramp"})
+public class rcompramp extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,15 +39,15 @@ public class cliente extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+      
         Connection cnn;
-        int valor =Integer.parseInt(request.getParameter("cl"));
+        String valor = request.getParameter("cl");
         Map paramtermap = new HashMap();
         byte[] bytes = null;
         try {
             cnn = dbManager.OpenConection();
-            File reportFile = new File(getServletConfig().getServletContext().getRealPath("/reportes/cliente.jasper"));
-            paramtermap.put("idc", valor);
+            paramtermap.put("fecha",Date.valueOf(valor));
+            File reportFile = new File(getServletConfig().getServletContext().getRealPath("/reportes/compramp.jasper"));
             bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), paramtermap, cnn);
 
             response.setContentType("application/pdf");
