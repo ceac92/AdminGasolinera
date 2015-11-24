@@ -30,7 +30,7 @@
                     <h:panelGrid columns="2" cellpadding="10">
                         <p:dataTable var="tp" value="#{mbempleado.empleado}" paginator="true" rows="10" >
                             <p:column headerText="Codigo">
-                                <h:outputText value="#{tp.primerNombre},#{tp.segundoNombre},#{tp.primerApellido},#{tp.segundoApellido}" />
+                                <h:outputText value="#{tp.primerNombre.concat('').concat(tp.segundoNombre).concat(' ').concat(tp.primerApellido).concat(' ').concat(tp.segundoApellido)}" />
                             </p:column>
                             <p:column headerText="Fecha contratacion">
                                 <h:outputText value="#{tp.fechaContratacion}" />
@@ -62,7 +62,7 @@
                     <h:panelGrid columns="2" cellpadding="10">
                         <p:dataTable var="td" value="#{mbempleado.empleadd}" paginator="true" rows="10"  >
                             <p:column headerText="Codigo">
-                                <h:outputText value="#{td.primerNombre},#{td.segundoNombre},#{td.primerApellido},#{td.segundoApellido}" />
+                                <h:outputText value="#{td.primerNombre.concat('').concat(td.segundoNombre).concat(' ').concat(td.primerApellido).concat(' ').concat(td.segundoApellido)}" />
                             </p:column>
                             <p:column headerText="Fecha contratacion">
                                 <h:outputText value="#{td.fechaContratacion}" />

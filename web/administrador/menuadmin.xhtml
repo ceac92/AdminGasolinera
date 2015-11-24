@@ -55,13 +55,13 @@
             </p:menubar>
             <div id="divSesionUsuario">
                 <div id="divSesionUsuario">
-                <span>
-                    Bienvenido #{loginBean.username};
-                    <f:event type="preRenderView" listener="#{loginBean.autenticarEmpleado(loginBean.empleadoAutenticado.idempleado)}"/>
-                    <p:commandButton value="Cerrar sesión" action="#{loginBean.cerrarSesion()}"/>
-                </span>
+                    <span>
+                        Bienvenido #{loginBean.username};
+                        <f:event type="preRenderView" listener="#{loginBean.autenticarEmpleado(loginBean.empleadoAutenticado.idempleado)}"/> 
+                        <p:commandButton value="Cerrar sesión" action="#{loginBean.cerrarSesion()}"/>
+                    </span>
 
-            </div>
+                </div>
 
             </div>
         </h:form>

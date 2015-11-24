@@ -12,7 +12,7 @@
         <ui:include src="../menuadmin.xhtml"/>
         <h:form id="consultaventa">
             <p:growl id="mensajegenral" showDetail="true" sticky="false" />
-             <p:panelGrid id="panel" columns="2" style="white-space: 100%" columnClasses="forty-percent, sixty-percent,forty-percent, sixty-percent" >
+            <p:panelGrid id="panel" columns="2" style="white-space: 100%" columnClasses="forty-percent, sixty-percent,forty-percent, sixty-percent" >
                 <h:outputLabel value="fecha inicial"/>
                 <p:calendar id="calendar" value="#{mbdetallesg.fechainicial}" pattern="yyyy-MM-dd" mask="9999-99-99"  requiredMessage="La fecha es requerida" /> 
                 <h:outputLabel value="fecha final"/>
@@ -21,15 +21,15 @@
                 <p:commandButton value="Buscar" icon="ui-icon-circle-plus" validateClient="true"  onclick="submit()"/>
             </p:panelGrid>
             <h2>Venta</h2>
-            <p:dataTable var="tp" value="#{mbdetallesg.allventa}" paginator="true" rows="10" >
+            <p:dataTable var="tp" value="#{mbdetallesg.allventa}" paginator="true"  >
                 <p:column headerText="Codigo Empleado" filterBy="#{tp.empleado.idempleado}">
                     <h:outputText value="#{tp.empleado.idempleado}" />
                 </p:column>
-                <p:column headerText="Empleado" filterBy="#{tp.empleado.primerNombre}">
-                    <h:outputText value="#{tp.empleado.primerNombre},#{tp.empleado.primerApellido}" />
+                <p:column headerText="Empleado" filterBy="#{tp.empleado.primerNombre}" >
+                    <h:outputText value="#{tp.empleado.primerNombre.concat(' ').concat(tp.empleado.primerApellido)}" />
                 </p:column>
-                <p:column headerText="cliente " filterBy="#{tp.cliente.primerNombre}">
-                    <h:outputText value="#{tp.cliente.primerNombre},#{tp.cliente.primerApellido}" />
+                <p:column headerText="cliente " filterBy="#{tp.cliente.primerNombre}" >
+                    <h:outputText value="#{tp.cliente.primerNombre.concat(' ').concat(tp.cliente.primerApellido)}" />
                 </p:column>
                 <p:column headerText="Fecha venta" >
                     <h:outputText value="#{tp.fecha}" />
@@ -37,8 +37,8 @@
                 <p:column headerText="Monto de compra">
                     <h:outputText value="#{tp.moto}" />
                 </p:column>
-                 <p:column headerText="Detalles" width="10%">
-                     <p:commandButton value=" Detalles" ajax="true" action="#{mbdetallesg.verDetallesventa(miActionEvent, tp.idventa)}"></p:commandButton>
+                <p:column headerText="Detalles" width="10%">
+                    <p:commandButton value=" Detalles" ajax="true" action="#{mbdetallesg.verDetallesventa(miActionEvent, tp.idventa)}"></p:commandButton>
                 </p:column>
             </p:dataTable>
 

@@ -64,6 +64,8 @@ public class empleadodao {
             query.setParameter("idem", idepleado);
             return (Detallecaja) query.uniqueResult();
         } catch (Exception e) {
+        }finally{
+        session.close();
         }
         return null;
     }

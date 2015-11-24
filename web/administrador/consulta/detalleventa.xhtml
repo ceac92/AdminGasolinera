@@ -9,9 +9,9 @@
         <title>Detalle venta</title>
     </h:head>
     <h:body>
-         <ui:include src="..menuadmin.xhtml"/>
         <h2>Detalle de Venta</h2>
         <h:form id="detallecompra" >
+                 <p:commandButton id="btmregistrar"  value="Regresar"  onclick="self.location.href = 'consultaventa.xhtml'"/>
             <p:growl id="mensajegenral" showDetail="true" sticky="false" />
             <p:dataTable var="tp" value="#{mbdetallesg.detalleventa(valores)}" paginator="true" rows="10"  >
                 <p:column headerText="codigo Producto">

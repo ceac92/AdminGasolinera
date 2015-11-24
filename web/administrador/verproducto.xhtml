@@ -47,7 +47,7 @@
                     <h:panelGrid columns="2" cellpadding="10">
 
                         <p:dataTable var="tp" value="#{mbproducto.allproducto}" paginator="true" rows="10" >
-                            <p:column headerText="Codigo de Producto" filterBy="codigo">
+                            <p:column headerText="Codigo de Producto" filterBy="codigo"  >
                                 <h:outputText value="#{tp.codigo}  " />
                             </p:column>
                             <p:column headerText="Nombre" filterBy="nombre">
@@ -84,7 +84,7 @@
                 <p:tab title="Productos Desactivados">
                     <h:panelGrid columns="2" cellpadding="10">
                         <p:dataTable var="td" value="#{mbproducto.alldesactivado}" paginator="true" rows="10"  >
-                            <p:column headerText="Codigo de Producto"  filterBy="codigo">
+                            <p:column headerText="Codigo de Producto"  filterBy="codigo" >
                                 <h:outputText value="#{td.codigo}" />
                             </p:column>
                             <p:column headerText="Nombre"  filterBy="nombre">

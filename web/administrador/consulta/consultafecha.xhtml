@@ -22,11 +22,11 @@
             <p:growl id="mensajegenral" showDetail="true" sticky="false" />
             <h2>Compra</h2>
             <p:dataTable var="tp" value="#{mbdetallesg.allcomprafecha}" paginator="true" rows="10" >
-                <p:column headerText="Codigo Empleado" filterBy="#{tp.compra.empleado.idempleado}" >
+                <p:column headerText="Codigo Empleado" filterBy="#{tp.empleado.idempleado}" >
                     <h:outputText value="#{tp.empleado.idempleado}" />
                 </p:column>
                 <p:column headerText="Empleado"  filterBy="#{tp.empleado.primerNombre}">
-                    <h:outputText value="#{tp.empleado.primerNombre},#{tp.empleado.primerApellido}" />
+                    <h:outputText value="#{tp.empleado.primerNombre.concat(' ').concat(tp.empleado.primerApellido)}" />
                 </p:column>
                 <p:column headerText="Proveedor" filterBy="#{tp.proveedor.nombre}">
                     <h:outputText value="#{tp.proveedor.nombre}" />

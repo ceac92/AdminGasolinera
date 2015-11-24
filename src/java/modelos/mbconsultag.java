@@ -168,11 +168,11 @@ public class mbconsultag implements Serializable {
         this.session = null;
         Query query = null;
         try {
-            idemple=this.idemple;
+            idemple = this.idemple;
             this.session = HibernateUtil.getSessionFactory().openSession();
             String hql = "from Detallecaja dd where dd.empleado.idempleado=:uno";
             query = session.createQuery(hql);
-            query.setParameter("uno",idemple );
+            query.setParameter("uno", idemple);
             return query.list();
         } catch (Exception e) {
         }
@@ -183,12 +183,13 @@ public class mbconsultag implements Serializable {
         this.session = null;
         this.transaction = null;
         Detallecaja dc = new Detallecaja();
-       this.cajas= empleadodao.empleadolistaunica(session, turno, idemple);
-         if (this.cajas != null) {
+        this.cajas = empleadodao.empleadolistaunica(session, turno, idemple);
+        
+        if (this.cajas != null) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Turno ya creado"));
             return;
         }
-        
+
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
