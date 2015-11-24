@@ -109,70 +109,70 @@ where v.fecha between $P{fechauno}  and $P{fechados}]]>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[idventa]]></text>
+				<text><![CDATA[Venta]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="79" y="0" width="79" height="18" forecolor="#000000" uuid="71d71f91-6d54-4252-ba92-8bebe1222710"/>
+				<reportElement style="Column header" x="158" y="0" width="79" height="18" forecolor="#000000" uuid="71d71f91-6d54-4252-ba92-8bebe1222710"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[fecha]]></text>
+				<text><![CDATA[Fecha]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="158" y="0" width="79" height="18" forecolor="#000000" uuid="6e50bb65-560b-42bc-8104-b4a9279e7aeb"/>
+				<reportElement style="Column header" x="79" y="0" width="79" height="18" forecolor="#000000" uuid="6e50bb65-560b-42bc-8104-b4a9279e7aeb"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[fkcliente]]></text>
+				<text><![CDATA[Cliente]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="237" y="0" width="79" height="18" forecolor="#000000" uuid="728c9c15-0540-47fd-818b-8651567496e8"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[moto]]></text>
+				<text><![CDATA[Valor]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="316" y="0" width="79" height="18" forecolor="#000000" uuid="b1e70289-da1d-49e5-a90b-f92835e5eef1"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[pago]]></text>
+				<text><![CDATA[Forma pago]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="395" y="0" width="79" height="18" forecolor="#000000" uuid="c205f059-1ef8-4223-9ee0-49242fe7ebdf"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[nombre]]></text>
+				<text><![CDATA[Producto]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="474" y="0" width="79" height="18" forecolor="#000000" uuid="3f231295-862e-40a6-9cfc-0c31415ce3bf"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[monto]]></text>
+				<text><![CDATA[Valor Producto]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="553" y="0" width="79" height="18" forecolor="#000000" uuid="5a580a3d-76a9-420f-9837-6b84080bd0f7"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[descuento]]></text>
+				<text><![CDATA[Descuento]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="632" y="0" width="79" height="18" forecolor="#000000" uuid="7a7247e0-7542-4405-b8a1-a8524632f6b0"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[cantidad]]></text>
+				<text><![CDATA[Cantidad]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="711" y="0" width="79" height="18" forecolor="#000000" uuid="e998db32-2b0d-4879-9f11-149d23d2f307"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[subtotal]]></text>
+				<text><![CDATA[Subtotal]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -188,14 +188,14 @@ where v.fecha between $P{fechauno}  and $P{fechados}]]>
 					<textFieldExpression><![CDATA[$F{idventa}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="79" y="0" width="79" height="18" uuid="fff3edae-8960-4f4a-b740-bf02a4f832d9"/>
+					<reportElement style="Detail" positionType="Float" x="158" y="0" width="79" height="18" uuid="fff3edae-8960-4f4a-b740-bf02a4f832d9"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="158" y="0" width="79" height="18" uuid="9a534d56-136a-4154-a0ab-829cb1a7af83"/>
+					<reportElement style="Detail" positionType="Float" x="79" y="0" width="79" height="18" uuid="9a534d56-136a-4154-a0ab-829cb1a7af83"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>

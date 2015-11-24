@@ -91,42 +91,42 @@ ct.idctgTipoProducto=p.fkctgTipoProducto where p.fkctgTipoProducto=$P{idtipo}]]>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[codigo]]></text>
+				<text><![CDATA[Codigo]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="132" y="0" width="132" height="18" forecolor="#000000" uuid="03bbfc42-5d6e-475b-9dd3-7ffd537b9d33"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[nombre]]></text>
+				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="264" y="0" width="132" height="18" forecolor="#000000" uuid="04f53e17-530a-42b8-93e2-9f71f78ca3af"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[cantidad_existencia]]></text>
+				<text><![CDATA[Existencia]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="396" y="0" width="132" height="18" forecolor="#000000" uuid="e3957094-f4ae-4d01-93d7-f8a38301cfde"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[estado]]></text>
+				<text><![CDATA[Estado]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="528" y="0" width="132" height="18" forecolor="#000000" uuid="b624db85-ca62-4109-90ac-3ea435357908"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[precio_costo]]></text>
+				<text><![CDATA[Costo$]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="660" y="0" width="132" height="18" forecolor="#000000" uuid="f9002a0f-b41d-4083-9055-0e80c6690452"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[precio_venta]]></text>
+				<text><![CDATA[Venta$]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
