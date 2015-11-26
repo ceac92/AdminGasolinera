@@ -18,10 +18,14 @@
             </h:panelGrid>
             <p:dialog header="Crear forma Pago" widgetVar="dlg2" style="white-space: 100%" modal="true" >
                 <p:panelGrid id="panel" columns="2" style="white-space: 100%" columnClasses="forty-percent, sixty-percent,forty-percent, sixty-percent" >
-                    <h:outputLabel value="nombre" for="txtnombre" ></h:outputLabel>
-                    <h:inputText  id="txtnombre" value='#{Formapago.nombre}' label="nombre"></h:inputText>
-                    <h:outputLabel value="Descripcion"></h:outputLabel>
-                    <h:inputText  id="txtprecio" value='#{Formapago.descripcion}'></h:inputText>
+                    <p:outputLabel value="nombre" for="txtnombre" />
+                    <p:inputText  id="txtnombre" value='#{Formapago.nombre}' label="nombre">
+                    <f:validator validatorId="validatortexto"/>
+                    </p:inputText>
+                    <p:outputLabel value="Descripcion" for="txtprecio"/>
+                    <p:inputText id="txtprecio" label="Descripcion" value='#{Formapago.descripcion}'>
+                    <f:validator validatorId="validatortexto"/>
+                    </p:inputText>
                     <p:commandButton value="Enviar"  update="formpago"  ajax="true" action="#{mbformapago.agregar()}" />   
                 </p:panelGrid> 
             </p:dialog> 

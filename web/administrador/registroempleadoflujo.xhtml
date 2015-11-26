@@ -34,17 +34,25 @@
                         <p:messages />
                         <h:panelGrid id="Personal" columns="2" columnClasses="grid,grid">
                             <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Primer Nombre: *" />
-                                <p:inputText id="txtnombre" value="#{Empleado.primerNombre}" required="true" label="PrimerNombre"/>
+                                <p:outputLabel for="txtnombre" value="Primer Nombre" />
+                                <p:inputText id="txtnombre" label="Primer Nombre" value="#{Empleado.primerNombre}" required="true" >
+                                    <f:validator validatorId="validatortexto"/>
+                                </p:inputText>
 
-                                <h:outputText value="Segundo Nombre: " />
-                                <p:inputText id="txtsegundonombre" value="#{Empleado.segundoNombre}" required="false" label="SegundoNombre"/>
+                                <p:outputLabel for="txtsegundonombre" value="Segundo Nombre " />
+                                <p:inputText id="txtsegundonombre" label="Segundo Nombre" value="#{Empleado.segundoNombre}" required="true" >
+                                    <f:validator validatorId="validatortexto"/>
+                                </p:inputText>
 
-                                <h:outputText value="Primer Apellido: *" />
-                                <p:inputText id="txtapellido" value="#{Empleado.primerApellido}" required="true" label="PrimerApellido"/>
+                                <p:outputLabel for="txtapellido" value="Primer Apellido" />
+                                <p:inputText id="txtapellido" label="Primer Apellido" value="#{Empleado.primerApellido}" required="true">
+                                    <f:validator validatorId="validatortexto"/>
+                                </p:inputText>
 
-                                <h:outputText value="Segundo Apellido: " />
-                                <p:inputText id="txtsegundoapellido" value="#{Empleado.segundoApellido}" required="false" label="SegundoApellido"/>
+                                <p:outputLabel for="txtsegundoapellido" value="Segundo Apellido" />
+                                <p:inputText id="txtsegundoapellido" label="Segundo Apellido" value="#{Empleado.segundoApellido}" required="true" >
+                                    <f:validator validatorId="validatortexto"/>
+                                </p:inputText>
 
                             </h:panelGrid>
 
@@ -84,8 +92,8 @@
                             </h:panelGrid>
 
                             <h:panelGrid columns="2" columnClasses="label, value">
-                                <p:outputLabel value="Dirección: "/>
-                                <p:inputTextarea value="#{Empleado.direccion}" rows="6" cols="33" id="txtDireccion" required="true" requiredMessage="ingresa direccion"/>
+                                <p:outputLabel for="txtDireccion" value="Dirección: "/>
+                                <p:inputTextarea label="Dirección" value="#{Empleado.direccion}" rows="6" cols="33" id="txtDireccion" required="true" requiredMessage="ingresa direccion"/>
 
                             </h:panelGrid>
                         </h:panelGrid>
@@ -144,10 +152,10 @@
                         <h:panelGrid id="confirmation" columns="1">
                             <h:panelGrid columns="2" columnClasses="label, value">
                                 <h3>¿Está seguro que desea agregar nuevo empleado? </h3>
-                                                               
+
                             </h:panelGrid>
 
-                           
+
                         </h:panelGrid>
 
                         <p:commandButton value="Registrar Empleado" actionListener="#{mbempleado.regisTraempleado()}" update=":formregistroempleado" process="@this"/>

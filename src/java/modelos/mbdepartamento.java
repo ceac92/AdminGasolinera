@@ -5,7 +5,6 @@
  */
 package modelos;
 
-
 import dao.departamentodao;
 import entity.Ctgdepartamento;
 import hibernateutil.HibernateUtil;
@@ -27,7 +26,7 @@ import org.hibernate.Transaction;
 @ViewScoped
 
 public class mbdepartamento implements Serializable {
-    
+
     Session session;
     Transaction transaction;
     private Ctgdepartamento vdepartamento;
@@ -71,20 +70,24 @@ public class mbdepartamento implements Serializable {
     public mbdepartamento() {
         this.vdepartamento = new Ctgdepartamento();
     }
-    
+
     @Inject
     private Ctgdepartamento departament;
-    
+
     public void agregar() {
-        
+        if (departament.getIdctgDepartamento() == 0) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No es nombre"));
+            return;
+        }
+
         try {
-        this.session = HibernateUtil.getSessionFactory().openSession();
-        transaction = session.beginTransaction();
-        Ctgdepartamento cp = new Ctgdepartamento();
-        cp.setNombre(this.departament.getNombre());
-        session.save(cp);
-        transaction.commit();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto", "se agrego"));
+            this.session = HibernateUtil.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+            Ctgdepartamento cp = new Ctgdepartamento();
+            cp.setNombre(this.departament.getNombre());
+            session.save(cp);
+            transaction.commit();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto", "se agrego"));
 
         } catch (Exception e) {
             transaction.rollback();
@@ -93,12 +96,12 @@ public class mbdepartamento implements Serializable {
         }
 
     }
-    
+
     public List<Ctgdepartamento> getAlldepartamento() {
         this.listdepartamento = departamentodao.alldepartamento();
         return this.listdepartamento;
     }
-    
+
     public void actualizar() {
         this.session = null;
         this.transaction = null;
@@ -115,6 +118,5 @@ public class mbdepartamento implements Serializable {
             this.session.close();
         }
     }
-    
-    
+
 }
