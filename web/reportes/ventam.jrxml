@@ -61,10 +61,6 @@ cl.idcliente=v.fkcliente where MONTH(v.fecha)= MONTH(NOW()) AND YEAR(v.fecha)=YE
 	</background>
 	<title>
 		<band height="102" splitType="Stretch">
-			<image>
-				<reportElement x="725" y="0" width="77" height="102" uuid="73acba43-27d3-4143-af50-cb26b9dbbf18"/>
-				<imageExpression><![CDATA["cherry.jpg"]]></imageExpression>
-			</image>
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="721" height="66" backcolor="#000000" uuid="de580fab-2e1a-443e-94df-9ecb131d1d2f"/>
 				<staticText>
@@ -73,14 +69,7 @@ cl.idcliente=v.fkcliente where MONTH(v.fecha)= MONTH(NOW()) AND YEAR(v.fecha)=YE
 					<textElement verticalAlignment="Bottom">
 						<font isBold="false"/>
 					</textElement>
-					<text><![CDATA[Cherry Title]]></text>
-				</staticText>
-				<staticText>
-					<reportElement style="SubTitle" x="370" y="37" width="316" height="29" uuid="ffed5830-91de-4a0c-aba5-181bf3af9307"/>
-					<textElement textAlignment="Right">
-						<font size="22" isBold="false"/>
-					</textElement>
-					<text><![CDATA[Cherry SubTitle]]></text>
+					<text><![CDATA[Gasolinera]]></text>
 				</staticText>
 			</frame>
 			<frame>
