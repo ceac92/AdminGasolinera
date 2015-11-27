@@ -128,8 +128,10 @@
                         <p:messages />
                         <h:panelGrid id="Acceso" columns="2" columnClasses="grid,grid">
                             <h:panelGrid columns="2" columnClasses="label, value">
-                                <p:outputLabel value="correo*"/>
-                                <p:inputText id="txtmail" value="#{Empleado.mail}"  required="true" requiredMessage="Ingresar Correo"  maxlength="25"/>
+                                <p:outputLabel value="correo*" for="txtmail"/>
+                                <p:inputText id="txtmail" label="correo" value="#{Empleado.mail}"  required="true" requiredMessage="Ingresar Correo"  maxlength="25">
+                                 <f:validator validatorId="validatormail"/>
+                                </p:inputText>
                                 <p:outputLabel value="Contraseña*"/>
                                 <p:password  id="txtcontrasenia" value="#{Empleado.password}"  required="true" requiredMessage="Ingresar Contraseña"  maxlength="25"/>
                             </h:panelGrid>

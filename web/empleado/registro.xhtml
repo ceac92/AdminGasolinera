@@ -48,7 +48,7 @@
                     <p:outputLabel value="Telefono movil*"/>
                     <p:inputMask id="txttelefonomovil" value="#{Cliente.telefonoMovil}"  required="true" requiredMessage="ingresa telefono movil"  mask="9999-9999"/>
                     <p:outputLabel value="correo*" for="txtmail"/>
-                    <p:inputText id="txtmail" label="correo" value="#{Cliente.mail}"  required="true" requiredMessage="ingresa correo"  maxlength="25">
+                    <p:inputText id="txtmail" label="correo" value="#{mbcliente.correo}"  required="true" requiredMessage="ingresa correo"  maxlength="25">
                           <f:validator validatorId="validatormail"/>
                     </p:inputText>
                     <p:outputLabel value="Municipio"/>

@@ -5,6 +5,7 @@
  */
 package modelos;
 
+import dao.clientedao;
 import entity.Cliente;
 import entity.Ctgmunicipio;
 import entity.Ctgtipocliente;
@@ -41,6 +42,16 @@ public class mbcliente implements Serializable {
     private String tipodocu;
     private int numerodocum;
     private String direccion;
+    private Cliente correocliente;
+    private String correo;
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
 
     public String getNombreuno() {
         return nombreuno;
@@ -143,6 +154,11 @@ public class mbcliente implements Serializable {
         this.session = null;
         this.transaction = null;
         Cliente cl = new Cliente();
+        this.correocliente = clientedao.clientecorreo(session, this.correo);
+        if (this.correocliente != null) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Correo ya existe"));
+            return;
+        }
         try {
             this.session = HibernateUtil.getSessionFactory().openSession();
             this.transaction = session.beginTransaction();
@@ -158,7 +174,7 @@ public class mbcliente implements Serializable {
             cl.setNumeroDocumento(String.valueOf(this.numerodocum));
             cl.setTelefonoFijo(this.cliente.getTelefonoFijo());
             cl.setTelefonoMovil(this.cliente.getTelefonoMovil());
-            cl.setMail(this.cliente.getMail());
+            cl.setMail(this.correo);
             cl.setDireccion(this.direccion);
             cl.setEstado("a");
             this.valor = (int) this.session.save(cl);

@@ -39,6 +39,7 @@ public class mbempleado implements Serializable {
     private List<Empleado> allempleado;
       private List<Empleado> allempleadod;
     private Empleado emple;
+    private Empleado emcorreo;
 
     public List<Empleado> getAllempleadod() {
         return allempleadod;
@@ -213,6 +214,11 @@ public class mbempleado implements Serializable {
     public void regisTraempleado() {
         this.session = null;
         this.transaction = null;
+       this.emcorreo= empleadodao.emplecorreo(session, emp.getMail());
+        if (this.emcorreo!=null) {
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Correo", "Ya Se encuentra registrado" ));
+            return;
+        }
         try {
             this.session = HibernateUtil.getSessionFactory().openSession();
             this.transaction = session.beginTransaction();
