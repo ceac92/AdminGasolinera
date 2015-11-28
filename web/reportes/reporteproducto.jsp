@@ -14,21 +14,24 @@
         <title>Crear Reporte Cliente</title>
     </head>
     <body>
+        <BODY BGCOLOR="#0096ad">
+        <CENTER><H1>CREACION DE REPORTES DE VENTAS POR PRODUCTO</H1></CENTER>
         <form id="rportecliente" method="post" action="../rproductotipo">
             <select   id="tipop" name="tipop"  >
-                <option >Seleccionar opcion</option>
+                <p> </p>   
+               <option >Seleccionar opcion</option>
                 <%
                     ResultSet rst = btipoproducto.getCliente();
                     while (rst.next()) {%>
-
-                <option value="<%= rst.getString("idctgTipoProducto")%>"><%= rst.getString("nombre") %></option>
+        
+        <option value="<%= rst.getString("idctgTipoProducto")%>"><%= rst.getString("nombre") %></option>
 
                 <%}
                 %>
 
             </select>
-              
-            <input name="cmdguardar"   type="submit" id="cmdguardar" value="Crear">
+                
+                <center> <input name="cmdguardar"   type="submit" id="cmdguardar" value="CREAR"> </center>
         </form>
 
     </body>
