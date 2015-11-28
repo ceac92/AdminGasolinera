@@ -9,7 +9,7 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-         <ui:include src="../menuadmin.xhtml"/>
+        <ui:include src="../menuadmin.xhtml"/>
         <h:form id="formfactura">
             <p:messages showDetail="true" autoUpdate="true" closable="true" showSummary="true"></p:messages>
             <h2>Tipo Factura</h2>
@@ -18,40 +18,44 @@
             </h:panelGrid>
             <p:dialog header="Crear tipo factura" widgetVar="dlg2" style="white-space: 100%" modal="true" >
                 <p:panelGrid id="panel" columns="2" style="white-space: 100%" columnClasses="forty-percent, sixty-percent,forty-percent, sixty-percent" >
-                    <h:outputLabel value="nombre" for="txtnombre" ></h:outputLabel>
-                    <h:inputText  id="txtnombre" value='#{Tipofactura.nombre}' label="nombre"></h:inputText>
-                    <h:outputLabel value="Descripcion"></h:outputLabel>
-                    <h:inputText  id="txtprecio" value='#{Tipofactura.descripcion}'></h:inputText>
+                    <p:outputLabel value="nombre" for="txtnombre" />
+                    <p:inputText id="txtnombre" value='#{Tipofactura.nombre}' label="nombre">
+                        <f:validator validatorId="validatortexto"/>
+                    </p:inputText>
+                    <p:outputLabel value="Descripcion" for="txtdescr" />
+                    <p:inputText  id="txtdescr" label="Descripcion" value='#{Tipofactura.descripcion}'>
+                        <f:validator validatorId="validatortexto"/>
+                    </p:inputText>
                     <p:commandButton value="Enviar"  update="formfactura"  ajax="true" action="#{mbtipofactura.agregar()}" />   
                 </p:panelGrid> 
             </p:dialog> 
 
-             <p:dialog header="Actualizar" widgetVar="dlg3" style="white-space: 100%" modal="true" >
+            <p:dialog header="Actualizar" widgetVar="dlg3" style="white-space: 100%" modal="true" >
                 <p:panelGrid id="paneles" columns="2" style="white-space: 100%" columnClasses="forty-percent, sixty-percent,forty-percent, sixty-percent" >
                     <h:outputLabel value="nombre" for="txtnombre" ></h:outputLabel>
                     <h:inputText  id="txttnombre" value='#{mbtipofactura.tfactura.nombre}' label="nombre"></h:inputText>
                     <h:outputLabel value="Descripcion"></h:outputLabel>
                     <h:inputText  id="txtlprecio" value='#{mbtipofactura.tfactura.descripcion}'></h:inputText>
                     <p:commandButton value="Enviar"  update="formfactura"  ajax="true" action="#{mbtipofactura.actualizar()}" />
-  
+
                 </p:panelGrid> 
             </p:dialog> 
             <p:dataTable var="vc" value="#{mbtipofactura.alltipofactura}" paginator="true"  >
-                    <p:column headerText="nombre">
-                        <h:outputText value="#{vc.nombre}" />
-                    </p:column>
-                    <p:column headerText="descripcion">
-                        <h:outputText value="#{vc.descripcion}" />
-                    </p:column>
-                   <p:column headerText="Acciones">
-                       <p:commandLink  value="Actualizar"
-                                       ajax="true" update=":formfactura:paneles"
-                                           onclick="PF('dlg3').show();"  >                                
-                           <f:setPropertyActionListener id="actionSetProducto"   value="#{vc}"  target="#{mbtipofactura.tfactura}" />    
-                            </p:commandLink>
-                        </p:column>
-                </p:dataTable>
-            
+                <p:column headerText="nombre">
+                    <h:outputText value="#{vc.nombre}" />
+                </p:column>
+                <p:column headerText="descripcion">
+                    <h:outputText value="#{vc.descripcion}" />
+                </p:column>
+                <p:column headerText="Acciones">
+                    <p:commandLink  value="Actualizar"
+                                    ajax="true" update=":formfactura:paneles"
+                                    onclick="PF('dlg3').show();"  >                                
+                        <f:setPropertyActionListener id="actionSetProducto"   value="#{vc}"  target="#{mbtipofactura.tfactura}" />    
+                    </p:commandLink>
+                </p:column>
+            </p:dataTable>
+
 
         </h:form>
     </h:body>

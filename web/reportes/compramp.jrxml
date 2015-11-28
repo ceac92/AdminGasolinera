@@ -53,10 +53,6 @@ c.fkempleado=e.idempleado where MONTH(c.fecha)= MONTH($P{fecha}) AND YEAR(c.fech
 	</background>
 	<title>
 		<band height="102" splitType="Stretch">
-			<image>
-				<reportElement x="725" y="0" width="77" height="102" uuid="0f991dfe-a8f0-4e74-82ef-b017e6a1d6cf"/>
-				<imageExpression><![CDATA["cherry.jpg"]]></imageExpression>
-			</image>
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="721" height="66" backcolor="#000000" uuid="4953e2e2-c7e6-4da0-af5f-10a3293c054b"/>
 				<staticText>
@@ -65,7 +61,7 @@ c.fkempleado=e.idempleado where MONTH(c.fecha)= MONTH($P{fecha}) AND YEAR(c.fech
 					<textElement verticalAlignment="Bottom">
 						<font isBold="false"/>
 					</textElement>
-					<text><![CDATA[Cherry Title]]></text>
+					<text><![CDATA[Gasolinera]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="440" y="25" width="100" height="20" uuid="645ea0b7-f089-40f0-869e-ee4f86cf3078"/>
@@ -82,13 +78,6 @@ c.fkempleado=e.idempleado where MONTH(c.fecha)= MONTH($P{fecha}) AND YEAR(c.fech
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
 			</frame>
-			<staticText>
-				<reportElement style="SubTitle" x="370" y="66" width="316" height="29" uuid="239f6ccd-b085-4d73-8304-92464602d1c1"/>
-				<textElement textAlignment="Right">
-					<font size="22" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Cherry SubTitle]]></text>
-			</staticText>
 		</band>
 	</title>
 	<pageHeader>

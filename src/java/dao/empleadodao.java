@@ -69,4 +69,19 @@ public class empleadodao {
         }
         return null;
     }
+    public static Empleado emplecorreo(Session session,String correo){
+    session=null;
+    Query query=null;
+        try {
+            session=HibernateUtil.getSessionFactory().openSession();
+            String hql=" from Empleado as e where e.mail=:cor";
+            query=session.createQuery(hql);
+            query.setParameter("cor", correo);
+            return  (Empleado) query.uniqueResult();
+        } catch (Exception e) {
+        }finally{
+        session.close();
+        }
+        return null;
+    }
 }

@@ -61,10 +61,6 @@ cl.idcliente=v.fkcliente where v.fecha=now()]]>
 	</background>
 	<title>
 		<band height="102" splitType="Stretch">
-			<image>
-				<reportElement x="725" y="0" width="77" height="102" uuid="6bc04a8d-1dcc-4949-90a9-78d2b4380c12"/>
-				<imageExpression><![CDATA["cherry.jpg"]]></imageExpression>
-			</image>
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="721" height="66" backcolor="#000000" uuid="37433bf5-705b-4dea-9128-611821d328d3"/>
 				<staticText>
@@ -73,14 +69,7 @@ cl.idcliente=v.fkcliente where v.fecha=now()]]>
 					<textElement verticalAlignment="Bottom">
 						<font isBold="false"/>
 					</textElement>
-					<text><![CDATA[Cherry Title]]></text>
-				</staticText>
-				<staticText>
-					<reportElement style="SubTitle" x="370" y="37" width="316" height="29" uuid="d709a26d-853a-46fe-8022-09495434b7d8"/>
-					<textElement textAlignment="Right">
-						<font size="22" isBold="false"/>
-					</textElement>
-					<text><![CDATA[Cherry SubTitle]]></text>
+					<text><![CDATA[Gasolinera]]></text>
 				</staticText>
 			</frame>
 			<frame>

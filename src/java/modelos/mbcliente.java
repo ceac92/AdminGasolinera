@@ -5,6 +5,7 @@
  */
 package modelos;
 
+import dao.clientedao;
 import entity.Cliente;
 import entity.Ctgmunicipio;
 import entity.Ctgtipocliente;
@@ -34,6 +35,87 @@ public class mbcliente implements Serializable {
     private int tipocliente;
     private int municipio;
     private int valor;
+    private String nombreuno;
+    private String nombredos;
+    private String apellidouno;
+    private String apellido;
+    private String tipodocu;
+    private int numerodocum;
+    private String direccion;
+    private Cliente correocliente;
+    private String correo;
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getNombreuno() {
+        return nombreuno;
+    }
+
+    public void setNombreuno(String nombreuno) {
+        this.nombreuno = nombreuno;
+    }
+
+    public String getNombredos() {
+        return nombredos;
+    }
+
+    public void setNombredos(String nombredos) {
+        this.nombredos = nombredos;
+    }
+
+    public String getApellidouno() {
+        return apellidouno;
+    }
+
+    public void setApellidouno(String apellidouno) {
+        this.apellidouno = apellidouno;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getTipodocu() {
+        return tipodocu;
+    }
+
+    public void setTipodocu(String tipodocu) {
+        this.tipodocu = tipodocu;
+    }
+
+    public int getNumerodocum() {
+        return numerodocum;
+    }
+
+    public void setNumerodocum(int numerodocum) {
+        this.numerodocum = numerodocum;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
     public int getTipocliente() {
         return tipocliente;
@@ -72,33 +154,37 @@ public class mbcliente implements Serializable {
         this.session = null;
         this.transaction = null;
         Cliente cl = new Cliente();
+        this.correocliente = clientedao.clientecorreo(session, this.correo);
+        if (this.correocliente != null) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Correo ya existe"));
+            return;
+        }
         try {
             this.session = HibernateUtil.getSessionFactory().openSession();
             this.transaction = session.beginTransaction();
             cl.setCodigo(this.cliente.getCodigo());
-            cl.setPrimerNombre(this.cliente.getPrimerNombre());
-            cl.setSegundoNombre(this.cliente.getSegundoNombre());
-            cl.setPrimerApellido(this.cliente.getPrimerApellido());
-            cl.setSegundoApellido(this.cliente.getSegundoApellido());
+            cl.setPrimerNombre(this.nombreuno);
+            cl.setSegundoNombre(this.nombredos);
+            cl.setPrimerApellido(this.apellidouno);
+            cl.setSegundoApellido(this.apellido);
             cl.setCtgmunicipio((Ctgmunicipio) session.get(Ctgmunicipio.class, this.municipio));
             cl.setCtgtipocliente((Ctgtipocliente) session.get(Ctgtipocliente.class, this.tipocliente));
             cl.setFechaRegistro(this.fecharegistro);
-            cl.setTipoDocumento(this.cliente.getTipoDocumento());
-            cl.setNumeroDocumento(this.cliente.getNumeroDocumento());
+            cl.setTipoDocumento(this.tipodocu);
+            cl.setNumeroDocumento(String.valueOf(this.numerodocum));
             cl.setTelefonoFijo(this.cliente.getTelefonoFijo());
             cl.setTelefonoMovil(this.cliente.getTelefonoMovil());
-            cl.setMail(this.cliente.getMail());
-            cl.setDireccion(this.cliente.getDireccion());
+            cl.setMail(this.correo);
+            cl.setDireccion(this.direccion);
             cl.setEstado("a");
-          this.valor=(int)  this.session.save(cl);
+            this.valor = (int) this.session.save(cl);
             transaction.commit();
 
-         
-            if (this.valor>0) {
-                   FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cliente", "Registrado"));
-                  FacesContext.getCurrentInstance().getExternalContext().redirect("registro.xhtml");
+            if (this.valor > 0) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cliente", "Registrado"));
+                FacesContext.getCurrentInstance().getExternalContext().redirect("registro.xhtml");
             }
-          
+
         } catch (Exception e) {
             transaction.rollback();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudo agregar, revisar valores"));

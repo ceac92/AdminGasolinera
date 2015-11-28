@@ -9,15 +9,17 @@
         <title>Registro Producto</title>
     </h:head>
     <h:body> 
-         <ui:include src="menuadmin.xhtml"/>
+        <ui:include src="menuadmin.xhtml"/>
         <h:form id="registrosproducto">
-           
+
             <p:growl id="msg" autoUpdate="true" showDetail="true"/>
             <h1>Registro Producto</h1>
             <p:panel id="panelregistroproducto">
                 <h:panelGrid columns="2" columnClasses="forty-percent, sixty-percent" width="70%">
-                    <p:outputLabel value="Nombre*"/>
-                    <p:inputText id="txtnombre" value="#{producto.nombre}" required="true" requiredMessage="Ingrese un nombre" />
+                    <p:outputLabel value="Nombre" for="txtnombre"/>
+                    <p:inputText id="txtnombre" label="Nombre" value="#{producto.nombre}" required="true" requiredMessage="Ingrese un nombre" >
+                        <f:validator validatorId="validatortexto"/>
+                    </p:inputText>
                     <p:outputLabel value="Tipo producto*"/>
                     <p:selectOneMenu id="OCHO" value="#{mbproducto.tipoproductov}" required="true" requiredMessage="Seleccione una categoria"  filter="true" filterMatchMode="contains" style="width:80% !important">
                         <f:selectItems value="#{combos.TIPOPRODUCTO}" />

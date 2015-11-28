@@ -9,9 +9,9 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-           <ui:include src="../menuadmin.xhtml"/>
+        <ui:include src="../menuadmin.xhtml"/>
         <h:form id="formdepartamento">
-         
+
             <p:messages showDetail="true" autoUpdate="true" closable="true" showSummary="true"></p:messages>
             <h2>Departamento</h2>
             <h:panelGrid columns="1" cellpadding="5">
@@ -19,34 +19,36 @@
             </h:panelGrid>
             <p:dialog header="Crear Departamento" widgetVar="dlg2" style="white-space: 100%" modal="true" >
                 <p:panelGrid id="panel" columns="2" style="white-space: 100%" columnClasses="forty-percent, sixty-percent,forty-percent, sixty-percent" >
-                    <h:outputLabel value="nombre" for="txtnombre" ></h:outputLabel>
-                    <h:inputText  id="txtnombre" value='#{Departamento.nombre}' label="nombre"></h:inputText>
+                    <p:outputLabel for="txtnombre" value="nombre"  />
+                    <p:inputText id="txtnombre" value='#{Departamento.nombre}' label="nombre">
+                        <f:validator validatorId="validatortexto"/>
+                    </p:inputText>
                     <p:commandButton value="Enviar"  update="formdepartamento"  ajax="true" action="#{mbdepartamento.agregar()}" />   
                 </p:panelGrid> 
             </p:dialog> 
 
-             <p:dialog header="Actualizar" widgetVar="dlg3" style="white-space: 100%" modal="true" >
+            <p:dialog header="Actualizar" widgetVar="dlg3" style="white-space: 100%" modal="true" >
                 <p:panelGrid id="paneles" columns="2" style="white-space: 100%" columnClasses="forty-percent, sixty-percent,forty-percent, sixty-percent" >
                     <h:outputLabel value="nombre" for="txtnombre" ></h:outputLabel>
                     <h:inputText  id="txttnombre" value='#{mbdepartamento.vdepartamento.nombre}' label="nombre"></h:inputText>
                     <p:commandButton value="Enviar"  update="formdepartamento"  ajax="true" action="#{mbdepartamento.actualizar()}" />
-  
+
                 </p:panelGrid> 
             </p:dialog> 
             <p:dataTable var="dp" value="#{mbdepartamento.alldepartamento}" paginator="true"  >
-                    <p:column headerText="nombre">
-                        <h:outputText value="#{dp.nombre}" />
-                    </p:column>
-                   <p:column headerText="Acciones">
-                       <p:commandLink  value="Actualizar"
-                                       ajax="true" update=":formdepartamento:paneles"
-                                           onclick="PF('dlg3').show();"  >                                
-                           <f:setPropertyActionListener id="actionSetDepartamento"   value="#{dp}"  target="#{mbdepartamento.vdepartamento}" />    
+                <p:column headerText="nombre">
+                    <h:outputText value="#{dp.nombre}" />
+                </p:column>
+                <p:column headerText="Acciones">
+                    <p:commandLink  value="Actualizar"
+                                    ajax="true" update=":formdepartamento:paneles"
+                                    onclick="PF('dlg3').show();"  >                                
+                        <f:setPropertyActionListener id="actionSetDepartamento"   value="#{dp}"  target="#{mbdepartamento.vdepartamento}" />    
 
-                            </p:commandLink>
-                        </p:column>
-                </p:dataTable>
-            
+                    </p:commandLink>
+                </p:column>
+            </p:dataTable>
+
 
         </h:form>
     </h:body>

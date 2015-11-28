@@ -43,10 +43,6 @@ ct.idctgTipoProducto=p.fkctgTipoProducto where p.fkctgTipoProducto=$P{idtipo}]]>
 	</background>
 	<title>
 		<band height="102" splitType="Stretch">
-			<image>
-				<reportElement x="725" y="0" width="77" height="102" uuid="6cb3bbd3-d5bd-49df-ae5f-ccb2ad9f45e3"/>
-				<imageExpression><![CDATA["cherry.jpg"]]></imageExpression>
-			</image>
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="721" height="66" backcolor="#000000" uuid="02a06fd4-0e3f-4409-a1be-3aee9520c256"/>
 				<staticText>
@@ -55,14 +51,7 @@ ct.idctgTipoProducto=p.fkctgTipoProducto where p.fkctgTipoProducto=$P{idtipo}]]>
 					<textElement verticalAlignment="Bottom">
 						<font isBold="false"/>
 					</textElement>
-					<text><![CDATA[Cherry Title]]></text>
-				</staticText>
-				<staticText>
-					<reportElement style="SubTitle" x="370" y="37" width="316" height="29" uuid="497add64-64bf-476b-b7d6-cef4b2135e1e"/>
-					<textElement textAlignment="Right">
-						<font size="22" isBold="false"/>
-					</textElement>
-					<text><![CDATA[Cherry SubTitle]]></text>
+					<text><![CDATA[Gasolinera]]></text>
 				</staticText>
 			</frame>
 			<frame>

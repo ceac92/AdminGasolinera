@@ -57,10 +57,6 @@ where v.fecha between $P{fechauno}  and $P{fechados}]]>
 	</background>
 	<title>
 		<band height="102" splitType="Stretch">
-			<image>
-				<reportElement x="725" y="0" width="77" height="102" uuid="7422a306-a8d7-4330-b860-9f0c806b84a3"/>
-				<imageExpression><![CDATA["cherry.jpg"]]></imageExpression>
-			</image>
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="721" height="66" backcolor="#000000" uuid="0661e6b7-54b0-4e47-a568-eba5bb8e13ab"/>
 				<staticText>
@@ -69,15 +65,16 @@ where v.fecha between $P{fechauno}  and $P{fechados}]]>
 					<textElement verticalAlignment="Bottom">
 						<font isBold="false"/>
 					</textElement>
-					<text><![CDATA[Cherry Title]]></text>
+					<text><![CDATA[Gasolinera]]></text>
 				</staticText>
-				<staticText>
-					<reportElement style="SubTitle" x="370" y="37" width="316" height="29" uuid="0d73cd07-9af8-4d2f-a80f-3f26dea8b01b"/>
-					<textElement textAlignment="Right">
-						<font size="22" isBold="false"/>
-					</textElement>
-					<text><![CDATA[Cherry SubTitle]]></text>
-				</staticText>
+				<textField>
+					<reportElement x="597" y="15" width="100" height="20" uuid="28ff9d63-7941-4471-ace5-fe6d64a33d38"/>
+					<textFieldExpression><![CDATA[$P{fechauno}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="438" y="15" width="100" height="20" uuid="bb58decf-76a9-4044-a829-d53e192e55f0"/>
+					<textFieldExpression><![CDATA[$P{fechados}]]></textFieldExpression>
+				</textField>
 			</frame>
 			<frame>
 				<reportElement mode="Opaque" x="0" y="70" width="721" height="32" forecolor="#000000" backcolor="#CC0000" uuid="26af840a-dad0-4cb2-89b8-f32867fae136"/>
@@ -87,14 +84,6 @@ where v.fecha between $P{fechauno}  and $P{fechados}]]>
 						<font size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="395" y="0" width="100" height="20" uuid="28ff9d63-7941-4471-ace5-fe6d64a33d38"/>
-					<textFieldExpression><![CDATA[$P{fechauno}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="216" y="0" width="100" height="20" uuid="bb58decf-76a9-4044-a829-d53e192e55f0"/>
-					<textFieldExpression><![CDATA[$P{fechados}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
