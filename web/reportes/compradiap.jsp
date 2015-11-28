@@ -14,10 +14,12 @@
         <title>Crear Reporte Cliente</title>
     </head>
     <body>
+        <BODY BGCOLOR="#0096ad">
+         <CENTER><H1>CREACION DE REPORTES DE COMPRA POR DIA</H1></CENTER>
         <form id="rportecliente" method="post" action="../rcompramp">
             
-            <input name="cl" id="cl" type="date" >
-            <input name="cmdguardar"   type="submit" id="cmdguardar" value="guardar">
+            <CENTER> <h2>Fecha de inicio</h2> <input name="cl" id="cl" type="date" > </center>
+            <p> <CENTER> <input name="cmdguardar"   type="submit" id="cmdguardar" value="GUARDAR"> </p>
         </form>
 
     </body>
